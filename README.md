@@ -45,7 +45,7 @@
 
 | 분류 | 기술 | 비고 |
 | :--- | :--- | :--- |
-| **Engine** | **Unity** | 2021.3+ (C#) |
+| **Engine** | **Unity** | 6000.3.5 (C#) |
 | **Visual** | **Live2D Cubism SDK** | 캐릭터 애니메이션 및 상호작용 |
 | **AI / ML** | **OpenAI Whisper** | 음성 인식 (STT) |
 | | **ONNX Runtime** | 화자 인증(VoxCeleb), VAD(Silero), 키워드 추출 |
