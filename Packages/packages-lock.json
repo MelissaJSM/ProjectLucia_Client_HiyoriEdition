@@ -1,26 +1,29 @@
 {
   "dependencies": {
     "com.github.asus4.onnxruntime": {
-      "version": "file:com.github.asus4.onnxruntime",
+      "version": "0.4.4",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
     },
     "com.github.asus4.onnxruntime-extensions": {
-      "version": "file:com.github.asus4.onnxruntime-extensions",
+      "version": "0.4.4",
       "depth": 0,
-      "source": "embedded",
+      "source": "registry",
       "dependencies": {
-        "com.github.asus4.onnxruntime": "0.4.2"
-      }
+        "com.github.asus4.onnxruntime": "0.4.4"
+      },
+      "url": "https://registry.npmjs.com"
     },
     "com.github.asus4.onnxruntime.unity": {
-      "version": "file:com.github.asus4.onnxruntime.unity",
+      "version": "0.4.4",
       "depth": 0,
-      "source": "embedded",
+      "source": "registry",
       "dependencies": {
-        "com.github.asus4.onnxruntime": "0.4.2"
-      }
+        "com.github.asus4.onnxruntime": "0.4.4"
+      },
+      "url": "https://registry.npmjs.com"
     },
     "com.kyub.emojisearch": {
       "version": "https://gitlab.com/KyubInteractive/emojisearchapi.git#com.kyub.emojisearch-1.1.5",
@@ -48,7 +51,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.10.2",
+      "version": "2.11.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -85,7 +88,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.ide.visualstudio": "2.0.25",
+        "com.unity.ide.visualstudio": "2.0.26",
         "com.unity.ide.rider": "3.0.38",
         "com.unity.editorcoroutines": "1.0.1",
         "com.unity.performance.profile-analyzer": "1.2.4",
@@ -103,11 +106,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.25",
+      "version": "2.0.26",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.test-framework": "1.1.31"
+        "com.unity.test-framework": "1.1.33"
       },
       "url": "https://packages.unity.com"
     },

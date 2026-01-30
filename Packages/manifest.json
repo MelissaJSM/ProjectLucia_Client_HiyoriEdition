@@ -9,10 +9,11 @@
     }
   ],
   "dependencies": {
-    "com.github.asus4.onnxruntime": "0.4.2",
-    "com.github.asus4.onnxruntime-extensions": "0.4.2",
-    "com.github.asus4.onnxruntime.unity": "0.4.2",
-    "com.unity.collab-proxy": "2.10.2",
+    "com.github.asus4.onnxruntime": "0.4.4",
+    "com.github.asus4.onnxruntime-extensions": "0.4.4",
+    "com.github.asus4.onnxruntime.unity": "0.4.4",
+    "com.kyub.emojisearch": "https://gitlab.com/KyubInteractive/emojisearchapi.git#com.kyub.emojisearch-1.1.5",
+    "com.unity.collab-proxy": "2.11.3",
     "com.unity.collections": "2.6.2",
     "com.unity.feature.development": "1.0.2",
     "com.unity.ide.rider": "3.0.38",
@@ -57,7 +58,6 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.kyub.emojisearch": "https://gitlab.com/KyubInteractive/emojisearchapi.git#com.kyub.emojisearch-1.1.5"
+    "com.unity.modules.xr": "1.0.0"
   }
 }
