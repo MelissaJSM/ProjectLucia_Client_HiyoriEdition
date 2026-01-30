@@ -96,4 +96,4 @@
 - **터치**: 캐릭터를 클릭하면 랜덤한 모션이나 표정 반응을 보입니다.
 
 ---
-*Developed by MElissaJ*
+*Developed by MelissaJ*
