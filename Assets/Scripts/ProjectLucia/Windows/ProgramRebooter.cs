@@ -1,8 +1,8 @@
-using System.Diagnostics;
 using ProjectLucia.GUI;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 namespace ProjectLucia.Windows
@@ -76,39 +76,21 @@ namespace ProjectLucia.Windows
         #region System Operations (시스템 조작)
 
         /// <summary>
-        /// 설정을 저장하고 프로그램을 재시작합니다.
+        /// 설정을 저장하고 IntroScene으로 이동하여 재시작 효과를 냅니다.
         /// </summary>
         public void OnReboot()
         {
             _saveController.SaveSettings();
-            
-            // 현재 실행 중인 프로세스 정보 가져오기
-            Process currentProcess = Process.GetCurrentProcess();
-            string processPath = currentProcess.MainModule.FileName;
-
-            // 새 프로세스 시작
-            Process.Start(processPath);
-
-            // 현재 프로세스 종료
-            Application.Quit();
+            SceneManager.LoadScene("IntroScene");
         }
 
         /// <summary>
-        /// 설정을 초기화하고 프로그램을 재시작합니다.
+        /// 설정을 초기화하고 IntroScene으로 이동하여 재시작 효과를 냅니다.
         /// </summary>
         public void OnReset()
         {
             _saveController.ResetSettings();
-            
-            // 현재 실행 중인 프로세스 정보 가져오기
-            Process currentProcess = Process.GetCurrentProcess();
-            string processPath = currentProcess.MainModule.FileName;
-
-            // 새 프로세스 시작
-            Process.Start(processPath);
-
-            // 현재 프로세스 종료
-            Application.Quit();
+            SceneManager.LoadScene("IntroScene");
         }
 
         /// <summary>

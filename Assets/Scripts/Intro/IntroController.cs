@@ -131,7 +131,14 @@ namespace Intro
 
             // 2. 네트워크 상태 확인 (SQL)
             loadingText.text = "SQL 서버 상태를 확인하고 있습니다.";
-            mySqlManager.ConnectToDatabase(true);
+            try
+            {
+                mySqlManager.ConnectToDatabase(true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[IntroController] SQL Check Error: {e}");
+            }
             if(SettingData.IsDebug) Debug.Log($"sql 접속여부 인트로 체크 : {SettingData.IsIntroSql}");
             yield return new WaitForSeconds(0.5f);
 

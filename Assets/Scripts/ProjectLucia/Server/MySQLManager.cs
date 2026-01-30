@@ -97,7 +97,14 @@ namespace ProjectLucia.Server
                 {
                     Debug.LogError("MySQL 연결 실패: " + ex.Message);
                     SettingData.IsIntroSql = false;
-                    _actionManager?.ErrorCharacterAction(1000, false);
+                    try
+                    {
+                        _actionManager?.ErrorCharacterAction(1000, false);
+                    }
+                    catch (Exception innerEx)
+                    {
+                        Debug.LogWarning($"[MySQLManager] ActionManager Error: {innerEx.Message}");
+                    }
                     return;
                 }
                 throw;
