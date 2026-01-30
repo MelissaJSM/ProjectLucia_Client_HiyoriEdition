@@ -57,9 +57,9 @@
 ## 📦 설치 방법
 
 ### 1. 사전 요구 사항
-- **Unity Editor**: 프로젝트 버전에 맞는 Unity 에디터 설치.
-- **MySQL Server**: 로컬 또는 원격 서버에 MySQL 데이터베이스가 설치되어 있어야 합니다.
-- **Backend Server**: 이 클라이언트와 통신할 AI 추론 서버(Python/FastAPI 등)가 필요합니다.
+- **Unity Editor**: 프로젝트 버전에 맞는 Unity 에디터 설치. - 현재 프로젝트
+- [(**MySQL Server**)](https://github.com/MelissaJSM/ProjectLucia_Server_HiyoriEdition.git): 로컬 또는 원격 서버에 MySQL 데이터베이스가 설치되어 있어야 합니다.
+- [(**Backend Server**)](https://github.com/MelissaJSM/ProjectLucia_Server_HiyoriEdition.git): 이 클라이언트와 통신할 AI 추론 서버(Python/FastAPI 등)가 필요합니다.
 
 ### 2. 프로젝트 설정
 1. 저장소를 클론합니다.
@@ -96,4 +96,4 @@
 - **터치**: 캐릭터를 클릭하면 랜덤한 모션이나 표정 반응을 보입니다.
 
 ---
-*Developed by Project Lucia Team*
+*Developed by MElissaJ*
