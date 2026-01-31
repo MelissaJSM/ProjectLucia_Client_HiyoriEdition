@@ -136,14 +136,36 @@ namespace ProjectLucia.Capture
         }
 
         /// <summary>
+        /// 윈도우 전체(주 모니터)를 캡처하여 Raw Byte Array (RGBA)로 반환합니다.
+        /// </summary>
+        public static byte[] CaptureFullPrimaryDisplayRaw(out int width, out int height)
+        {
+            width = GetSystemMetrics(SM_CXSCREEN);
+            height = GetSystemMetrics(SM_CYSCREEN);
+            return CaptureRegionRaw(0, 0, width, height);
+        }
+
+        /// <summary>
         /// 화면의 특정 영역을 캡처하여 Texture2D로 반환합니다.
         /// </summary>
-        /// <param name="screenX">캡처 시작 X 좌표 (Windows 스크린 좌표계, 좌상단 기준)</param>
-        /// <param name="screenY">캡처 시작 Y 좌표 (Windows 스크린 좌표계, 좌상단 기준)</param>
-        /// <param name="width">캡처할 영역의 너비</param>
-        /// <param name="height">캡처할 영역의 높이</param>
-        /// <returns>캡처된 영역 이미지 (Texture2D), 실패 시 null</returns>
         public static Texture2D CaptureRegion(int screenX, int screenY, int width, int height)
+        {
+            byte[] rgba = CaptureRegionRaw(screenX, screenY, width, height);
+            if (rgba == null) return null;
+
+            // Texture2D 생성 및 데이터 로드 (메인 스레드에서만 호출 가능)
+            Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            tex.LoadRawTextureData(rgba);
+            tex.Apply();
+
+            return tex;
+        }
+
+        /// <summary>
+        /// 화면의 특정 영역을 캡처하여 Raw Byte Array (RGBA)로 반환합니다.
+        /// (메인 스레드가 아닌 곳에서도 호출 가능)
+        /// </summary>
+        public static byte[] CaptureRegionRaw(int screenX, int screenY, int width, int height)
         {
             if (width <= 0 || height <= 0)
             {
@@ -226,9 +248,6 @@ namespace ProjectLucia.Capture
                 }
 
                 // BGRX(bottom-up) → RGBA(top-down)로 변환
-                // Unity Texture2D는 기본적으로 Bottom-Up이지만, LoadRawTextureData는 데이터 순서대로 채움.
-                // GDI GetDIBits가 Bottom-Up으로 데이터를 주므로, 이를 뒤집거나 그대로 쓰거나 해야 함.
-                // 여기서는 직접 픽셀 순서를 재배치하여 RGBA 포맷으로 변환합니다.
                 int stride = width * 4;
                 byte[] rgba = new byte[width * height * 4];
 
@@ -255,12 +274,7 @@ namespace ProjectLucia.Capture
                     }
                 }
 
-                // Texture2D 생성 및 데이터 로드
-                Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-                tex.LoadRawTextureData(rgba);
-                tex.Apply();
-
-                return tex;
+                return rgba;
             }
             finally
             {

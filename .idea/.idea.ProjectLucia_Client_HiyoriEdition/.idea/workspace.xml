@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3d922f6-3849-4a2d-b03a-a37aca94d699" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Intro/IntroController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Intro/IntroController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/MySQLManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/MySQLManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/ProgramRebooter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/ProgramRebooter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Bangers SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Electronic Highway Sign SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Oswald Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/csc.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/csc.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/csc.rsp.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/csc.rsp.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/mcs.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/mcs.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/mcs.rsp.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/mcs.rsp.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/DesktopCapture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/DesktopCapture.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/DesktopObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/DesktopObserver.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,18 +30,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/RPIO_DEV_EX/Documents/GitHub/ProjectLucia_Client_HiyoriEdition/Assets/Scripts",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/RPIO_DEV_EX/Documents/GitHub/ProjectLucia_Client_HiyoriEdition/Assets/Scripts&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.5f2\Editor\Unity.exe" />
@@ -113,6 +100,7 @@
       <workItem from="1769759890881" duration="170000" />
       <workItem from="1769760314588" duration="1515000" />
       <workItem from="1769763642094" duration="1347000" />
+      <workItem from="1769820920193" duration="78000" />
     </task>
     <servers />
   </component>

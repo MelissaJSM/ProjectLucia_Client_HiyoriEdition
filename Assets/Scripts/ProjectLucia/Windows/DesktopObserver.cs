@@ -144,44 +144,56 @@ namespace ProjectLucia.Windows
         {
             _isProcessing = true;
 
-            // 화면 캡처 (메인 스레드 필수)
-            Texture2D currentScreen = DesktopCapture.CaptureFullPrimaryDisplay();
-        
-            if (currentScreen == null)
-            {
-                if (showDebugLog) if(SettingData.IsDebug) Debug.LogWarning("[Observer] 캡쳐 실패");
-                _isProcessing = false;
-                return;
-            }
-
-            // 픽셀 데이터 추출 (메인 스레드 필수)
-            Color32[] rawPixels = currentScreen.GetPixels32();
-            int width = currentScreen.width;
-            int height = currentScreen.height;
-
-            // 비동기 작업 시작 (리사이징 및 비교)
+            // 비동기 작업 시작 (캡처, 리사이징, 비교 모두 백그라운드 스레드에서 수행)
             await Task.Run(() =>
             {
-                // 1. 리사이징 (비동기)
+                // 1. 화면 캡처 (백그라운드 스레드에서 실행 가능한 Raw 캡처 사용)
+                int width, height;
+                byte[] rawBytes = DesktopCapture.CaptureFullPrimaryDisplayRaw(out width, out height);
+
+                if (rawBytes == null)
+                {
+                    return (false, 0f, null, null, 0, 0);
+                }
+
+                // 2. Raw Byte Array -> Color32[] 변환 (리사이징을 위해)
+                //    (참고: Color32 구조체는 메인 스레드 제약 없음)
+                Color32[] rawPixels = new Color32[width * height];
+                for (int i = 0; i < rawPixels.Length; i++)
+                {
+                    int idx = i * 4;
+                    rawPixels[i] = new Color32(rawBytes[idx], rawBytes[idx + 1], rawBytes[idx + 2], rawBytes[idx + 3]);
+                }
+
+                // 3. 리사이징 (비동기)
                 Color32[] currentLowRes = ResizeToLowRes(rawPixels, width, height, _lowResSize, _lowResSize);
 
-                // 2. 비교 로직 (비동기)
+                // 4. 비교 로직 (비동기)
                 if (_lastFrameLowRes != null)
                 {
                     float diff = CalculateDifference(_lastFrameLowRes, currentLowRes);
 
                     if (diff >= changeThreshold)
                     {
-                        // 변화 감지됨
-                        return (true, diff, currentLowRes);
+                        // 변화 감지됨 -> 원본 데이터도 반환해야 함 (나중에 인코딩 위해)
+                        return (true, diff, currentLowRes, rawBytes, width, height);
                     }
                 }
                 
                 // 변화 없음 또는 첫 프레임
-                return (false, 0f, currentLowRes);
+                return (false, 0f, currentLowRes, null, 0, 0);
+
             }).ContinueWith(task =>
             {
-                var (changed, diff, currentLowRes) = task.Result;
+                var (changed, diff, currentLowRes, rawBytes, width, height) = task.Result;
+
+                if (rawBytes == null && currentLowRes == null)
+                {
+                    // 캡처 실패
+                    if (showDebugLog) if(SettingData.IsDebug) Debug.LogWarning("[Observer] 캡쳐 실패");
+                    _isProcessing = false;
+                    return;
+                }
 
                 if (changed)
                 {
@@ -190,8 +202,15 @@ namespace ProjectLucia.Windows
                     _wasChanging = true;
                     _stableTimer = 0f;
 
-                    // 변화 감지 시 JPG 인코딩 (메인 스레드)
-                    _pendingImageData = currentScreen.EncodeToJPG(75); 
+                    // 변화 감지 시 JPG 인코딩 (메인 스레드에서 Texture2D 생성 후 인코딩)
+                    // Texture2D 생성은 메인 스레드 필수
+                    Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+                    tex.LoadRawTextureData(rawBytes);
+                    tex.Apply();
+                    
+                    _pendingImageData = tex.EncodeToJPG(75);
+                    
+                    Destroy(tex); // 메모리 해제
 
                     // 기준 프레임 갱신
                     _lastFrameLowRes = currentLowRes;
@@ -202,8 +221,6 @@ namespace ProjectLucia.Windows
                     _lastFrameLowRes = currentLowRes;
                 }
 
-                // 메모리 해제
-                Destroy(currentScreen);
                 _isProcessing = false;
 
             }, TaskScheduler.FromCurrentSynchronizationContext()); // 메인 스레드 복귀
