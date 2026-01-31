@@ -258,6 +258,7 @@ namespace ProjectLucia.GUI
                 if (inputField != null)
                 {
                     inputField.text = null;
+                    EventSystem.current.SetSelectedGameObject(null);
                 }
             }
         }

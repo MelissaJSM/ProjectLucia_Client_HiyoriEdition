@@ -86,6 +86,15 @@ namespace ProjectLucia.Server
 
         #endregion
 
+        #region Public Properties (공개 속성)
+
+        /// <summary>
+        /// 현재 서버가 응답(오디오 재생 또는 텍스트 출력) 중인지 여부
+        /// </summary>
+        public bool HasActiveAnswer => _hasActiveAnswer;
+
+        #endregion
+
         #region Private Fields (비공개 필드)
 
         // 웹소켓 및 통신 관련

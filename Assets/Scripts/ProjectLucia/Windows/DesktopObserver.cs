@@ -79,6 +79,7 @@ namespace ProjectLucia.Windows
         private InputHandler _inputHandler;
         private SettingController _settingController;
         private LogController _logController;
+        private ServerClient _serverClient;
 
         #endregion
 
@@ -94,6 +95,7 @@ namespace ProjectLucia.Windows
             _inputHandler = GameManager.Instance.InputHandler;
             _settingController = GameManager.Instance.SettingController;
             _logController = GameManager.Instance.LogController;
+            _serverClient = GameManager.Instance.ServerClient;
 
             // RealTalkPixel 설정값 파싱 (저해상도 크기 설정)
             if (System.Enum.TryParse(SettingData.RealTalkPixel, out UISettingEnums.RealtimePixelEnums result))
@@ -114,6 +116,9 @@ namespace ProjectLucia.Windows
             // UI 조작 중에는 감지 중단
             if (_inputHandler.IsInputText || _settingController.SettingsOpen || _logController.LogsOpen) return;
             
+            // 서버가 응답 중(말하는 중)이면 감지 중단
+            if (_serverClient != null && _serverClient.HasActiveAnswer) return;
+
             var scene = SceneManager.GetActiveScene();
             if (scene.name == "IntroScene")
                 return;
