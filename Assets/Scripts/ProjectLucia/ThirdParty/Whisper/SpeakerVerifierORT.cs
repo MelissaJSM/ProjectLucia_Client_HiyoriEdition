@@ -81,14 +81,14 @@ namespace ProjectLucia.ThirdParty.Whisper
             yield return LoadClipsFromFolder("Positive", referenceClips, _masterEmbeddings);
             yield return LoadClipsFromFolder("Negative", negativeClips, _negativeEmbeddings);
 
+            _isReady = true;
             if (_masterEmbeddings.Count > 0) 
             {
-                _isReady = true;
                 if(SettingData.IsDebug) Debug.Log("🚀 화자 인식 준비 완료!");
             }
             else
             {
-                if(SettingData.IsDebug) Debug.LogWarning("⚠️ 주인님 목소리(Positive)가 없습니다!");
+                if(SettingData.IsDebug) Debug.LogWarning("⚠️ 주인님 목소리(Positive)가 없습니다! 화자 인식을 건너뜁니다.");
             }
         }
 
@@ -162,6 +162,13 @@ namespace ProjectLucia.ThirdParty.Whisper
             
             // 데이터가 너무 짧거나(0.5초 미만) 모델 로드 안됐으면 패스
             if (!_isReady || _session == null || audioData.Length < 8000) return false;
+
+            // 0. 주인님 목소리가 등록되지 않았으면 무조건 통과 (기능 Skip)
+            if (_masterEmbeddings.Count == 0)
+            {
+                finalScore = 1.0f;
+                return true;
+            }
 
             // 1. 입력 오디오 임베딩 추출
             float[] currentEmb = ExtractEmbedding(audioData);
