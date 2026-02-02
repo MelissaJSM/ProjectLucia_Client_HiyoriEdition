@@ -64,7 +64,7 @@
 ### 2. 프로젝트 설정
 1. 저장소를 클론합니다.
    ```bash
-   git clone https://github.com/YourAccount/ProjectLucia.git
+   git clone [https://github.com/YourAccount/ProjectLucia.git](https://github.com/MelissaJSM/ProjectLucia_Client_HiyoriEdition.git)
    ```
 2. Unity Hub에 프로젝트를 추가하고 엽니다.
 3. `Fonts` 폴더 내에 압축파일을 현재 폴더에 해제합니다.
