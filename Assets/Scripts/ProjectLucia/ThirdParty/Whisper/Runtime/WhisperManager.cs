@@ -465,7 +465,22 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
             _params.AudioCtx = audioCtx;
             _params.EnableTokens = enableTokens;
             _params.TokenTimestamps = tokensTimestamps;
-            _params.InitialPrompt = initialPrompt;
+
+            if (SettingData.IsCallNow)
+            {
+                // 호출명(CallName)을 프롬프트에 반영
+                string callName = SettingData.CallName;
+                if (string.IsNullOrEmpty(callName))
+                {
+                    callName = "히요리";
+                }
+                _params.InitialPrompt = $"안녕 {callName}야? 우리 오타 없이 완벽한 문장으로 대화하자. {initialPrompt}";
+            }
+            else
+            {
+                _params.InitialPrompt = initialPrompt;
+            }
+            
         }
 
         private WhisperContextParams CreateContextParams()

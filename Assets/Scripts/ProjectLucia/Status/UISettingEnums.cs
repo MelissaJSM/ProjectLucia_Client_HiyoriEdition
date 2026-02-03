@@ -42,6 +42,8 @@ namespace ProjectLucia.Status
             LockPasswordInput = 12,
             [Tooltip("사용자 이름 입력 필드")]
             UserName = 13,
+            [Tooltip("호출 이름 설정 필드")]
+            CallName = 14,
         }
 
         /// <summary>
@@ -224,6 +226,10 @@ namespace ProjectLucia.Status
             IsTouchMotion = 8,
             [Tooltip("대기 모션 랜덤 재생 활성화")]
             IsIdleMotionRandom = 9,
+            
+            //음성 인식 관련 옵션
+            [Tooltip("음성인식 호출 모드 활성화")]
+            IsCallNow = 10
         }
 
         /// <summary>

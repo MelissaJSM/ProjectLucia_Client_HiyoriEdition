@@ -29,6 +29,7 @@ namespace ProjectLucia.GUI
         private SettingController _settingController;
         private ActionManager _actionManager;
         private FrameCounter _frameCounter;
+        private InputHandler _inputHandler;
 
         // 캐싱: 카메라 및 포스트 프로세싱
         private Camera _mainCam;
@@ -46,6 +47,7 @@ namespace ProjectLucia.GUI
             _settingController = GameManager.Instance.SettingController;
             _actionManager     = GameManager.Instance.ActionManager;
             _frameCounter      = GameManager.Instance.FrameCounter;
+            _inputHandler = GameManager.Instance.InputHandler;
 
             _mainCam = Camera.main;
             _ppl = _settingController != null ? _settingController.PostProcessLayer : null;
@@ -107,6 +109,24 @@ namespace ProjectLucia.GUI
                 Toggles[(int)UISettingEnums.TogglesEnum.IsTouchMotion].SetIsOnWithoutNotify(value);
         }
 
+        /// <summary>
+        /// 호출 웨이크업 활성화 여부를 설정합니다.
+        /// </summary>
+        public void IsWakeUpController(bool isClick)
+        {
+            bool value = isClick
+                ? Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].isOn
+                : SettingData.IsCallNow;
+
+            if (!isClick)
+                Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].SetIsOnWithoutNotify(value);
+
+            
+            GameObject parentObject = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].transform.parent.gameObject;
+
+            parentObject.SetActive(value);
+        }
+        
         #endregion
 
         #region Idle Motion Settings (Idle 모션 설정)

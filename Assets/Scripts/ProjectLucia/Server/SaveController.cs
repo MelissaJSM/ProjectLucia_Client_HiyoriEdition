@@ -125,6 +125,8 @@ namespace ProjectLucia.Server
             PlayerPrefs.SetInt("defaultModel",   SettingData.DefaultModel);
             PlayerPrefs.SetString("SavedGPUName",SettingData.ResultGPUName);
             PlayerPrefs.SetString("WhisperQuantization",SettingData.WhisperQuantization);
+            PlayerPrefs.SetInt("IsCallNow", SettingData.IsCallNow ? 1 : 0);
+            PlayerPrefs.SetString("CallName", SettingData.CallName);
 
             // 기타 설정 저장
             PlayerPrefs.SetInt("IsDebug",   SettingData.IsDebug ? 1 : 0);
@@ -214,6 +216,8 @@ namespace ProjectLucia.Server
             SettingData.DefaultModel    = PlayerPrefs.GetInt("defaultModel", 0);
             SettingData.SavedGPUName    = PlayerPrefs.GetString("SavedGPUName", "");
             SettingData.WhisperQuantization = PlayerPrefs.GetString("WhisperQuantization", "");
+            SettingData.IsCallNow = PlayerPrefs.GetInt("IsCallNow", 0) == 1;
+            SettingData.CallName = PlayerPrefs.GetString("CallName", "");
 
             // 기타
             SettingData.IsDebug   = PlayerPrefs.GetInt("IsDebug", 0) == 1;
@@ -284,6 +288,8 @@ namespace ProjectLucia.Server
             _dropdownManager.SetMicDevice(false);
             _dropdownManager.SetDefaultLanguage(false);
             _dropdownManager.SetWhisperQuantization(false);
+            _toggleManager.IsWakeUpController(false);
+            _inputHandler.SetCallName(false);
         }
 
         private void OnServer()

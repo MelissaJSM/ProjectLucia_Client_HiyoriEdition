@@ -409,6 +409,25 @@ namespace ProjectLucia.ThirdParty.Whisper
 
             if (_whisperManager != null && _whisperManager.isRecording)
             {
+                // 호출 웨이크업 기능 (IsCallNow)
+                if (SettingData.IsCallNow)
+                {
+                    string callName = SettingData.CallName;
+                    if (string.IsNullOrEmpty(callName))
+                    {
+                        callName = "히요리"; // 기본 호출명
+                    }
+
+                    // 호출명이 포함되어 있는지 확인
+                    if (!trim.Contains(callName))
+                    {
+                        if(SettingData.IsDebug) Debug.Log($"[WakeUp] 호출명 '{callName}'이(가) 포함되지 않아 무시됨: {trim}");
+                        return; // 호출명이 없으면 서버로 전송하지 않음
+                    }
+                    
+                    if(SettingData.IsDebug) Debug.Log($"[WakeUp] 호출명 '{callName}' 감지됨!");
+                }
+
                 try
                 {
 #pragma warning disable CS4014

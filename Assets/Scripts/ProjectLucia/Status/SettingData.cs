@@ -145,6 +145,17 @@ namespace ProjectLucia.Status
         /// Whisper 양자화(Quantization) 설정
         /// </summary>
         public static string WhisperQuantization;
+
+        /// <summary>
+        /// 음성인식 호출 시스템 활성화
+        /// </summary>
+        public static bool IsCallNow;
+
+        /// <summary>
+        /// 음성인식 호출 시스템 이름 설정
+        /// </summary>
+        public static string CallName;
+        
         #endregion
 
         #region Emotion Settings (감정 표현)

@@ -396,6 +396,8 @@ namespace ProjectLucia.Server
                         .options[_dropdownManager.Dropdowns[(int)UISettingEnums.DropDownEnum.MicDevice].value].text;
                 }
                 SettingData.DefaultModel = _dropdownManager.Dropdowns[(int)UISettingEnums.DropDownEnum.DefaultModel].value;
+                SettingData.IsCallNow = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].isOn;
+                SettingData.CallName = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].text;
 
                 // Etc
                 SettingData.IsDebug = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsDebug].isOn;

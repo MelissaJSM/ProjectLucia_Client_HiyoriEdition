@@ -120,8 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -177,6 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 9
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &7472164512220929120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +354,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 25
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &5573996351737921647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,8 +490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -564,8 +568,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1304368324310831755
@@ -702,8 +706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -776,8 +780,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5192658835172528962
@@ -914,8 +918,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -972,6 +976,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 13
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &8770281402775525368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,6 +1051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 7
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &293407925576329344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,8 +1187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -1236,6 +1244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 18
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &2460278727732470713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,8 +1380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -1500,8 +1510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -1630,8 +1640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -1760,8 +1770,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -1817,6 +1827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 14
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &1957132844413887181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,6 +1891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 4
   Value: 1
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &6869769496143864644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,8 +2039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2155,8 +2169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2212,6 +2226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 0
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &4154133960187654633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,6 +2289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 17
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &570571850707746852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,8 +2425,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2537,8 +2555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2667,8 +2685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2797,8 +2815,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -2870,8 +2888,8 @@ MonoBehaviour:
   _childDrawableRenderers:
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &6756276903621110478
@@ -3008,8 +3026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3065,6 +3083,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 26
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &7323349857873166410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,8 +3219,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3329,8 +3349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3459,8 +3479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3589,8 +3609,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3719,8 +3739,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3849,8 +3869,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -3979,8 +3999,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4065,8 +4085,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1536544530580472851
@@ -4203,8 +4223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4277,8 +4297,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2634150904597380856
@@ -4415,8 +4435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4545,8 +4565,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4675,8 +4695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4805,8 +4825,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -4882,8 +4902,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7007720086008317092
@@ -4947,6 +4967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 3
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &8393094403088850551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5081,8 +5103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -5211,8 +5233,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -5343,8 +5365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -5472,6 +5494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 1
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &5491178357577052697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5606,8 +5630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -5684,8 +5708,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4746187169006628892
@@ -5822,8 +5846,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -5952,8 +5976,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6009,6 +6033,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 24
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &8010450351105647972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6143,8 +6169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6273,8 +6299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6403,8 +6429,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6533,8 +6559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6663,8 +6689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6793,8 +6819,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6923,8 +6949,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -6980,6 +7006,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 27
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &444704625887292523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7056,6 +7084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismModel
   _moc: {fileID: 11400000, guid: 8942ec2f60cff3141a8d9a6d683338dd, type: 2}
+  _isOverriddenParameterRepeat: 1
 --- !u!114 &8663915731482622380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7094,8 +7123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderController
   Opacity: 1
   _lastOpacity: 0
-  _isOverwrittenModelMultiplyColors: 0
-  _isOverwrittenModelScreenColors: 0
+  _isOverriddenModelMultiplyColors: 0
+  _isOverriddenModelScreenColors: 0
   _modelMultiplyColor: {r: 0, g: 0, b: 0, a: 0}
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
@@ -7738,8 +7767,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -7868,8 +7897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -7998,8 +8027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8055,6 +8084,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 16
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &6507830420501873617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8116,6 +8147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 23
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &5573310786270753045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8250,8 +8283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8380,8 +8413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8510,8 +8543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8640,8 +8673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8770,8 +8803,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -8900,8 +8933,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9030,8 +9063,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9087,6 +9120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 22
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &2071303207057214989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9221,8 +9256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9351,8 +9386,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9481,8 +9516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9563,8 +9598,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &685775528850328910
@@ -9701,8 +9736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -9800,8 +9835,8 @@ MonoBehaviour:
   - {fileID: 0}
   _childParts:
   - {fileID: 0}
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7208783236600162354
@@ -9882,8 +9917,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &9178714186770930268
@@ -10020,8 +10055,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -10150,8 +10185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -10207,6 +10242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 20
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &439163999479363283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10341,8 +10378,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -10398,6 +10435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 10
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &7862567089834224984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10532,8 +10571,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -10662,8 +10701,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -10719,6 +10758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 8
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &6646826235831034672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10780,6 +10821,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 15
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &3579475456061664695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10914,8 +10957,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11044,8 +11087,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11117,8 +11160,8 @@ MonoBehaviour:
   _childDrawableRenderers:
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &9197758813216055674
@@ -11198,8 +11241,8 @@ MonoBehaviour:
   _childDrawableRenderers:
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4309046021250371640
@@ -11263,6 +11306,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 21
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &6955838540681016947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11397,8 +11442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11527,8 +11572,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11657,8 +11702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11787,8 +11832,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11917,8 +11962,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -11974,6 +12019,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 12
   Value: 1
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &590573039773719500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12035,6 +12082,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 11
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &1189158289630559896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12169,8 +12218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -12243,8 +12292,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2728188451509721720
@@ -12308,6 +12357,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 28
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &547097062717077307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12442,8 +12493,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -12572,8 +12623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -12702,8 +12753,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -12832,8 +12883,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -12889,6 +12940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 5
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &7002057335400970830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13023,8 +13076,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -13096,8 +13149,8 @@ MonoBehaviour:
   _childDrawableRenderers:
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7344802504909343942
@@ -13221,6 +13274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 19
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &6216046861666867930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13355,8 +13410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -13485,8 +13540,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -13615,8 +13670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -13672,6 +13727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 2
   Value: 0
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &2350630025823144965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13752,8 +13809,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _childParts: []
-  _isOverwrittenPartMultiplyColors: 0
-  _isOverwrittenPartScreenColors: 0
+  _isOverriddenPartMultiplyColors: 0
+  _isOverriddenPartScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &6850584267888543040
@@ -13818,6 +13875,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Core.CubismParameter
   _unmanagedIndex: 6
   Value: 1
+  _isOverriddenUserParameterRepeat: 0
+  _isParameterRepeated: 0
 --- !u!114 &1200833765898101214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13964,8 +14023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14094,8 +14153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14224,8 +14283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14354,8 +14413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14484,8 +14543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14614,8 +14673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
@@ -14744,8 +14803,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Rendering.CubismRenderer
   _localSortingOrder: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _isOverwrittenDrawableMultiplyColors: 0
-  _isOverwrittenDrawableScreenColors: 0
+  _isOverriddenDrawableMultiplyColors: 0
+  _isOverriddenDrawableScreenColors: 0
   _multiplyColor: {r: 1, g: 1, b: 1, a: 1}
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 86fd829128789a441aa96be680cbe448, type: 3}
