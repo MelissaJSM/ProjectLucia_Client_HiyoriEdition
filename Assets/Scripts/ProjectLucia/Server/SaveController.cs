@@ -213,7 +213,7 @@ namespace ProjectLucia.Server
             // 음성
             SettingData.SetWhisperModel = PlayerPrefs.GetInt("IsWhisperModel", 0);
             SettingData.MicDevice       = PlayerPrefs.GetString("MicDevice", "default");
-            SettingData.DefaultModel    = PlayerPrefs.GetInt("defaultModel", 0);
+            SettingData.DefaultModel    = PlayerPrefs.GetInt("defaultModel", 2);
             SettingData.SavedGPUName    = PlayerPrefs.GetString("SavedGPUName", "");
             SettingData.WhisperQuantization = PlayerPrefs.GetString("WhisperQuantization", "");
             SettingData.IsCallNow = PlayerPrefs.GetInt("IsCallNow", 0) == 1;

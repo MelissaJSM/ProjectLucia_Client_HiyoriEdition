@@ -1,4 +1,5 @@
 using UnityEngine;
+// ReSharper disable InconsistentNaming
 
 namespace ProjectLucia.Status
 {
@@ -362,10 +363,10 @@ namespace ProjectLucia.Status
         /// </summary>
         public enum DefaultLanguageEnum
         {
-            Auto = 0,
-            En = 1,
-            Ko = 2,
-            Ja = 3
+            auto = 0,
+            en = 1,
+            ko = 2,
+            ja = 3
         }
 
         /// <summary>

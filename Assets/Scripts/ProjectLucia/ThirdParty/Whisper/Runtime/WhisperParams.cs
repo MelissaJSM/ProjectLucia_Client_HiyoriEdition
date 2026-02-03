@@ -284,6 +284,64 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
          
          #endregion
 
+         #region Advanced / Hallucination Control
+
+         /// <summary>
+         /// Initial decoding temperature.
+         /// </summary>
+         public float Temperature
+         {
+             get => _param.temperature;
+             set => _param.temperature = value;
+         }
+
+         /// <summary>
+         /// Temperature increment for fallback.
+         /// </summary>
+         public float TemperatureInc
+         {
+             get => _param.temperature_inc;
+             set => _param.temperature_inc = value;
+         }
+
+         /// <summary>
+         /// Entropy threshold for fallback.
+         /// </summary>
+         public float EntropyThold
+         {
+             get => _param.entropy_thold;
+             set => _param.entropy_thold = value;
+         }
+
+         /// <summary>
+         /// Log probability threshold for fallback.
+         /// </summary>
+         public float LogprobThold
+         {
+             get => _param.logprob_thold;
+             set => _param.logprob_thold = value;
+         }
+
+         /// <summary>
+         /// Probability threshold for no speech token.
+         /// </summary>
+         public float NoSpeechThold
+         {
+             get => _param.no_speech_thold;
+             set => _param.no_speech_thold = value;
+         }
+
+         /// <summary>
+         /// If true, the model will try to suppress non-speech tokens.
+         /// </summary>
+         public bool SuppressNonSpeechTokens
+         {
+             get => _param.suppress_non_speech_tokens;
+             set => _param.suppress_non_speech_tokens = value;
+         }
+
+         #endregion
+
          #region Tokens Parameters
 
          /// <summary>

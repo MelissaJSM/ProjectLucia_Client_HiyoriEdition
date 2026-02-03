@@ -160,18 +160,18 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime.Native
 
         // common decoding parameters:
         [MarshalAs(UnmanagedType.U1)] bool suppress_blank; // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/decoding.py#L89
-        [MarshalAs(UnmanagedType.U1)] bool suppress_non_speech_tokens; // ref: https://github.com/openai/whisper/blob/7858aa9c08d98f75575035ecd6481f462d66ca27/whisper/tokenizer.py#L224-L253
+        [MarshalAs(UnmanagedType.U1)] public bool suppress_non_speech_tokens; // ref: https://github.com/openai/whisper/blob/7858aa9c08d98f75575035ecd6481f462d66ca27/whisper/tokenizer.py#L224-L253
 
-        float temperature; // initial decoding temperature, ref: https://ai.stackexchange.com/a/32478
-        float max_initial_ts; // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/decoding.py#L97
-        float length_penalty; // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/transcribe.py#L267
+        public float temperature; // initial decoding temperature, ref: https://ai.stackexchange.com/a/32478
+        public float max_initial_ts; // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/decoding.py#L97
+        public float length_penalty; // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/transcribe.py#L267
 
         // fallback parameters
         // ref: https://github.com/openai/whisper/blob/f82bc59f5ea234d4b97fb2860842ed38519f7e65/whisper/transcribe.py#L274-L278
-        float temperature_inc;
-        float entropy_thold; // similar to OpenAI's "compression_ratio_threshold"
-        float logprob_thold;
-        float no_speech_thold; // TODO: not implemented
+        public float temperature_inc;
+        public float entropy_thold; // similar to OpenAI's "compression_ratio_threshold"
+        public float logprob_thold;
+        public float no_speech_thold; // TODO: not implemented
 
         [StructLayout(LayoutKind.Sequential)]
         struct greedy_struct

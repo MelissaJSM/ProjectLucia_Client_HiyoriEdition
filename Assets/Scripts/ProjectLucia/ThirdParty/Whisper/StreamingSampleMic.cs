@@ -397,14 +397,41 @@ namespace ProjectLucia.ThirdParty.Whisper
             if(SettingData.IsDebug) Debug.Log($"[Whisper] Segment finished: {trim}");
 
             // [환각 필터링] Whisper 특유의 환각 텍스트 필터링
+            // 1. 반복적인 특수문자나 의미 없는 짧은 단어 필터링
             if (string.IsNullOrEmpty(trim) ||
                 trim.StartsWith("[") && trim.EndsWith("]") || 
                 trim.StartsWith("(") && trim.EndsWith(")") || 
                 trim.Equals("MBC 뉴스 이덕영입니다.", StringComparison.OrdinalIgnoreCase) || 
-                trim.Equals("시청해 주셔서 감사합니다.", StringComparison.OrdinalIgnoreCase))
+                trim.Equals("시청해 주셔서 감사합니다.", StringComparison.OrdinalIgnoreCase) ||
+                trim.Equals("Thank you.", StringComparison.OrdinalIgnoreCase) ||
+                trim.Equals("Thank you", StringComparison.OrdinalIgnoreCase) ||
+                trim.Contains("...")) // 점이 연속으로 나오는 경우 필터링
             {
                 if(SettingData.IsDebug) Debug.LogWarning($"[Whisper] Hallucination detected and ignored: {trim}");
                 return;
+            }
+
+            // 2. 한 글자 반복 필터링 (예: "으 아 아 아 아")
+            // 공백을 제거하고 길이가 5 이상이면서, 같은 문자가 80% 이상 차지하는 경우
+            string noSpace = trim.Replace(" ", "");
+            if (noSpace.Length >= 5)
+            {
+                int maxRepeat = 0;
+                foreach (char c in noSpace)
+                {
+                    int count = 0;
+                    foreach (char check in noSpace)
+                    {
+                        if (c == check) count++;
+                    }
+                    if (count > maxRepeat) maxRepeat = count;
+                }
+                
+                if ((float)maxRepeat / noSpace.Length > 0.8f)
+                {
+                    if(SettingData.IsDebug) Debug.LogWarning($"[Whisper] Repetitive hallucination detected: {trim}");
+                    return;
+                }
             }
 
             if (_whisperManager != null && _whisperManager.isRecording)

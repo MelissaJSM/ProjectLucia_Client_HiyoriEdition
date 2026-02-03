@@ -49,6 +49,25 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
         [Tooltip("Initial prompt as a string variable. It may improve transcription quality or guide it.")]
         [TextArea] public string initialPrompt;
 
+        [Header("Hallucination Control")]
+        [Tooltip("Initial decoding temperature.")]
+        [Range(0f, 1f)] public float temperature = 0.0f;
+
+        [Tooltip("Temperature increment for fallback.")]
+        [Range(0f, 1f)] public float temperatureInc = 0.2f;
+
+        [Tooltip("Entropy threshold for fallback.")]
+        public float entropyThold = 2.4f;
+
+        [Tooltip("Log probability threshold for fallback.")]
+        public float logprobThold = -1.0f;
+
+        [Tooltip("Probability threshold for no speech token.")]
+        public float noSpeechThold = 0.6f;
+
+        [Tooltip("If true, the model will try to suppress non-speech tokens.")]
+        public bool suppressNonSpeechTokens = true;
+
         [Header("Streaming settings")]
         [Tooltip("Minimal portions of audio per whisper stream step, in seconds.")]
         public float stepSec = 1f;
@@ -458,7 +477,28 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
 
         private void UpdateParams()
         {
-            _params.Language = language;
+            // 언어 설정 유효성 검사 및 변환
+            string targetLanguage = language;
+            if (!string.IsNullOrEmpty(targetLanguage) && targetLanguage != "auto")
+            {
+                int langId = WhisperLanguage.GetLanguageId(targetLanguage);
+                if (langId != -1)
+                {
+                    // 유효한 언어 ID를 찾았다면, 해당 ID에 매핑되는 2글자 코드로 변환
+                    string code = WhisperLanguage.GetLanguageString(langId);
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        targetLanguage = code;
+                    }
+                }
+                else
+                {
+                    LogUtils.Warning($"Language '{targetLanguage}' not found! Fallback to auto-detection.");
+                    targetLanguage = "auto";
+                }
+            }
+
+            _params.Language = targetLanguage;
             _params.Translate = translateToEnglish;
             _params.NoContext = noContext;
             _params.SingleSegment = singleSegment;
@@ -466,6 +506,14 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
             _params.EnableTokens = enableTokens;
             _params.TokenTimestamps = tokensTimestamps;
             _params.InitialPrompt = initialPrompt;
+
+            // Hallucination Control
+            _params.Temperature = temperature;
+            _params.TemperatureInc = temperatureInc;
+            _params.EntropyThold = entropyThold;
+            _params.LogprobThold = logprobThold;
+            _params.NoSpeechThold = noSpeechThold;
+            _params.SuppressNonSpeechTokens = suppressNonSpeechTokens;
         }
 
         private WhisperContextParams CreateContextParams()
