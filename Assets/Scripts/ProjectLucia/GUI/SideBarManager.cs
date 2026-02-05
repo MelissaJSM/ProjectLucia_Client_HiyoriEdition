@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ProjectLucia.Live2D;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
+using ProjectLucia.ThirdParty.Whisper;
 using ProjectLucia.Windows;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -68,6 +69,7 @@ namespace ProjectLucia.GUI
         private SettingController _settingController;
         private Live2DButtonPosition _live2DButtonPosition;
         private DesktopObserver _desktopObserver;
+        private SpeakerVerifierORT _speakerVerifier;
 
         // 캐싱: PostProcessLayer / TAA
         private UnityEngine.Rendering.PostProcessing.PostProcessLayer _ppl;
@@ -87,6 +89,9 @@ namespace ProjectLucia.GUI
             
             // DesktopObserver 찾기 (씬에 하나만 있다고 가정)
             _desktopObserver = FindObjectOfType<DesktopObserver>();
+            
+            // SpeakerVerifierORT 찾기
+            _speakerVerifier = FindObjectOfType<SpeakerVerifierORT>();
 
             // PostProcessing 컴포넌트 캐싱
             _ppl = _settingController != null ? _settingController.PostProcessLayer : null;
@@ -422,6 +427,26 @@ namespace ProjectLucia.GUI
             SetText((int)UISettingEnums.TextsEnum.MinSendIntervalText, $"{val:F1}s");
 
             if (_desktopObserver != null) _desktopObserver.minSendInterval = val;
+        }
+
+        #endregion
+
+        #region 화자 인식 강도를 설정합니다.
+
+        public void SetSimilarityThreshold(bool isClick)
+        {
+            float t = isClick
+                ? Scrollbars[(int)UISettingEnums.ScrollbarEnum.SimilarityThresholdScrollbar].value
+                : SettingData.SimilarityThreshold;
+
+            if (!isClick)
+                Scrollbars[(int)UISettingEnums.ScrollbarEnum.SimilarityThresholdScrollbar].SetValueWithoutNotify(t);
+
+            // 0.0 ~ 1.0 범위 그대로 사용
+            float val = t;
+            SetText((int)UISettingEnums.TextsEnum.SimilarityThresholdText, $"{val:F2}");
+
+            if (_speakerVerifier != null) _speakerVerifier.similarityThreshold = val;
         }
 
         #endregion

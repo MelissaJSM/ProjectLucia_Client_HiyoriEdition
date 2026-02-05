@@ -127,6 +127,7 @@ namespace ProjectLucia.Server
             PlayerPrefs.SetString("WhisperQuantization",SettingData.WhisperQuantization);
             PlayerPrefs.SetInt("IsCallNow", SettingData.IsCallNow ? 1 : 0);
             PlayerPrefs.SetString("CallName", SettingData.CallName);
+            PlayerPrefs.SetFloat("SimilarityThreshold", SettingData.SimilarityThreshold);
 
             // 기타 설정 저장
             PlayerPrefs.SetInt("IsDebug",   SettingData.IsDebug ? 1 : 0);
@@ -218,6 +219,7 @@ namespace ProjectLucia.Server
             SettingData.WhisperQuantization = PlayerPrefs.GetString("WhisperQuantization", "");
             SettingData.IsCallNow = PlayerPrefs.GetInt("IsCallNow", 0) == 1;
             SettingData.CallName = PlayerPrefs.GetString("CallName", "");
+            SettingData.SimilarityThreshold = PlayerPrefs.GetFloat("SimilarityThreshold", 0.7f);
 
             // 기타
             SettingData.IsDebug   = PlayerPrefs.GetInt("IsDebug", 0) == 1;
@@ -290,6 +292,7 @@ namespace ProjectLucia.Server
             _dropdownManager.SetWhisperQuantization(false);
             _toggleManager.IsWakeUpController(false);
             _inputHandler.SetCallName(false);
+            _sideBarManager.SetSimilarityThreshold(false);
         }
 
         private void OnServer()

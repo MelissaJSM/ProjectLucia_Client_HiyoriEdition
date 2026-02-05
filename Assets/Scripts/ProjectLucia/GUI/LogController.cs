@@ -280,6 +280,29 @@ namespace ProjectLucia.GUI
             if (item.TryGetComponent<LogID>(out var idComp)) 
                 idComp.LogIDNumber = log.id;
 
+            string userName;
+            if (SettingData.UserName == null || SettingData.UserName.Trim() == "")
+            {
+                userName = "사용자";
+            }
+            else
+            {
+                userName = SettingData.UserName;
+            }
+            // 이름 설정
+            SetTxt("UserContent/UserContentBackground/UserNamePanel/UserNameText", userName);
+            
+            string assistantName;
+            if (SettingData.CallName == null || SettingData.CallName.Trim() == "")
+            {
+                assistantName = "모모세 히요리";
+            }
+            else
+            {
+                assistantName = SettingData.CallName;
+            }
+            SetTxt("AssistantContent/AssistantContentBackground/AssistantName/AssistantNameText", assistantName);
+
             // 내용 설정
             SetTxt("UserContent/UserContentBackground/UserContent/UserContentText", log.user);
             

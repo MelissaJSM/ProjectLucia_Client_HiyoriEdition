@@ -398,6 +398,7 @@ namespace ProjectLucia.Server
                 SettingData.DefaultModel = _dropdownManager.Dropdowns[(int)UISettingEnums.DropDownEnum.DefaultModel].value;
                 SettingData.IsCallNow = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].isOn;
                 SettingData.CallName = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].text;
+                SettingData.SimilarityThreshold = _sideBarManager.Scrollbars[(int)UISettingEnums.ScrollbarEnum.SimilarityThresholdScrollbar].value;
 
                 // Etc
                 SettingData.IsDebug = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsDebug].isOn;

@@ -156,6 +156,11 @@ namespace ProjectLucia.Status
         /// </summary>
         public static string CallName;
         
+        /// <summary>
+        /// 화자 인식 유사도 임계값 (0.0 ~ 1.0)
+        /// </summary>
+        public static float SimilarityThreshold;
+        
         #endregion
 
         #region Emotion Settings (감정 표현)

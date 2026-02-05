@@ -128,6 +128,9 @@ namespace ProjectLucia.Status
             StabilityDurationScrollbar = 12,
             [Tooltip("최소 전송 간격 설정")]
             MinSendIntervalScrollbar = 13,
+            
+            [Tooltip("화자 인식 유사도 임계값 설정")]
+            SimilarityThresholdScrollbar = 14,
         }
 
         /// <summary>
@@ -196,6 +199,9 @@ namespace ProjectLucia.Status
             StabilityDurationText = 24,
             [Tooltip("최소 전송 간격 값 표시")]
             MinSendIntervalText = 25,
+            
+            [Tooltip("화자 인식 유사도 임계값 표시")]
+            SimilarityThresholdText = 26,
         }
 
         /// <summary>

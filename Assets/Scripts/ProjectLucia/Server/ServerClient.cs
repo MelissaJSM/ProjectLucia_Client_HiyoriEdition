@@ -330,6 +330,13 @@ namespace ProjectLucia.Server
         /// </summary>
         public void SendMessageToServer(string message)
         {
+            if (!IsOpen)
+            {
+                if (SettingData.IsDebug) Debug.LogWarning("Server not connected. Message ignored.");
+                _actionManager.ErrorCharacterAction(1,false);
+                return;
+            }
+
             // 채팅 시작 시 관찰 잠금 해제 및 타이핑 상태 설정
             IsUserTyping = true; 
             
@@ -357,6 +364,13 @@ namespace ProjectLucia.Server
         /// </summary>
         public void SendRAGToServer(string message, string keywords)
         {
+            if (!IsOpen)
+            {
+                if (SettingData.IsDebug) Debug.LogWarning("Server not connected. RAG ignored.");
+                _actionManager.ErrorCharacterAction(1,false);
+                return;
+            }
+
             if(SettingData.IsDebug) Debug.Log($"rag sending: {message} / {keywords}");
             userDateTime = NowString();
             _lastUserMessage = message;
@@ -375,6 +389,13 @@ namespace ProjectLucia.Server
         /// </summary>
         public void SendFeedbackToServer(string feedbackMessage, int feedbackID, Action<string> onCompleted = null)
         {
+            if (!IsOpen)
+            {
+                if (SettingData.IsDebug) Debug.LogWarning("Server not connected. Feedback ignored.");
+                _actionManager.ErrorCharacterAction(1,false);
+                return;
+            }
+
             _actionManager.LoadingCharacterAction(10);
             _onFeedbackCompleted = onCompleted;
             _lastFeedbackMessage = feedbackMessage;
