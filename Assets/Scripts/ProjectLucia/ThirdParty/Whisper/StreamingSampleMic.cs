@@ -242,8 +242,9 @@ namespace ProjectLucia.ThirdParty.Whisper
                 // UI 업데이트 (녹음 중 상태)
                 microphoneRecord.vadButton.image.sprite = microphoneRecord.VadImages[1];
                 SpriteState newSpriteState = microphoneRecord.vadButton.spriteState;
-                newSpriteState.highlightedSprite = microphoneRecord.VadImages[1];
-                newSpriteState.pressedSprite = microphoneRecord.VadImages[1];
+                newSpriteState.highlightedSprite = microphoneRecord.VadFocusImages[1];
+                newSpriteState.pressedSprite = microphoneRecord.VadClickImages[1];
+                microphoneRecord.vadButton.spriteState = newSpriteState;
 
             }
             finally
@@ -314,8 +315,9 @@ namespace ProjectLucia.ThirdParty.Whisper
                         microphoneRecord.vadButton.image.sprite = microphoneRecord.VadImages[0];
 
                         SpriteState newSpriteState = microphoneRecord.vadButton.spriteState;
-                        newSpriteState.highlightedSprite = microphoneRecord.VadImages[0];
-                        newSpriteState.pressedSprite = microphoneRecord.VadImages[0];
+                        newSpriteState.highlightedSprite = microphoneRecord.VadFocusImages[0];
+                        newSpriteState.pressedSprite = microphoneRecord.VadClickImages[0];
+                        microphoneRecord.vadButton.spriteState = newSpriteState;
                     }
                     catch (Exception e)
                     {
