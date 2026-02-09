@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f3d922f6-3849-4a2d-b03a-a37aca94d699" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Whisper/StreamingSampleMic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Whisper/StreamingSampleMic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Keyword/KeywordExtractorOnnx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Keyword/KeywordExtractorOnnx.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,18 +29,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/RPIO_DEV_EX/Documents/GitHub/ProjectLucia_Client_HiyoriEdition/Assets/Scripts&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/RPIO_DEV_EX/Documents/GitHub/ProjectLucia_Client_HiyoriEdition/Assets/Scripts",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.5f2\Editor\Unity.exe" />
@@ -106,7 +104,9 @@
       <workItem from="1769831900747" duration="670000" />
       <workItem from="1770004037067" duration="334000" />
       <workItem from="1770086643591" duration="14796000" />
-      <workItem from="1770252589215" duration="26755000" />
+      <workItem from="1770252589215" duration="31262000" />
+      <workItem from="1770359507317" duration="5474000" />
+      <workItem from="1770628362760" duration="502000" />
     </task>
     <servers />
   </component>
