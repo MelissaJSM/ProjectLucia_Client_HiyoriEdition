@@ -138,6 +138,19 @@ namespace ProjectLucia.GUI
             {
                 if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log($"esc 키 감지");
             }
+
+            // 채팅 입력창에서 숫자패드 엔터키가 눌렸을 때 처리
+            if (Keyboard.current != null && Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+            {
+                var currentObj = EventSystem.current.currentSelectedGameObject;
+                var chatInput = inputs[(int)UISettingEnums.InputEnum.InputField];
+
+                if (chatInput != null && currentObj == chatInput.gameObject)
+                {
+                    _whisperManager.useVad = false;
+                    ProcessInput(chatInput.text);
+                }
+            }
         }
         
         void LateUpdate()
@@ -171,6 +184,29 @@ namespace ProjectLucia.GUI
         #endregion
 
         #region Input Handling (입력 처리)
+        
+        
+        /// <summary>
+        /// 채팅을 수동으로 버튼전송할때 사용합니다.
+        /// </summary>
+        // 버튼 클릭 시 호출할 함수 (인스펙터 연결용)
+        public void OnClickSendButton()
+        {
+            // 1. 우리가 관리하는 InputField 리스트에서 '채팅 입력창'을 가져옵니다.
+            // (UISettingEnums.InputEnum.InputField는 0번 인덱스일 것입니다.)
+            var chatInput = inputs[(int)UISettingEnums.InputEnum.InputField];
+
+            // 2. 그 입력창의 현재 텍스트(.text)를 직접 꺼내옵니다.
+            string textToSend = chatInput.text;
+
+            // 3. 기존에 있던 전송 로직(ProcessInput)에 텍스트를 넘겨줍니다.
+            ProcessInput(textToSend);
+    
+            // (선택사항) 전송 후 채팅창 비우기 등을 원하면 여기서 추가 처리
+            // ProcessInput 내부에서 이미 초기화 로직이 있다면 생략 가능
+        }
+        
+        
 
         /// <summary>
         /// InputField 입력 종료(엔터키 등) 시 호출되는 메서드입니다.
@@ -183,7 +219,7 @@ namespace ProjectLucia.GUI
             int index = Inputs.IndexOf(inputField);
             
             // 엔터키 입력 시에만 동작
-            if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
+            if (Keyboard.current != null && (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame))
             {
                 if (index == (int)UISettingEnums.InputEnum.LockPasswordInput)
                 {
@@ -461,7 +497,7 @@ namespace ProjectLucia.GUI
             SpaceLock(inputField);
 
             // 한글이나 공백이 없고 엔터키가 눌리지 않은 경우 경고 메시지 숨김
-            if (!KoreanRegex.IsMatch(inputText) && !SpaceRegex.IsMatch(inputText) && !(Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame))
+            if (!KoreanRegex.IsMatch(inputText) && !SpaceRegex.IsMatch(inputText) && !(Keyboard.current != null && (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)))
             {
                 if (_panelManager.Panels[(int)UISettingEnums.PanelsEnum.LockPanel].activeSelf)
                 {

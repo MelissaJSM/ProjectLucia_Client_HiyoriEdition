@@ -243,7 +243,7 @@ namespace ProjectLucia.Server
                 _saveController.LoadSettings();
                 _panelManager.TabUpdate((int)UISettingEnums.TabsEnum.Live2D);
                 
-                mainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = false;
+                // mainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = false;
                 RightButton.interactable = true;
                 TabInteractable((int)UISettingEnums.TabsEnum.Live2D);
 

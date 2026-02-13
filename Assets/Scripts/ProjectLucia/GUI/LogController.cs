@@ -190,9 +190,9 @@ namespace ProjectLucia.GUI
                     if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("불러올 로그 데이터가 없습니다.");
                 }
 
-                // 로그 버튼 비활성화 (중복 클릭 방지)
-                if (_settingController.MainUiButtons.Count > (int)UISettingEnums.MainUiButtonEnum.LogsButton)
-                    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = false;
+                // 로그 버튼 비활성화 (중복 클릭 방지) - 토글 기능을 위해 제거
+                // if (_settingController.MainUiButtons.Count > (int)UISettingEnums.MainUiButtonEnum.LogsButton)
+                //    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = false;
                 
                 _settingController.CheckDimmer();
                 _actionManager.AnnounceCharacterAction(3); // 로그 열림 모션
@@ -205,8 +205,8 @@ namespace ProjectLucia.GUI
                 DeleteAllprefabs();
                 _settingController.VoiceRecordChecking(false); // 음성 인식 재개
                 
-                if (_settingController.MainUiButtons.Count > (int)UISettingEnums.MainUiButtonEnum.LogsButton)
-                    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = true;
+                // if (_settingController.MainUiButtons.Count > (int)UISettingEnums.MainUiButtonEnum.LogsButton)
+                //    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.LogsButton].interactable = true;
                 
                 _actionManager.AnnounceCharacterAction(4); // 로그 닫힘 모션
                 _live2DButtonPosition.DrawLive2dBound();
