@@ -143,6 +143,7 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
         private bool _isStreaming;
         
         private Task<WhisperResult> _task;
+        private DateTime _lastSegmentFinished = DateTime.MinValue;
 
         /// <summary>
         /// Create a new instance of Whisper streaming transcription.
@@ -322,6 +323,14 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
             // start transcribing sliding window content
             try
             {
+                if (_step == 0 && _param.UpdatePrompt)
+                {
+                    if ((DateTime.Now - _lastSegmentFinished).TotalSeconds > 3d)
+                    {
+                        _param.InferenceParam.InitialPrompt = _originalPrompt;
+                    }
+                }
+
                 _task = _wrapper.GetTextAsync(buffer, _param.Frequency, 
                     _param.Channels, _param.InferenceParam);
                 
@@ -345,7 +354,27 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
                     // TODO: don't use string prompt - use tokenized prompt_tokens
                     // update prompt with latest transcription
                     if (_param.UpdatePrompt)
-                        _param.InferenceParam.InitialPrompt = _originalPrompt + _output;
+                    {
+                        var lastText = _output;
+                        
+                        // Limit prompt to last X characters to prevent hallucinations loop and overflow
+                        // 1000 chars is roughly 200-300 tokens. 
+                        // If we use too much context, it can cause hallucinations to loop.
+                        const int maxPromptLength = 400; 
+                        if (lastText.Length > maxPromptLength)
+                        {
+                            lastText = lastText.Substring(lastText.Length - maxPromptLength);
+                            // Try to align with word boundary
+                            var firstSpace = lastText.IndexOf(' ');
+                            if (firstSpace >= 0 && firstSpace < lastText.Length - 1)
+                                lastText = lastText.Substring(firstSpace + 1);
+                        }
+
+                        if (string.IsNullOrEmpty(_originalPrompt))
+                            _param.InferenceParam.InitialPrompt = lastText;
+                        else
+                            _param.InferenceParam.InitialPrompt = _originalPrompt + " " + lastText;
+                    }
 
                     // trim old buffer
                     var updBufferLen = _param.KeepSamples;
@@ -356,6 +385,7 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime
                     _oldBuffer = segment.ToArray();
                     _step = 0;
                     
+                    _lastSegmentFinished = DateTime.Now;
                     OnSegmentFinished?.Invoke(res);
                 }
                 else
