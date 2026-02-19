@@ -20,7 +20,6 @@ namespace Intro
         [Header("Components")]
         [SerializeField] private MicrophoneRecord microphoneRecord;
         [SerializeField] private WhisperManager whisperManager;
-        [SerializeField] private KeywordModelDownloader keywordModelDownloader;
         [SerializeField] private TransparentApp transparentApp;
 
         [SerializeField] private MySQLManager mySqlManager;
@@ -160,21 +159,16 @@ namespace Intro
             string modelPathWhisper = $"Whisper/{selectedFile}";
             whisperManager.CheckWhisperModel(SettingData.SetWhisperModel, selectedFile, modelPathWhisper);
             yield return new WaitForSeconds(0.5f);
-
-            // 6. Keyword 조회
-            loadingText.text = "Keyword 파일을 확인하고 있습니다.";
-            SettingData.IsExistKeyword = keywordModelDownloader.CheckKeywordModelFile();
-            yield return new WaitForSeconds(0.5f);
-
+            
             // --- 로딩 결과 판별 ---
             string resultText = null;
 
             if (!SettingData.IsIntroSql || !SettingData.IsIntroServer || !SettingData.IsExistedVad ||
-                !SettingData.IsExistedWhisper || !SettingData.IsExistKeyword)
+                !SettingData.IsExistedWhisper)
             {
                 if (!SettingData.IsIntroSql || !SettingData.IsIntroServer)
                     resultText += "서버, ";
-                if (!SettingData.IsExistedVad || !SettingData.IsExistedWhisper || !SettingData.IsExistKeyword)
+                if (!SettingData.IsExistedVad || !SettingData.IsExistedWhisper)
                     resultText += "모델 파일, ";
                 resultText += "에서 오류가 발생했습니다.\n설정에서 점검 해 주십시오.";
 

@@ -19,9 +19,6 @@ namespace ProjectLucia.Status
 
         [Tooltip("감정 분석 활성화 여부")]
         public bool emotion;
-
-        [Tooltip("RAG 검색 등을 위한 키워드 목록")]
-        public string keywords;
     }
 
     /// <summary>
@@ -215,19 +212,6 @@ namespace ProjectLucia.Status
 
         [Tooltip("사용자 이름")]
         public string user_name;
-    }
-
-    /// <summary>
-    /// RAG(검색 증강 생성) 요청용 페이로드입니다.
-    /// </summary>
-    [Serializable]
-    public class RagPayload
-    {
-        [Tooltip("검색할 텍스트")]
-        public string text;
-
-        [Tooltip("검색 키워드")]
-        public string keywords;
     }
 
     /// <summary>

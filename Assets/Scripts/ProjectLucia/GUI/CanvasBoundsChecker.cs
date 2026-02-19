@@ -196,8 +196,8 @@ namespace ProjectLucia.GUI
         {
             string buttonName = button.name;
 
-            // 항상 표시되어야 하는 핵심 아이콘들
-            bool alwaysShow = (buttonName == "VADDetector" || buttonName == "WSDetector" || buttonName == "RagDetector" || buttonName =="RealDetector");
+            // 항상 표시되어야 하는 핵심 아이콘들 (RagDetector 제거됨)
+            bool alwaysShow = (buttonName == "VADDetector" || buttonName == "WSDetector" || buttonName =="RealDetector");
 
             // RectTransform 가져오기 (캐시 우선)
             if (!_rectTransforms.TryGetValue(button, out var buttonRect))

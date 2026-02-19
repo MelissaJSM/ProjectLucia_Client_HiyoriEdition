@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
-using ProjectLucia.ThirdParty.Keyword;
 using ProjectLucia.ThirdParty.Whisper.Runtime;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -49,9 +47,6 @@ namespace ProjectLucia.GUI
         private string _currentText = "";
         private bool _isLockIme;
 
-        // RAG 키워드 목록 (추후 옵션 통합 고려)
-        private readonly string[] _keywords = { "찾아", "검색", "알려", "추천", "정보", "어디", "어떻게" };
-        
         // 정규식 (한글, 공백)
         private static readonly Regex KoreanRegex = new Regex(@"[가-힣ㄱ-ㅎㅏ-ㅣ]", RegexOptions.Compiled);
         private static readonly Regex SpaceRegex = new Regex(@"\s");
@@ -70,7 +65,8 @@ namespace ProjectLucia.GUI
         private PanelManager _panelManager;
         private LockController _lockController;
         private LogController _logController;
-        private KeywordExtractorOnnx _keywordExtractorOnnx;
+        // RAG 관련 필드 제거됨
+        // private KeywordExtractorOnnx _keywordExtractorOnnx;
 
         #endregion
 
@@ -86,7 +82,8 @@ namespace ProjectLucia.GUI
             _panelManager = GameManager.Instance.PanelManager;
             _lockController = GameManager.Instance.LockController;
             _logController = GameManager.Instance.LogController;
-            _keywordExtractorOnnx = GameManager.Instance.KeywordExtractorOnnx;
+            // RAG 관련 필드 제거됨
+            // _keywordExtractorOnnx = GameManager.Instance.KeywordExtractorOnnx;
         }
 
         private void Start()
@@ -107,8 +104,8 @@ namespace ProjectLucia.GUI
             input.onDeselect.AddListener(OnFocusOut);
             input.onValueChanged.AddListener(OnTextChanged);
 
-            // RAG 버튼 초기화
-            _settingController.OnClickRAG(false);
+            // RAG 버튼 초기화 (삭제됨)
+            // _settingController.OnClickRAG(false);
         }
 
         private void Update()
@@ -243,7 +240,7 @@ namespace ProjectLucia.GUI
 
         /// <summary>
         /// 채팅 입력값을 처리하여 서버로 전송합니다.
-        /// RAG 설정에 따라 일반 대화 또는 검색 요청으로 분기합니다.
+        /// RAG 기능이 서버 내부 로직으로 통합되어, 이제는 단순히 메시지만 전송합니다.
         /// </summary>
         public void ProcessInput(string input)
         {
@@ -260,30 +257,8 @@ namespace ProjectLucia.GUI
                 if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log($"처리된 값: {input}");
                 if (!string.IsNullOrEmpty(input))
                 {
-                    // RAG 모드에 따른 처리
-                    switch (_settingController.SetRAG)
-                    {
-                        case (int)SettingController.RAGEnum.DisableRAG:
-                            _serverClient.SendMessageToServer(input);
-                            break;
-                        case (int)SettingController.RAGEnum.EnableRAG:
-                            _serverClient.SendRAGToServer(input, _keywordExtractorOnnx.Extract(input));
-                            break;
-                        case (int)SettingController.RAGEnum.AutoRAG:
-                            // 키워드 포함 여부에 따라 자동 분기
-                            if (_keywords.Any(input.Contains))
-                            {
-                                _serverClient.SendRAGToServer(input, _keywordExtractorOnnx.Extract(input));
-                            }
-                            else
-                            {
-                                _serverClient.SendMessageToServer(input);
-                            }
-                            break;
-                        default:
-                            if(SettingData.IsDebug) Debug.LogError("rag 값이 범위를 벗어났습니다.");
-                            break;
-                    }
+                    // RAG 분기 로직 제거됨 -> 무조건 일반 메시지 전송
+                    _serverClient.SendMessageToServer(input);
                 }
             }
 

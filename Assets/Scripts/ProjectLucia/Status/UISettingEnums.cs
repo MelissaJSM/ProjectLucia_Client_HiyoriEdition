@@ -250,8 +250,7 @@ namespace ProjectLucia.Status
             LogsButton = 1,
             [Tooltip("마이크 버튼")]
             MicsButton = 2,
-            [Tooltip("RAG(지식 검색) 버튼")]
-            RagButton = 3,
+            // RAG 버튼 삭제됨
         }
 
         /// <summary>

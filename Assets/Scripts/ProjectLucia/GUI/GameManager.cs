@@ -2,7 +2,6 @@ using ProjectLucia.Capture;
 using ProjectLucia.Live2D;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
-using ProjectLucia.ThirdParty.Keyword;
 using ProjectLucia.ThirdParty.Whisper;
 using ProjectLucia.ThirdParty.Whisper.Runtime;
 using ProjectLucia.ThirdParty.Whisper.Runtime.Utils;
@@ -171,15 +170,8 @@ namespace ProjectLucia.GUI
         [Tooltip("실시간 스트리밍 마이크 샘플 처리")]
         [SerializeField] private StreamingSampleMic streamingSampleMic;
         public StreamingSampleMic StreamingSampleMic => streamingSampleMic;
-
-        [Tooltip("키워드 추출기 (ONNX 기반)")]
-        [SerializeField] KeywordExtractorOnnx keywordExtractorOnnx;
-        public KeywordExtractorOnnx KeywordExtractorOnnx => keywordExtractorOnnx;
-
-        [Tooltip("키워드 모델 다운로더")]
-        [SerializeField] KeywordModelDownloader keywordModelDownloader;
-        public KeywordModelDownloader KeywordModelDownloader => keywordModelDownloader;
-
+        
+        
         #endregion
 
         #region Capture Components (캡처 관련 컴포넌트)

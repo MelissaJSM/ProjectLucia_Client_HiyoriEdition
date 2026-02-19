@@ -11,7 +11,6 @@ using UnityEngine.UI;
 using ProjectLucia.GUI;
 using ProjectLucia.Live2D;
 using ProjectLucia.Status;
-using ProjectLucia.ThirdParty.Keyword;
 using ProjectLucia.ThirdParty.Whisper;
 using ProjectLucia.ThirdParty.Whisper.Runtime;
 using ProjectLucia.ThirdParty.Whisper.Runtime.Utils;
@@ -21,7 +20,7 @@ namespace ProjectLucia.Server
 {
     /// <summary>
     /// 설정(Settings) UI의 전반적인 동작을 제어하는 컨트롤러입니다.
-    /// 패널 전환, 설정 값 적용/취소, 서버 연결 설정, RAG/RealTalk 모드 전환 등을 관리합니다.
+    /// 패널 전환, 설정 값 적용/취소, 서버 연결 설정, RealTalk 모드 전환 등을 관리합니다.
     /// </summary>
     public class SettingController : MonoBehaviour
     {
@@ -44,8 +43,7 @@ namespace ProjectLucia.Server
         [SerializeField] private Transform gpuInfoParent;
         public Transform GpuInfoParent => gpuInfoParent;
 
-        [Tooltip("RAG 관련 UI 오브젝트")]
-        [SerializeField] private GameObject ragObject;
+        // RAG 관련 UI 오브젝트 삭제됨
         
         [Header("Buttons")]
         [Tooltip("설정 적용(확인) 버튼")]
@@ -84,13 +82,12 @@ namespace ProjectLucia.Server
         [SerializeField] private bool settingsOpen;
         public bool SettingsOpen => settingsOpen;
 
-        [Header("RealTalk & RAG UI")]
+        [Header("RealTalk UI")]
         [Tooltip("RealTalk 모드 버튼")]
         [SerializeField] private Button realTalkButton;
         [SerializeField] private Image realTalkImage;
-        [Tooltip("RAG 모드 버튼")]
-        [SerializeField] private Button ragButton;
-        [SerializeField] private Image ragImage;
+        
+        // RAG 관련 필드 삭제됨
 
         [Tooltip("RealTalk 버튼 스프라이트 리스트 (Normal)")]
         [SerializeField] private List<Sprite> realTalkImageList;
@@ -99,12 +96,7 @@ namespace ProjectLucia.Server
         [Tooltip("RealTalk 버튼 스프라이트 리스트 (Pressed)")]
         [SerializeField] private List<Sprite> realTalkImageClickList;
 
-        [Tooltip("RAG 버튼 스프라이트 리스트 (Normal)")]
-        [SerializeField] private List<Sprite> ragImageList;
-        [Tooltip("RAG 버튼 스프라이트 리스트 (Highlighted)")]
-        [SerializeField] private List<Sprite> ragImageFocusList;
-        [Tooltip("RAG 버튼 스프라이트 리스트 (Pressed)")]
-        [SerializeField] private List<Sprite> ragImageClickList;
+        // RAG 관련 스프라이트 리스트 삭제됨
         
         [Header("Other UI")]
         [Tooltip("폰트 크기 조절 UI 오브젝트")]
@@ -121,25 +113,7 @@ namespace ProjectLucia.Server
 
         public bool cycleStatus;
 
-        /// <summary>
-        /// RAG(검색 증강 생성) 모드 열거형
-        /// </summary>
-        public enum RAGEnum
-        {
-            DisableRAG = 0,
-            EnableRAG = 1,
-            AutoRAG = 2
-        }
-
-        private int _setRAG;
-        /// <summary>
-        /// 현재 RAG 모드 설정값
-        /// </summary>
-        public int SetRAG
-        {
-            get => _setRAG;
-            set => _setRAG = value;
-        }
+        // RAGEnum 및 SetRAG 삭제됨
 
         #endregion
 
@@ -168,8 +142,8 @@ namespace ProjectLucia.Server
         private ActionManager _actionManager;
         private EmotialController _emotialController;
         private SystemInformation _systemInformation;
-        private KeywordExtractorOnnx _keywordExtractorOnnx;
-        private KeywordModelDownloader _keywordModelDownloader;
+        // RAG 관련 필드 삭제됨
+        // private KeywordModelDownloader _keywordModelDownloader;
 
         #endregion
 
@@ -196,8 +170,6 @@ namespace ProjectLucia.Server
             _actionManager = GameManager.Instance.ActionManager;
             _emotialController = GameManager.Instance.EmotialController;
             _systemInformation  = GameManager.Instance.SystemInformation;
-            _keywordExtractorOnnx = GameManager.Instance.KeywordExtractorOnnx;
-            _keywordModelDownloader = GameManager.Instance.KeywordModelDownloader;
         }
 
         public void Update()
@@ -502,7 +474,8 @@ namespace ProjectLucia.Server
         public void OnTabEtc()
         {
             OnStopServerStatus();
-            _keywordModelDownloader.KeywordDownloadScreen.SetActive(!SettingData.IsExistKeyword);
+            // RAG 관련 다운로드 화면 로직 삭제됨
+            // _keywordModelDownloader.KeywordDownloadScreen.SetActive(!SettingData.IsExistKeyword);
             _panelManager.TabUpdate((int)UISettingEnums.TabsEnum.Etc);
             cycleStatus = false; 
             OkButton(!cycleStatus);
@@ -640,64 +613,7 @@ namespace ProjectLucia.Server
             inputField.ActivateInputField();
         }
 
-        public void OnClickRAG(bool isClick)
-        {
-            if (!SettingData.IsExistKeyword)
-            {
-                if (isClick)
-                {
-                    _actionManager.ErrorCharacterAction(5000, false);
-                }
-                if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("RAG가 존재하지 않거나 오류로 차단됨.");
-                return;
-            }
-
-            if (isClick)
-            {
-                _setRAG = (_setRAG + 1) % 3;
-                if(SettingData.IsDebug) Debug.Log($"RAG 값 : {_setRAG}");
-            }
-            
-            switch (_setRAG)
-            {
-                case (int)RAGEnum.DisableRAG:
-                    if (_keywordExtractorOnnx.Session != null)
-                    {
-                        _keywordExtractorOnnx.KeywordModelEnd();
-                    }
-                    if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("RAG 모드: 사용 중지");
-                    break;
-                case (int)RAGEnum.EnableRAG:
-                    if (_keywordExtractorOnnx.Session == null)
-                    {
-                        _keywordExtractorOnnx.KeywordModelStart();
-                    }
-                    if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("RAG 모드: 항상 동작");
-                    break;
-                case (int)RAGEnum.AutoRAG:
-                    if (_keywordExtractorOnnx.Session == null)
-                    {
-                        _keywordExtractorOnnx.KeywordModelStart();
-                    }
-                    if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("RAG 모드: 자동 감지");
-                    break;
-                default:
-                    if (_keywordExtractorOnnx.Session != null)
-                    {
-                        _keywordExtractorOnnx.KeywordModelEnd();
-                    }
-                    throw new Exception("RAG 선택값이 예상을 벗어났습니다.");
-            }
-            
-            ragButton.image.sprite = ragImageList[_setRAG];
-            ragImage.sprite = ragImageList[_setRAG];
-                
-            SpriteState newSpriteState = ragButton.spriteState;
-            newSpriteState.highlightedSprite = ragImageFocusList[_setRAG];
-            newSpriteState.pressedSprite = ragImageClickList[_setRAG];
-                
-            ragButton.spriteState = newSpriteState;
-        }
+        // OnClickRAG 메서드 삭제됨
 
         public void OnClickRealTalk()
         {

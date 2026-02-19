@@ -44,7 +44,7 @@ namespace ProjectLucia.GUI
         private AudioModelDownloader _audioModelDownloader;
         private SettingController _settingController;
         private DropdownManager _dropdownManager;
-        private KeywordModelDownloader _keywordModelDownloader;
+
 
         // 다운로드 잠금 상태 캐싱 (최적화용)
         private bool? _lastDownloadInteractableState;
@@ -61,7 +61,7 @@ namespace ProjectLucia.GUI
             _audioModelDownloader   = GameManager.Instance.AudioModelDownloader;
             _settingController      = GameManager.Instance.SettingController;
             _dropdownManager        = GameManager.Instance.DropdownManager;
-            _keywordModelDownloader = GameManager.Instance.KeywordModelDownloader;
+
         }
 
         #endregion
@@ -191,12 +191,7 @@ namespace ProjectLucia.GUI
                     _audioModelDownloader.WhisperRequest != null;
             }
             
-            // 키워드 모델 다운로드 상태 확인
-            if (isAudio && _keywordModelDownloader != null)
-            {
-                keywordBusy = _keywordModelDownloader.KeywordRequest != null;
-            }
-            
+
             bool interactable = !(audioBusy || keywordBusy);
 
             // 상태 변경 시에만 UI 갱신 (최적화)

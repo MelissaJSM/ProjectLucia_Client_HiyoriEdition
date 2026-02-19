@@ -198,10 +198,7 @@ namespace ProjectLucia.Status
         /// </summary>
         public static bool IsExistedVad;
         
-        /// <summary>
-        /// 키워드 모델 파일 존재 여부
-        /// </summary>
-        public static bool IsExistKeyword;
+        // RAG 키워드 모델 존재 여부 삭제됨
         
         /// <summary>
         /// VAD 모델 경로
@@ -300,8 +297,8 @@ namespace ProjectLucia.Status
 
         public static readonly string VoxcelebUrl =
             "https://huggingface.co/MelissaJ/spkrec-ecapa-voxceleb-onnx/resolve/main/voxceleb.onnx";
-        public static readonly string KeywordUrl = "https://huggingface.co/sentence-transformers/distiluse-base-multilingual-cased-v2/resolve/main/onnx/model_quint8_avx2.onnx";
-        public static readonly string VocabUrl = "https://huggingface.co/sentence-transformers/distiluse-base-multilingual-cased-v2/resolve/main/vocab.txt";
+        
+        // RAG 관련 URL 삭제됨
     }
 
     public static class DownloadSha1
@@ -335,9 +332,8 @@ namespace ProjectLucia.Status
         };
         public static readonly string VadExpectedSHA1 = "e1e78d47ed5f5577c6d6b64b392a53936c2ca93e";
         public static readonly string VoxcelebSHA1 = "0cc44ed48e5dcd74516554d78962e8f6fd75af4d";
-        public static readonly string KeywordExpectedSHA1 = "4aee880a7e1bfeafb6efedf7e3fe2a9a67dd5a8a";
-        public static readonly string KeywordVocabSah1 = "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c";
-
+        
+        // RAG 관련 SHA1 삭제됨
     }
     #endregion
 

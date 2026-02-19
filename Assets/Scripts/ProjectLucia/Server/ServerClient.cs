@@ -29,7 +29,7 @@ namespace ProjectLucia.Server
 {
     /// <summary>
     /// 서버와의 통신(WebSocket, HTTP)을 담당하는 클라이언트 클래스입니다.
-    /// 채팅, RAG, 피드백, 오디오 재생, 화면 관찰(Observer) 기능을 통합 관리합니다.
+    /// 채팅, 피드백, 오디오 재생, 화면 관찰(Observer) 기능을 통합 관리합니다.
     /// </summary>
     public class ServerClient : MonoBehaviour
     {
@@ -360,31 +360,6 @@ namespace ProjectLucia.Server
         }
 
         /// <summary>
-        /// RAG(검색 증강 생성) 요청을 서버로 전송합니다.
-        /// </summary>
-        public void SendRAGToServer(string message, string keywords)
-        {
-            if (!IsOpen)
-            {
-                if (SettingData.IsDebug) Debug.LogWarning("Server not connected. RAG ignored.");
-                _actionManager.ErrorCharacterAction(1,false);
-                return;
-            }
-
-            if(SettingData.IsDebug) Debug.Log($"rag sending: {message} / {keywords}");
-            userDateTime = NowString();
-            _lastUserMessage = message;
-            _actionManager.LoadingCharacterAction(3545);
-
-            var pkt = new Packet<RagPayload>
-            {
-                op = "rag",
-                data = new RagPayload { text = message, keywords = keywords }
-            };
-            SendJson(pkt);
-        }
-
-        /// <summary>
         /// 피드백을 서버로 전송합니다.
         /// </summary>
         public void SendFeedbackToServer(string feedbackMessage, int feedbackID, Action<string> onCompleted = null)
@@ -649,7 +624,6 @@ namespace ProjectLucia.Server
             public string audio_filename; 
         }
         [Serializable] private class ChatResult { public string op; public string llm_response; public string emotion; public string audio_filename; }
-        [Serializable] private class RAGResult { public string op; public string keywords; public string answer; public string audio_filename; }
         [Serializable] private class FeedbackResult { public string op; public string result; }
         [Serializable] private class MonitoringPacket { public string op; public string status; public StatusGpuInfo[] gpus; }
         [Serializable] private class UploadImageResponse { public bool ok; public string image_id; } 
@@ -676,13 +650,6 @@ namespace ProjectLucia.Server
                     {
                         var res = JsonUtility.FromJson<ChatResult>(json);
                         _main.Enqueue(() => OnChatResult(res));
-                        break;
-                    }
-
-                case "rag_result":
-                    {
-                        var res = JsonUtility.FromJson<RAGResult>(json);
-                        _main.Enqueue(() => OnRagResult(res));
                         break;
                     }
                 
@@ -733,15 +700,6 @@ namespace ProjectLucia.Server
             _panelManager.ResponseTextProcess(res.llm_response, true);
             _mySQLManager.InsertLogData(_lastUserMessage, res.llm_response, res.emotion);
             HandleResponseCompletion(res.llm_response, res.audio_filename);
-        }
-
-        private void OnRagResult(RAGResult res) {
-            if (IsIntroScene()) return;
-            _hasActiveAnswer = true;
-            _emotialController.UpdateLive2DExpression("Neutral");
-            _panelManager.ResponseTextProcess(res.answer, true);
-            _mySQLManager.InsertLogData(_lastUserMessage, res.answer, "Neutral");
-            HandleResponseCompletion(res.answer, res.audio_filename);
         }
 
         private void OnFeedbackResult(FeedbackResult res) {
