@@ -209,13 +209,14 @@ namespace ProjectLucia.ThirdParty.Whisper
                 // 1) 모델 준비 (Whisper & SpeakerVerifier)
                 var whisperTask = whisper.InitModel();
                 
+                Task speakerVerifierTask = Task.CompletedTask;
                 if (speakerVerifier != null)
                 {
                     // 화자 인식 모델 초기화 (비동기)
-                    StartCoroutine(speakerVerifier.InitModel());
+                    speakerVerifierTask = speakerVerifier.InitModel();
                 }
 
-                await whisperTask; // Whisper 모델 로드 대기
+                await Task.WhenAll(whisperTask, speakerVerifierTask); // Whisper 및 SpeakerVerifier 모델 로드 대기
 
                 // 2) 스트림 준비 및 이벤트 연결
                 _stream = await whisper.CreateStream(microphoneRecord);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using ProjectLucia.Status;
 using ProjectLucia.ThirdParty.VAD;
+using ProjectLucia.ThirdParty.Whisper; // SpeakerVerifierORT 네임스페이스 추가
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -121,6 +122,7 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime.Utils
         // 내부 상태 관리
         private enum AsvState { Pending, Verified, Rejected }
         private AsvState _currentAsvState = AsvState.Pending;
+        private bool _isVerifying = false; // 검증 진행 중 여부
 
         // 데이터를 1.5초간 잡아둘 대기열
         private readonly Queue<AudioChunk> _pendingChunks = new Queue<AudioChunk>();
@@ -472,18 +474,46 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime.Utils
         }
 
         // 👮‍♂️ 화자 인식 검문소 로직
-        private void ProcessChunkWithAsv(AudioChunk chunk)
+        private async void ProcessChunkWithAsv(AudioChunk chunk)
         {
+            // 0. 검증 중이면 무조건 대기열에 넣고 리턴 (순서 보장)
+            if (_isVerifying)
+            {
+                _pendingChunks.Enqueue(chunk);
+                return;
+            }
+
             // 1. 목소리가 감지되지 않음 (침묵)
             if (!IsVoiceDetected)
             {
-                // 말하다가 끊긴 경우 -> 상태 초기화 (다음 문장 준비)
+                // 수집 중이었는데 침묵이 옴 -> 문장 끝 -> 즉시 검증 시도
+                if (_currentAsvState == AsvState.Pending && _asvAudioBuffer.Count > 0)
+                {
+                    await CheckSpeakerIdentityAsync();
+                    // 검증이 끝난 후, 현재 침묵 청크 처리
+                    // 검증 결과에 따라 상태가 Verified/Rejected로 변했을 것임.
+                    
+                    if (_currentAsvState == AsvState.Verified)
+                    {
+                         OnChunkReady?.Invoke(chunk);
+                         ResetAsvState(); // 문장 끝났으니 리셋
+                    }
+                    else if (_currentAsvState == AsvState.Rejected)
+                    {
+                         ResetAsvState(); // 리셋
+                         // Rejected된 문장 뒤의 침묵은 Whisper 문맥 유지를 위해 보냄
+                         OnChunkReady?.Invoke(chunk);
+                    }
+                    return;
+                }
+
+                // 이미 판정이 난 상태에서 침묵이 옴 -> 리셋
                 if (_currentAsvState != AsvState.Pending)
                 {
-                    ResetAsvState(); 
+                    ResetAsvState();
                 }
-                
-                // 타인(Rejected)으로 판명된 게 아니라면, 침묵도 보내야 Whisper 문맥이 유지됨
+
+                // 침묵은 (Rejected 상태가 아니면) 항상 통과
                 if (_currentAsvState != AsvState.Rejected)
                 {
                     OnChunkReady?.Invoke(chunk);
@@ -491,68 +521,77 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime.Utils
                 return;
             }
 
-            // 2. 목소리 감지됨! 상태별 처리
+            // 2. 목소리 감지됨
             switch (_currentAsvState)
             {
                 case AsvState.Verified:
-                    // 이미 검증된 문장 -> 프리패스 (즉시 전송)
                     OnChunkReady?.Invoke(chunk);
                     break;
 
                 case AsvState.Rejected:
-                    // 타인으로 판명됨 -> 데이터 무시 (전송 안 함)
+                    // 무시
                     break;
 
                 case AsvState.Pending:
-                    // 아직 누군지 모름 -> 대기열(Queue)에 보관
                     _pendingChunks.Enqueue(chunk);
                     _asvAudioBuffer.AddRange(chunk.Data);
 
-                    // 데이터가 충분히(1.5초) 모였는지 확인
                     float currentDuration = (float)_asvAudioBuffer.Count / Frequency;
                     if (currentDuration >= minAsvDuration)
                     {
-                        CheckSpeakerIdentity();
+                        await CheckSpeakerIdentityAsync();
                     }
                     break;
             }
         }
 
-        // 🕵️‍♀️ 검증 수행 함수
-        private void CheckSpeakerIdentity()
+        // 🕵️‍♀️ 검증 수행 함수 (비동기)
+        private async Task CheckSpeakerIdentityAsync()
         {
-            float[] audioToVerify = _asvAudioBuffer.ToArray();
+            if (_isVerifying) return;
+            _isVerifying = true;
 
-            // 화자 인식 실행 (SpeakerVerifierORT 사용)
-            if (speakerVerifier.VerifyUser(audioToVerify, out float score))
+            try 
             {
-                if(SettingData.IsDebug) Debug.Log($"<color=cyan>🚀 [ASV Success] 주인님 확인! (Score: {score:F2}) -> 스트리밍 시작</color>");
-                
-                // 1. 상태 합격
-                _currentAsvState = AsvState.Verified;
-                
-                // 2. 인증 성공 이벤트 알림
-                OnSpeakerVerified?.Invoke(score);
+                float[] audioToVerify = _asvAudioBuffer.ToArray();
+                var (isVerified, score) = await speakerVerifier.VerifyUserAsync(audioToVerify);
 
-                // 3. 밀려있던 대기열 와르르 방출 (WhisperStream으로)
-                while (_pendingChunks.Count > 0)
+                if (!isRecording) return; // 녹음 중지되었으면 중단
+
+                if (isVerified)
                 {
-                    OnChunkReady?.Invoke(_pendingChunks.Dequeue());
+                    if(SettingData.IsDebug) Debug.Log($"<color=cyan>🚀 [ASV Success] 주인님 확인! (Score: {score:F2})</color>");
+                    _currentAsvState = AsvState.Verified;
+                    OnSpeakerVerified?.Invoke(score);
+                    
+                    // 대기열 방출
+                    while (_pendingChunks.Count > 0)
+                        OnChunkReady?.Invoke(_pendingChunks.Dequeue());
+                }
+                else
+                {
+                    if(SettingData.IsDebug) Debug.Log($"<color=gray>⛔ [ASV Reject] 타인 차단 (Score: {score:F2})</color>");
+                    _currentAsvState = AsvState.Rejected;
+                    _pendingChunks.Clear();
+                }
+                
+                _asvAudioBuffer.Clear();
+            }
+            finally
+            {
+                _isVerifying = false;
+                
+                // 검증 중에 쌓인 큐 처리 (Verified 상태라면 방출, Rejected라면 삭제)
+                if (_currentAsvState == AsvState.Verified)
+                {
+                    while (_pendingChunks.Count > 0)
+                        OnChunkReady?.Invoke(_pendingChunks.Dequeue());
+                }
+                else if (_currentAsvState == AsvState.Rejected)
+                {
+                    _pendingChunks.Clear();
                 }
             }
-            else
-            {
-                if(SettingData.IsDebug) Debug.Log($"<color=gray>⛔ [ASV Reject] 타인 차단 (Score: {score:F2}) -> 데이터 폐기</color>");
-                
-                // 1. 상태 불합격
-                _currentAsvState = AsvState.Rejected;
-
-                // 2. 대기열 삭제 (이 소리는 Whisper가 영원히 모르게 됨)
-                _pendingChunks.Clear();
-            }
-            
-            // 검증용 버퍼 비우기
-            _asvAudioBuffer.Clear();
         }
 
         private void ResetAsvState()
@@ -560,6 +599,7 @@ namespace ProjectLucia.ThirdParty.Whisper.Runtime.Utils
             _currentAsvState = AsvState.Pending;
             _pendingChunks.Clear();
             _asvAudioBuffer.Clear();
+            _isVerifying = false;
         }
 
         #endregion
