@@ -439,6 +439,8 @@ namespace ProjectLucia.ThirdParty.Whisper
 
             if (_whisperManager != null && _whisperManager.isRecording)
             {
+                string textToSend = segment.Result;
+
                 // 호출 웨이크업 기능 (IsCallNow)
                 if (SettingData.IsCallNow)
                 {
@@ -456,13 +458,16 @@ namespace ProjectLucia.ThirdParty.Whisper
                     }
                     
                     if(SettingData.IsDebug) Debug.Log($"[WakeUp] 호출명 '{callName}' 감지됨!");
+
+                    // callName 제거
+                    textToSend = trim.Replace(callName, "").Trim();
                 }
 
                 try
                 {
 #pragma warning disable CS4014
                     if (_inputHandler != null)
-                        _inputHandler.ProcessInput(segment.Result);
+                        _inputHandler.ProcessInput(textToSend);
 #pragma warning restore CS4014
                 }
                 catch (Exception ex)
