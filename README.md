@@ -122,9 +122,9 @@
      - (+)ParamBreath
        * Cubism Harmonic Motion Parameter
 - **Live2d Prefab**: 캐릭터 교체 작업을 할때 live2d 캐릭터의 Prefab 에 등록된 인스펙터를 반드시 확인하여주시길바랍니다.
-      - []Transform
-      - []Cubism Model(스크립트)
-      - []Cubism Parameters Inspector(스크립트)
+      -[] Transform
+      -[] Cubism Model(스크립트)
+      -[] Cubism Parameters Inspector(스크립트)
       - []Cubism Parts Inspector(스크립트)
       - []Cubism Render Controller(스크립트)
       - []Cubism Eye Blink Controller(스크립트)
