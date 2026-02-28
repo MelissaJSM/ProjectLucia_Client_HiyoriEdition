@@ -122,27 +122,27 @@
      - (+)ParamBreath
        * Cubism Harmonic Motion Parameter
 - **Live2d Prefab**: 캐릭터 교체 작업을 할때 live2d 캐릭터의 Prefab 에 등록된 인스펙터를 반드시 확인하여주시길바랍니다.
-      - Transform
-      - Cubism Model(스크립트)
-      - Cubism Parameters Inspector(스크립트)
-      - Cubism Parts Inspector(스크립트)
-      - Cubism Render Controller(스크립트)
-      - Cubism Eye Blink Controller(스크립트)
-      - Cubism Display Info Combined Parameter(스크립트)
-      - Cubism Mask Controller(스크립트)
-      - Cubism Update Controller(스크립트)
-      - Cubism Parameter Store(스크립트)
-      - Cubism Pose Controller(스크립트)
+      - []Transform
+      - []Cubism Model(스크립트)
+      - []Cubism Parameters Inspector(스크립트)
+      - []Cubism Parts Inspector(스크립트)
+      - []Cubism Render Controller(스크립트)
+      - []Cubism Eye Blink Controller(스크립트)
+      - []Cubism Display Info Combined Parameter(스크립트)
+      - []Cubism Mask Controller(스크립트)
+      - []Cubism Update Controller(스크립트)
+      - []Cubism Parameter Store(스크립트)
+      - []Cubism Pose Controller(스크립트)
       - (+)Cubism Expression Controller(스크립트)
         * Express List 에 에셋오브젝트를 반드시 넣어주십시오.
         * 해당 캐릭터에 맞는 에셋 오브젝트를 넣으셔야 합니다.
         * 없으면 직접 만들어야 할 수도 있습니다.
-      - Animator
+      - []Animator
       - (+)Cubism Fade Controller(스크립트)
         * Cubism Fade Motion 에 에셋오브젝트를 반드시 넣어주십시오.
         * 해당 캐릭터에 맞는 에셋 오브젝트를 넣으셔야 합니다.
         * 없으면 직접 만들어야 할 수도 있습니다.
-      - Cubism Physics Controller(스크립트)
+      - []Cubism Physics Controller(스크립트)
       - (+)Cubism Mouth Controller(스크립트)
       - (+)Cubism Auto Eye Blink Input(스크립트)
       - (+)Cubism Look Controller(스크립트)
