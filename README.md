@@ -98,6 +98,49 @@
 ### 캐릭터 교체
 - **Params**: 캐릭터 교체 작업을 할때 live2d 캐릭터의 Params 오브젝트 에 등록된 인스펙터를 반드시 확인하여 어느 부위에 인스펙터가 추가되어있는지 확인하고 교체 부탁드립니다.
 - **Live2d Prefab**: 캐릭터 교체 작업을 할때 live2d 캐릭터의 Prefab 에 등록된 인스펙터를 반드시 확인하여주시길바랍니다.
+Transform
+
+Cubism Model(스크립트)
+
+Cubism Parameters Inspector(스크립트)
+
+Cubism Parts Inspector(스크립트)
+
+Cubism Render Controller(스크립트)
+
+Cubism Eye Blink Controller(스크립트)
+
+Cubism Display Info Combined Parameter(스크립트)
+
+Cubism Mask Controller(스크립트)
+
+Cubism Update Controller(스크립트)
+
+Cubism Parameter Store(스크립트)
+
+Cubism Pose Controller(스크립트)
+
+Cubism Expression Controller(스크립트)
+
+Animator
+
+Cubism Fade Controller(스크립트)
+
+Cubism Physics Controller(스크립트)
+
+Cubism Mouth Controller(스크립트)
+
+Cubism Auto Eye Blink Input(스크립트)
+
+Cubism Look Controller(스크립트)
+
+Cubism Audio Mouth Input(스크립트)
+
+Cubism Harmonic Motion Controller(스크립트)
+
+Cubism Raycaster(스크립트)
+
+Cubism Motion Controller(스크립트)
 
 ---
 *Developed by MelissaJ*
