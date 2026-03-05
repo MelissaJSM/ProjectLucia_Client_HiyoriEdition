@@ -96,8 +96,8 @@ namespace ProjectLucia.ThirdParty.Whisper
             }
 
             // 2. 데이터 로드 (Positive & Negative)
-            await LoadClipsFromFolderAsync("Positive", referenceClips, _masterEmbeddings);
-            await LoadClipsFromFolderAsync("Negative", negativeClips, _negativeEmbeddings);
+            await LoadClipsFromFolderAsync(AudioCategory.Positive, referenceClips, _masterEmbeddings);
+            await LoadClipsFromFolderAsync(AudioCategory.Negative, negativeClips, _negativeEmbeddings);
 
             lock (_lock) _isReady = true;
             
@@ -137,19 +137,20 @@ namespace ProjectLucia.ThirdParty.Whisper
         /// <summary>
         /// 지정된 폴더에서 WAV 파일을 로드하여 임베딩을 추출하고 리스트에 추가합니다.
         /// </summary>
-        private async Task LoadClipsFromFolderAsync(string subFolder, List<AudioClip> clipList, List<float[]> embeddingList)
+        private async Task LoadClipsFromFolderAsync(AudioCategory category, List<AudioClip> clipList, List<float[]> embeddingList)
         {
             // 리스트 초기화는 메인 스레드에서 안전하게 수행 (InitModel 호출 시점에는 경합 없음 가정)
             clipList.Clear();
             lock(_lock) embeddingList.Clear();
             
-            string basePath = Path.Combine(Application.streamingAssetsPath, "Vad","DetectVoice", subFolder);
+            string basePath = Path.Combine(Application.streamingAssetsPath, "Vad", "DetectVoice", category.ToString());
             if (!Directory.Exists(basePath)) Directory.CreateDirectory(basePath);
 
             string[] files = Directory.GetFiles(basePath, "*.wav");
             foreach (string filePath in files)
             {
-                string url = "file://" + filePath;
+                string normalizedPath = filePath.Replace("\\", "/");
+                string url = "file://" + normalizedPath;
                 using var www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV);
                 var op = www.SendWebRequest();
 
@@ -177,7 +178,7 @@ namespace ProjectLucia.ThirdParty.Whisper
                     }
                 }
             }
-            if(SettingData.IsDebug) Debug.Log($"📂 [{subFolder}] {embeddingList.Count}개 등록 완료");
+            if(SettingData.IsDebug) Debug.Log($"📂 [{category}] {embeddingList.Count}개 등록 완료");
         }
 
         #endregion

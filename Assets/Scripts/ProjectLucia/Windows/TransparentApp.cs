@@ -46,6 +46,7 @@ namespace ProjectLucia.Windows
 
         // 윈도우 핸들 및 플래그
         private static readonly IntPtr HwndTopmost = new IntPtr(-1);
+        private static readonly IntPtr HwndNotTopmost = new IntPtr(-2); // 최상위 해제용 핸들
         private IntPtr _hWnd;
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace ProjectLucia.Windows
         }
 
         private const uint SwpNosize = 0x0001;
+        private const uint SwpNomove = 0x0002;
         public const int GwlExstyle = -20;
         public const uint WsExLayered = 0x00080000;
         public const uint WsExTransparent = 0x00000020; 
@@ -144,6 +146,37 @@ namespace ProjectLucia.Windows
                     _textManager.Texts[(int)UISettingEnums.TextsEnum.DebugText].text = statusText;
                 }
             }
+        }
+
+        #endregion
+
+        #region Dialog Interaction Helpers (다이얼로그 상호작용 헬퍼)
+
+        /// <summary>
+        /// 파일 다이얼로그 등을 띄우기 위해 윈도우 설정을 임시로 변경합니다.
+        /// (최상위 속성 해제 및 클릭 가능 상태로 전환)
+        /// </summary>
+        public void EnableInteractionForDialog()
+        {
+#if !UNITY_EDITOR
+            // 1. 클릭 가능하도록 투명 속성 제거 (WsExTransparent 제거)
+            SetWindowLong(_hWnd, GwlExstyle, WsExLayered);
+
+            // 2. 최상위 속성 해제 (다이얼로그가 뒤로 숨는 문제 방지)
+            // HWND_NOTOPMOST = -2
+            SetWindowPos(_hWnd, HwndNotTopmost, 0, 0, 0, 0, SwpNosize | SwpNomove);
+#endif
+        }
+
+        /// <summary>
+        /// 다이얼로그가 닫힌 후 원래 윈도우 설정으로 복구합니다.
+        /// </summary>
+        public void RestoreWindowSettings()
+        {
+#if !UNITY_EDITOR
+            // 원래 설정대로 복구 (SetWindows 호출)
+            SetWindows();
+#endif
         }
 
         #endregion
