@@ -91,6 +91,12 @@ namespace ProjectLucia.Status
         public static bool IsStartMode;
         #endregion
 
+        #region ThinkMode(추론 모드 설정)
+
+        public static bool IsThink;
+
+        #endregion
+
         #region Debug Settings (디버그)
         /// <summary>
         /// 디버그 모드 활성화 여부
@@ -147,6 +153,11 @@ namespace ProjectLucia.Status
         public static string WhisperQuantization;
 
         /// <summary>
+        /// 알림 정도 설정
+        /// </summary>
+        public static int AlertNotification;
+
+        /// <summary>
         /// 음성인식 호출 시스템 활성화
         /// </summary>
         public static bool IsCallNow;
@@ -198,12 +209,19 @@ namespace ProjectLucia.Status
         /// </summary>
         public static bool IsExistedVad;
         
-        // RAG 키워드 모델 존재 여부 삭제됨
+        /// <summary>
+        /// Alert 프로그램 파일 존재 여부
+        /// </summary>
+        public static bool IsExistedAlert;
         
         /// <summary>
         /// VAD 모델 경로
         /// </summary>
         public static string VadModelPath;
+
+        public static string AlertModelPath;
+
+        
         #endregion
 
         #region Real Talk Settings (리얼 토크)
@@ -297,7 +315,11 @@ namespace ProjectLucia.Status
 
         public static readonly string VoxcelebUrl =
             "https://huggingface.co/MelissaJ/spkrec-ecapa-voxceleb-onnx/resolve/main/voxceleb.onnx";
+
+        public static readonly string alertUrl = "https://github.com/MelissaJSM/ProjectLucia_Toast/releases/download/1.0.0/ProjectLucia_Toast.exe";
         
+        
+
         // RAG 관련 URL 삭제됨
     }
 
@@ -332,7 +354,9 @@ namespace ProjectLucia.Status
         };
         public static readonly string VadExpectedSHA1 = "e1e78d47ed5f5577c6d6b64b392a53936c2ca93e";
         public static readonly string VoxcelebSHA1 = "0cc44ed48e5dcd74516554d78962e8f6fd75af4d";
-        
+
+        public static readonly string alertSAH1 = "cf332a5ccfcd3574a162a4b16500e585188e1937";
+
         // RAG 관련 SHA1 삭제됨
     }
     #endregion

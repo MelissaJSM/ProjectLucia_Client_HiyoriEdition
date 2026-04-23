@@ -27,6 +27,9 @@ namespace ProjectLucia.Windows
         public static extern IntPtr GetActiveWindow();
 
         [DllImport("user32.dll")]
+        public static extern uint GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
 
         [DllImport("user32.dll")]
@@ -34,11 +37,14 @@ namespace ProjectLucia.Windows
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
-            uint uFlags);
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         [DllImport("Dwmapi.dll")]
         public static extern uint DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins margins);
+
+        // 🔥 [핵심 추가] 창을 숨기기 위한 ShowWindow API
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         #endregion
 
@@ -48,6 +54,7 @@ namespace ProjectLucia.Windows
         private static readonly IntPtr HwndTopmost = new IntPtr(-1);
         private static readonly IntPtr HwndNotTopmost = new IntPtr(-2); // 최상위 해제용 핸들
         private IntPtr _hWnd;
+        private uint _originalStyle; // 앱 시작 전의 원래 윈도우 스타일 백업
 
         /// <summary>
         /// 현재 윈도우 핸들
@@ -63,6 +70,9 @@ namespace ProjectLucia.Windows
         public const int GwlExstyle = -20;
         public const uint WsExLayered = 0x00080000;
         public const uint WsExTransparent = 0x00000020; 
+        
+        // 🔥 [핵심 추가] 창 숨김 명령어 상수
+        private const int SwHide = 0; 
 
         // 상태 변수
         private bool _toggle = true;
@@ -91,7 +101,6 @@ namespace ProjectLucia.Windows
             catch (Exception e)
             {
                 var scene = SceneManager.GetActiveScene();
-                // 인트로 씬에서는 GameManager가 아직 초기화되지 않았을 수 있음
                 if(SettingData.IsDebug) Debug.Log(scene.name == "IntroScene" ? $"[TransparentApp] IntroScene 예외 (무시 가능): {e.Message}" : e.StackTrace);
             }
         }
@@ -99,22 +108,44 @@ namespace ProjectLucia.Windows
 #if !UNITY_EDITOR
         void Start()
         {
-            // 백그라운드 실행 허용
             Application.runInBackground = true;
         
-            // 윈도우 핸들 가져오기
             _hWnd = GetActiveWindow();
         
-            // 창 투명화 설정 (DWM 확장)
+            // 창 속성을 변경하기 전에 원래 상태 백업
+            _originalStyle = GetWindowLong(_hWnd, GwlExstyle);
+
+            int screenWidth = Display.main.systemWidth; 
+            int screenHeight = Display.main.systemHeight;
+
             Margins margins = new Margins { LeftWidth = -1 };
             DwmExtendFrameIntoClientArea(_hWnd, ref margins);
             
-            // 레이어드 윈도우 설정
             SetWindowLong(_hWnd, GwlExstyle, WsExLayered);
         
-            // 최상위 창으로 설정
-            BringWindowToTop(_hWnd);
-            SetWindowPos(_hWnd, HwndTopmost, 0, 0, 0, 0, SwpNosize);
+            SetWindowPos(_hWnd, HwndTopmost, 0, 0, screenWidth, screenHeight, 0);
+
+            Screen.SetResolution(screenWidth, screenHeight, FullScreenMode.FullScreenWindow);
+        }
+
+        // 🔥 [핵심 수정] 앱 종료 시 창을 먼저 숨긴 후 안전하게 스타일 복원
+        void OnApplicationQuit()
+        {
+            if (_hWnd != IntPtr.Zero)
+            {
+                // 1. 유니티가 꺼지기 전에 화면에서 창을 먼저 지워버림 (검은 화면 깜빡임 차단)
+                ShowWindow(_hWnd, SwHide);
+
+                // 2. 보이지 않는 상태에서 안전하게 원래 윈도우 스타일로 복구 (투명 해제)
+                SetWindowLong(_hWnd, GwlExstyle, _originalStyle);
+
+                // 3. DWM 확장 프레임 초기화 (전체 영역 확장 취소)
+                Margins margins = new Margins { LeftWidth = 0, RightWidth = 0, TopHeight = 0, BottomHeight = 0 };
+                DwmExtendFrameIntoClientArea(_hWnd, ref margins);
+
+                // 4. 최상위(Topmost) 속성 해제
+                SetWindowPos(_hWnd, HwndNotTopmost, 0, 0, 0, 0, SwpNosize | SwpNomove);
+            }
         }
 #endif
 
@@ -122,22 +153,14 @@ namespace ProjectLucia.Windows
 
         #region Window Control (윈도우 제어)
 
-        /// <summary>
-        /// 현재 설정(_toggle)에 따라 윈도우의 클릭 투과 속성을 변경합니다.
-        /// </summary>
         public void SetWindows()
         {
-            // 창을 최상위로 유지
             BringWindowToTop(_hWnd);
             SetWindowPos(_hWnd, HwndTopmost, 0, 0, 0, 0, SwpNosize);
 
-            // 플래그 설정 (투명 + 클릭 투과 여부)
-            // _toggle이 true면 클릭 가능 (WsExLayered만)
-            // _toggle이 false면 클릭 투과 (WsExLayered | WsExTransparent)
             uint flags = _toggle ? WsExLayered : (WsExLayered | WsExTransparent);
             SetWindowLong(_hWnd, GwlExstyle, flags);
 
-            // 디버그 텍스트 업데이트 (인트로 씬 제외)
             if (SceneManager.GetActiveScene().name != "IntroScene" && _textManager != null)
             {
                 string statusText = _toggle ? "프로그램 집중 모드" : "윈도우 집중 모드";
@@ -152,29 +175,17 @@ namespace ProjectLucia.Windows
 
         #region Dialog Interaction Helpers (다이얼로그 상호작용 헬퍼)
 
-        /// <summary>
-        /// 파일 다이얼로그 등을 띄우기 위해 윈도우 설정을 임시로 변경합니다.
-        /// (최상위 속성 해제 및 클릭 가능 상태로 전환)
-        /// </summary>
         public void EnableInteractionForDialog()
         {
 #if !UNITY_EDITOR
-            // 1. 클릭 가능하도록 투명 속성 제거 (WsExTransparent 제거)
             SetWindowLong(_hWnd, GwlExstyle, WsExLayered);
-
-            // 2. 최상위 속성 해제 (다이얼로그가 뒤로 숨는 문제 방지)
-            // HWND_NOTOPMOST = -2
             SetWindowPos(_hWnd, HwndNotTopmost, 0, 0, 0, 0, SwpNosize | SwpNomove);
 #endif
         }
 
-        /// <summary>
-        /// 다이얼로그가 닫힌 후 원래 윈도우 설정으로 복구합니다.
-        /// </summary>
         public void RestoreWindowSettings()
         {
 #if !UNITY_EDITOR
-            // 원래 설정대로 복구 (SetWindows 호출)
             SetWindows();
 #endif
         }

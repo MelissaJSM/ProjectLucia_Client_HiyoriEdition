@@ -142,6 +142,7 @@ namespace ProjectLucia.Server
         private ActionManager _actionManager;
         private EmotialController _emotialController;
         private SystemInformation _systemInformation;
+        private AlertModelDownloader _alertModelDownloader;
         // RAG 관련 필드 삭제됨
         // private KeywordModelDownloader _keywordModelDownloader;
 
@@ -170,6 +171,7 @@ namespace ProjectLucia.Server
             _actionManager = GameManager.Instance.ActionManager;
             _emotialController = GameManager.Instance.EmotialController;
             _systemInformation  = GameManager.Instance.SystemInformation;
+            _alertModelDownloader = GameManager.Instance.AlertModelDownloader;
         }
 
         public void Update()
@@ -375,7 +377,8 @@ namespace ProjectLucia.Server
                 // Etc
                 SettingData.IsDebug = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsDebug].isOn;
                 SettingData.IsEmotion = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsEmotion].isOn;
-
+                SettingData.AlertNotification = _dropdownManager.Dropdowns[(int)UISettingEnums.DropDownEnum.Notification].value;
+                
                 _saveController.SaveSettings();
                 
                 // 상태 갱신
@@ -476,8 +479,15 @@ namespace ProjectLucia.Server
             OnStopServerStatus();
             // RAG 관련 다운로드 화면 로직 삭제됨
             // _keywordModelDownloader.KeywordDownloadScreen.SetActive(!SettingData.IsExistKeyword);
+            
+            SettingData.IsExistedAlert = _alertModelDownloader.IsExistedAlertFind();
+            _alertModelDownloader.AlertDownloadScreen.SetActive(!SettingData.IsExistedAlert);
+            _alertModelDownloader.AlertDownloadStatus.SetActive(SettingData.IsExistedAlert);
+            
             _panelManager.TabUpdate((int)UISettingEnums.TabsEnum.Etc);
             cycleStatus = false; 
+            
+            
             OkButton(!cycleStatus);
             TabInteractable((int)UISettingEnums.TabsEnum.Etc);
         }

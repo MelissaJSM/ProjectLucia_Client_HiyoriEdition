@@ -837,9 +837,9 @@ GameObject:
   - component: {fileID: 679457935}
   - component: {fileID: 679457938}
   - component: {fileID: 679457939}
-  - component: {fileID: 679457940}
   - component: {fileID: 679457942}
   - component: {fileID: 679457941}
+  - component: {fileID: 679457943}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -861,10 +861,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   microphoneRecord: {fileID: 679457938}
   whisperManager: {fileID: 679457939}
-  keywordModelDownloader: {fileID: 679457940}
   transparentApp: {fileID: 851289958}
   mySqlManager: {fileID: 679457942}
   serverClient: {fileID: 679457941}
+  alertModelDownloader: {fileID: 679457943}
   loadingText: {fileID: 1467474376}
   introCharacter: {fileID: 1799341399}
   introTitle: {fileID: 663808329}
@@ -956,6 +956,12 @@ MonoBehaviour:
   singleSegment: 0
   enableTokens: 0
   initialPrompt: 
+  temperature: 0
+  temperatureInc: 0.2
+  entropyThold: 2.4
+  logprobThold: -1
+  noSpeechThold: 0.6
+  suppressNonSpeechTokens: 1
   stepSec: 1
   keepSec: 0.2
   lengthSec: 10
@@ -967,22 +973,6 @@ MonoBehaviour:
   isRecording: 0
   availableModelIndices: 
   useVad: 1
---- !u!114 &679457940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679457934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 912d1fff514730f4e99c7b80d0e1ba1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keywordDownloadScreen: {fileID: 849859573}
-  keywordFileName: keyword_model.onnx
-  keywordFolder: Keyword
-  keywordVocab: vocab.txt
 --- !u!114 &679457941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,6 +1016,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a035ca793caaa4fa329973da0bed02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectLucia.Server.MySQLManager
+--- !u!114 &679457943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679457934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e62be0b0d8e144c83cfdf4f211605c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectLucia.Server.AlertModelDownloader
+  alertDownloadScreen: {fileID: 0}
+  alertDownloadStatus: {fileID: 0}
+  alertFileName: ProjectLucia_Toast.exe
 --- !u!1 &738120489
 GameObject:
   m_ObjectHideFlags: 0

@@ -132,10 +132,11 @@ namespace ProjectLucia.Server
             // 기타 설정 저장
             PlayerPrefs.SetInt("IsDebug",   SettingData.IsDebug ? 1 : 0);
             PlayerPrefs.SetInt("IsEmotion", SettingData.IsEmotion ? 1 : 0);
+            PlayerPrefs.SetInt("IsAlertNotification", SettingData.AlertNotification);
 
             PlayerPrefs.Save();
 
-            if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log("설정이 저장되었습니다.");
+            if(SettingData.IsDebug) Debug.Log("설정이 저장되었습니다.");
         }
 
         /// <summary>
@@ -224,6 +225,7 @@ namespace ProjectLucia.Server
             // 기타
             SettingData.IsDebug   = PlayerPrefs.GetInt("IsDebug", 0) == 1;
             SettingData.IsEmotion = PlayerPrefs.GetInt("IsEmotion", 0) == 1;
+            SettingData.AlertNotification = PlayerPrefs.GetInt("IsAlertNotification", 0);
 
             // 서버 연결 정보
             SettingData.ServerIP     = PlayerPrefs.GetString("SetserverIP", "");
@@ -306,6 +308,7 @@ namespace ProjectLucia.Server
             _toggleManager.IsDebugController(false);
             _toggleManager.IsEmotion(false);
             _lockController.LockBootController(false);
+            _dropdownManager.SetAlertNotification(false);
         }
 
         /// <summary>

@@ -200,9 +200,7 @@ namespace ProjectLucia.GUI
                 return;
             }
             _lastDownloadInteractableState = interactable;
-
-            if (_audioModelDownloader != null)
-                _audioModelDownloader.buttonsAreInteractable = interactable;
+            
 
             // 전체 UI 버튼 잠금/해제 적용
             SetInteractableForAll(interactable);

@@ -150,6 +150,11 @@ namespace ProjectLucia.GUI
         [SerializeField] LockController lockController;
         public LockController LockController => lockController;
 
+        [Tooltip("알림 프로그램")] [SerializeField] private AlertModelDownloader alertModelDownloader;
+        public AlertModelDownloader AlertModelDownloader => alertModelDownloader;
+        [SerializeField] private NotificationManager notificationManager;
+        public NotificationManager NotificationManager => notificationManager;
+
         #endregion
 
         #region AI & Voice Components (AI 및 음성 관련 컴포넌트)

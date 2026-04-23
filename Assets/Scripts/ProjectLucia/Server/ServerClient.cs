@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -13,7 +14,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// 프로젝트 매니저들 (기존 유지)
+// 프로젝트 매니저들
 using ProjectLucia.GUI;
 using ProjectLucia.Live2D;
 using ProjectLucia.Status;
@@ -29,7 +30,7 @@ namespace ProjectLucia.Server
 {
     /// <summary>
     /// 서버와의 통신(WebSocket, HTTP)을 담당하는 클라이언트 클래스입니다.
-    /// 채팅, 피드백, 오디오 재생, 화면 관찰(Observer) 기능을 통합 관리합니다.
+    /// 채팅, 피드백, 오디오 재생, 화면 관찰(Observer) 및 알림(Notification) 기능을 통합 관리합니다.
     /// </summary>
     public class ServerClient : MonoBehaviour
     {
@@ -112,8 +113,10 @@ namespace ProjectLucia.Server
         private bool _hasActiveAnswer;
         private static bool _healthOnce;
 
-        // 관찰 기능 제어 플래그
-        private bool _isObservingBusy; // 이미지 처리 중 중복 방지
+        // 락(Lock) 제어 변수들
+        private bool _isWaitingForChatResult; // [1순위] 유저 채팅 결과를 기다리는 중인지 여부
+        private bool _isObservingBusy;        // [2순위] 관찰 또는 알림 처리를 기다리는 중인지 여부 (이미지 처리 중 중복 방지)
+        private Coroutine _observeTimeoutCo;  // 관찰/알림 타임아웃 코루틴 참조 (안전 해제용)
 
         // 외부 입력(InputField 등) 감지용 프로퍼티
         private bool IsUserTyping
@@ -247,15 +250,15 @@ namespace ProjectLucia.Server
 
         #endregion
 
-        #region Observer Logic (관찰 기능 로직)
+        #region Observer & Notification Logic (관찰 및 알림 로직)
 
         /// <summary>
         /// 화면 변화 감지 시 이미지를 업로드하고 관찰 패킷을 전송하는 코루틴입니다.
         /// </summary>
         private IEnumerator ProcessObserveRoutine(byte[] imageBytes)
         {
-            // 방어 코드: 유저가 타이핑 중이거나, AI가 답변 중이거나, 이미 이미지 처리 중이면 스킵
-            if (IsUserTyping || _hasActiveAnswer || _isObservingBusy)
+            // 방어 코드: 유저가 타이핑 중이거나, AI가 답변 중이거나, 채팅 응답 대기 중이거나, 이미 이미지 처리 중이면 스킵 (2순위)
+            if (IsUserTyping || _hasActiveAnswer || _isObservingBusy || _isWaitingForChatResult)
             {
                 yield break;
             }
@@ -292,7 +295,7 @@ namespace ProjectLucia.Server
 
             // 2. WS 패킷 전송 (업로드 성공 시)
             // 업로드 하는 동안 상태가 변했을 수 있으므로 다시 체크
-            if (!string.IsNullOrEmpty(imageId) && !IsUserTyping && !_hasActiveAnswer)
+            if (!string.IsNullOrEmpty(imageId) && !IsUserTyping && !_hasActiveAnswer && !_isWaitingForChatResult)
             {
                 if (desktopObserver.showDebugLog) if(SettingData.IsDebug) Debug.Log($"[Client] Sending Observe Packet ({imageId})");
                 
@@ -303,8 +306,9 @@ namespace ProjectLucia.Server
                 };
                 SendJson(pkt);
 
-                // 안전장치: 10초 뒤에는 무조건 잠금 해제 (서버 응답 누락 대비)
-                StartCoroutine(ReleaseBusyFlagAfterDelay(10.0f));
+                // 안전장치: 응답 누락 대비 60초 타임아웃
+                if (_observeTimeoutCo != null) StopCoroutine(_observeTimeoutCo);
+                _observeTimeoutCo = StartCoroutine(ReleaseBusyFlagAfterDelay(60.0f));
             }
             else
             {
@@ -312,13 +316,88 @@ namespace ProjectLucia.Server
             }
         }
 
+        /// <summary>
+        /// 외부(NotificationManager 등)에서 알림이 발생했을 때 호출되는 메서드입니다.
+        /// </summary>
+        public void SendNotificationAlert(string appName, string content, string imagePath)
+        {
+            // 2순위: 현재 유저가 채팅 중이거나 응답을 기다리거나, 다른 말을 하고 있으면 알림은 무시합니다.
+            if (!IsOpen || IsUserTyping || _hasActiveAnswer || _isWaitingForChatResult || _isObservingBusy)
+            {
+                if(SettingData.IsDebug) Debug.LogWarning($"[알림 무시됨] 현재 루시아가 바쁩니다. ({appName}: {content})");
+                return;
+            }
+
+            StartCoroutine(NotificationRoutine(appName, content, imagePath));
+        }
+
+        private IEnumerator NotificationRoutine(string appName, string content, string imagePath)
+        {
+            _isObservingBusy = true; // 관찰과 락을 공유 (중복 실행 방지)
+            string imageId = null;
+
+            // 이미지가 있다면 (카카오톡 캡처 등) 업로드 먼저 수행
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                byte[] imageBytes = File.ReadAllBytes(imagePath);
+                
+                // 파일 전송 준비가 끝났으므로 원본 삭제 (용량 관리)
+                try { File.Delete(imagePath); } catch { }
+
+                WWWForm form = new WWWForm();
+                form.AddBinaryData("file", imageBytes, "noti.jpg", "image/jpeg");
+
+                using UnityWebRequest www = UnityWebRequest.Post(uploadImageUrl, form);
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    var res = JsonUtility.FromJson<UploadImageResponse>(www.downloadHandler.text);
+                    if (res is { ok: true })
+                    {
+                        imageId = res.image_id;
+                    }
+                }
+                else
+                {
+                    if(SettingData.IsDebug) Debug.LogError($"[Client] Notification Image Upload Fail: {www.error}");
+                }
+            }
+
+            // 업로드 하는 동안 유저가 채팅을 쳤는지 다시 확인
+            if (IsUserTyping || _hasActiveAnswer || _isWaitingForChatResult)
+            {
+                _isObservingBusy = false;
+                yield break;
+            }
+
+            // 알림 패킷 생성 및 전송
+            var pkt = new Packet<NotificationPayload>
+            {
+                op = "notification", // 서버 백엔드에서 해당 op 처리 필요
+                data = new NotificationPayload
+                {
+                    app_name = appName,
+                    content = content,
+                    image_id = imageId
+                }
+            };
+            SendJson(pkt);
+
+            // 안전장치 타임아웃
+            if (_observeTimeoutCo != null) StopCoroutine(_observeTimeoutCo);
+            _observeTimeoutCo = StartCoroutine(ReleaseBusyFlagAfterDelay(60.0f));
+        }
+
         private IEnumerator ReleaseBusyFlagAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
             if (_isObservingBusy)
             {
+                if(SettingData.IsDebug) Debug.LogWarning("[Client] 관찰/알림 응답 타임아웃. 락을 강제 해제합니다.");
                 _isObservingBusy = false;
             }
+            _observeTimeoutCo = null;
         }
 
         #endregion
@@ -326,9 +405,9 @@ namespace ProjectLucia.Server
         #region Public API (공개 메서드)
 
         /// <summary>
-        /// 채팅 메시지를 서버로 전송합니다. (이미지 포함 가능)
+        /// 채팅 메시지를 서버로 전송합니다. (이미지 포함 가능) - [우선순위 1순위]
         /// </summary>
-        public void SendMessageToServer(string message)
+        public void SendMessageToServer(string message, bool useThink = false)
         {
             if (!IsOpen)
             {
@@ -337,8 +416,16 @@ namespace ProjectLucia.Server
                 return;
             }
 
-            // 채팅 시작 시 관찰 잠금 해제 및 타이핑 상태 설정
+            // [1순위 인터럽트] 루시아가 말하고 있거나 관찰/알림 분석 중이면 즉시 끊어버림
+            if (_hasActiveAnswer || _isObservingBusy)
+            {
+                if(SettingData.IsDebug) Debug.Log("[우선순위] 유저 채팅 감지! 진행 중인 대화 및 백그라운드 작업을 강제 중단합니다.");
+                ForceStopResponse();
+            }
+
+            // 채팅 대기 락(Lock) 설정
             IsUserTyping = true; 
+            _isWaitingForChatResult = true; 
             
             if(SettingData.IsDebug) Debug.Log("Sending message to server : " + message);
             userDateTime = NowString();
@@ -354,9 +441,9 @@ namespace ProjectLucia.Server
             }
 
             if (imagesToSend.Count > 0)
-                StartCoroutine(UploadImagesAndSendChat(message, imagesToSend));
+                StartCoroutine(UploadImagesAndSendChat(message, imagesToSend, useThink));
             else
-                SendChatPacket(message, null);
+                SendChatPacket(message, null, useThink);
         }
 
         /// <summary>
@@ -399,7 +486,7 @@ namespace ProjectLucia.Server
         public void SendRestartingToServer() => StartCoroutine(PostRestart());
 
         /// <summary>
-        /// 현재 진행 중인 응답(오디오, 텍스트 등)을 강제로 중단합니다.
+        /// 현재 진행 중인 응답(오디오, 텍스트 등)과 백그라운드 작업을 강제로 중단합니다.
         /// </summary>
         public void ForceStopResponse()
         {
@@ -407,18 +494,26 @@ namespace ProjectLucia.Server
             _actionManager.ActionCoroutineCheck();
             _panelManager.ResponseTextEnd(true);
             SetLive2DIdle();
-            _hasActiveAnswer = false;
             
-            // 강제 중단 시 채팅 상태 및 관찰 잠금 초기화
+            // 강제 중단 시 관찰/알림 타임아웃 코루틴 정리
+            if (_observeTimeoutCo != null)
+            {
+                StopCoroutine(_observeTimeoutCo);
+                _observeTimeoutCo = null;
+            }
+
+            // 모든 락(Lock) 초기화
+            _hasActiveAnswer = false;
             IsUserTyping = false; 
             _isObservingBusy = false;
+            _isWaitingForChatResult = false; 
         }
 
         #endregion
 
         #region Private Helpers (내부 헬퍼)
 
-        private IEnumerator UploadImagesAndSendChat(string message, List<Texture2D> images)
+        private IEnumerator UploadImagesAndSendChat(string message, List<Texture2D> images, bool useThink)
         {
             var uploadedIds = new List<string>();
             foreach (var img in images)
@@ -437,10 +532,11 @@ namespace ProjectLucia.Server
                 }
             }
             if (_captureGalleryManager != null) _captureGalleryManager.ClearAll();
-            SendChatPacket(message, uploadedIds);
+            
+            SendChatPacket(message, uploadedIds, useThink);
         }
 
-        private void SendChatPacket(string message, List<string> imageIds)
+        private void SendChatPacket(string message, List<string> imageIds, bool useThink)
         {
             var pkt = new Packet<ChatPayload>
             {
@@ -450,8 +546,7 @@ namespace ProjectLucia.Server
                     text = message,
                     emotion = SettingData.IsEmotion,
                     image_ids = imageIds,
-                    
-                    // User Info
+                    think = useThink,
                     user_birth_date = SettingData.UserBirthDate,
                     user_gender = SettingData.UserGender == 0 ? "Man" : "Woman",
                     user_name = SettingData.UserName
@@ -459,7 +554,7 @@ namespace ProjectLucia.Server
             };
             SendJson(pkt);
             
-            // 전송 완료 후 타이핑 종료
+            // 전송 완료 후 타이핑 종료 (응답 대기 상태 _isWaitingForChatResult는 유지됨)
             IsUserTyping = false;
         }
 
@@ -497,7 +592,7 @@ namespace ProjectLucia.Server
             req.timeout = 3;
             yield return req.SendWebRequest();
             if (req.result != UnityWebRequest.Result.Success) if(SettingData.IsDebug) Debug.LogWarning($"[WS] health check fail");
-            else if(SettingData.IsDebug) Debug.Log("[WS] health ok");
+                else if(SettingData.IsDebug) Debug.Log("[WS] health ok");
         }
 
         private async Task ConnectLoop()
@@ -610,10 +705,11 @@ namespace ProjectLucia.Server
         #region Incoming Handling (프로토콜 처리)
 
         // [DTO Definition]
-        [Serializable] private class ObservePayload { 
-            // ReSharper disable once NotAccessedField.Local
-            public string image_id; 
-        }
+        [Serializable] private class ObservePayload { public string image_id; }
+        
+        // 알림 전송용 페이로드
+        [Serializable] private class NotificationPayload { public string app_name; public string content; public string image_id; }
+
         [Serializable] private class ObserveResult 
         { 
             public string op; 
@@ -623,6 +719,7 @@ namespace ProjectLucia.Server
             public string emotion;        
             public string audio_filename; 
         }
+        
         [Serializable] private class ChatResult { public string op; public string llm_response; public string emotion; public string audio_filename; }
         [Serializable] private class FeedbackResult { public string op; public string result; }
         [Serializable] private class MonitoringPacket { public string op; public string status; public StatusGpuInfo[] gpus; }
@@ -639,7 +736,9 @@ namespace ProjectLucia.Server
                     SendJson(pong);
                     break;
 
+                // 관찰 결과와 알림 결과는 동일한 포맷(ObserveResult)으로 처리합니다.
                 case "observe_result":
+                case "notification_result":
                     {
                         var res = JsonUtility.FromJson<ObserveResult>(json);
                         _main.Enqueue(() => OnObserveResult(res));
@@ -669,36 +768,73 @@ namespace ProjectLucia.Server
 
         private void OnObserveResult(ObserveResult res)
         {
+            // 서버 응답 도달 시 타임아웃 코루틴 해제 및 락 동기화
+            if (_observeTimeoutCo != null)
+            {
+                StopCoroutine(_observeTimeoutCo);
+                _observeTimeoutCo = null;
+            }
             _isObservingBusy = false;
 
             if (res.should_speak)
             {
-                if(SettingData.IsDebug) Debug.Log($"<color=cyan>[선톡]: {res.llm_response}</color> (이유: {res.reason})");
+                // [2순위 설움] 유저가 채팅 응답을 기다리는 중이거나 이미 대화 중이면 무시
+                if (_isWaitingForChatResult || _hasActiveAnswer)
+                {
+                    if(SettingData.IsDebug) Debug.LogWarning("[관찰/알림 무시] 현재 유저 채팅 처리 중이거나 대화 중입니다.");
+                    return;
+                }
+
+                if(SettingData.IsDebug) Debug.Log($"<color=cyan>[System 선톡]: {res.llm_response}</color> (이유: {res.reason})");
 
                 if (IsIntroScene()) return;
 
                 _hasActiveAnswer = true;
-                _lastUserMessage = "(Screen Trigger)"; 
+                _lastUserMessage = "(System Trigger)"; 
 
                 _emotialController.UpdateLive2DExpression(string.IsNullOrEmpty(res.emotion) ? "Neutral" : res.emotion);
                 _panelManager.ResponseTextProcess(res.llm_response, true);
-                _mySQLManager.InsertLogData("System:ScreenObservation", res.llm_response, res.emotion ?? "Neutral");
+        
+                // 🔥 수정된 부분: MySQL 에러가 터져도 아래 코드가 실행되도록 예외 처리 격리
+                try
+                {
+                    _mySQLManager.InsertLogData("System:BackgroundEvent", res.llm_response, res.emotion ?? "Neutral");
+                }
+                catch (Exception e)
+                {
+                    if (SettingData.IsDebug) Debug.LogError($"[MySQL Error] 관찰 로그 저장 실패: {e.Message}");
+                }
 
+                // 정상/에러 상관없이 답변 처리 완료 흐름(오디오 재생 등)은 무조건 실행
                 HandleResponseCompletion(res.llm_response, res.audio_filename);
             }
             else
             {
-                if(desktopObserver.showDebugLog) if(SettingData.IsDebug) Debug.Log($"[관찰]: 할 말 없음 ({res.reason})");
+                if(desktopObserver.showDebugLog) if(SettingData.IsDebug) Debug.Log($"[관찰/알림]: 할 말 없음 ({res.reason})");
             }
         }
 
         private void OnChatResult(ChatResult res)
         {
             if (IsIntroScene()) return;
+
+            _isWaitingForChatResult = false; 
+            if (_hasActiveAnswer) ForceStopResponse(); 
+
             _hasActiveAnswer = true;
             _emotialController.UpdateLive2DExpression(string.IsNullOrEmpty(res.emotion) ? "Neutral" : res.emotion);
             _panelManager.ResponseTextProcess(res.llm_response, true);
-            _mySQLManager.InsertLogData(_lastUserMessage, res.llm_response, res.emotion);
+    
+            // 🔥 수정된 부분: MySQL 에러가 터져도 아래 코드가 실행되도록 격리
+            try
+            {
+                _mySQLManager.InsertLogData(_lastUserMessage, res.llm_response, res.emotion);
+            }
+            catch (Exception e)
+            {
+                if (SettingData.IsDebug) Debug.LogError($"[MySQL Error] 챗 로그 저장 실패: {e.Message}");
+            }
+
             HandleResponseCompletion(res.llm_response, res.audio_filename);
         }
 
@@ -758,9 +894,7 @@ namespace ProjectLucia.Server
         private float CalculateReadingDuration(string text)
         {
             if (string.IsNullOrEmpty(text)) return 3.0f;
-            // 한글 평균 읽기 속도 고려 (초당 5~6글자) + 여유 시간
-            // 0.2s per char + 2.0s base delay
-            return Mathf.Max(3.0f, text.Length * 0.2f + 2.0f);
+            return Mathf.Max(3.0f, text.Length * 0.3f + 2.0f);
         }
 
         /// <summary>
@@ -785,7 +919,6 @@ namespace ProjectLucia.Server
             
             if (req.result != UnityWebRequest.Result.Success) 
             {
-                // 오디오 다운로드 실패 시 텍스트 대기로 전환
                 if(SettingData.IsDebug) Debug.LogWarning($"Audio download failed: {req.error}. Fallback to text wait.");
                 float duration = CalculateReadingDuration(textContent);
                 if (_audioWaitCo != null) StopCoroutine(_audioWaitCo);
@@ -796,7 +929,6 @@ namespace ProjectLucia.Server
             var clip = DownloadHandlerAudioClip.GetContent(req);
             if (clip == null) 
             {
-                // 오디오 클립 로드 실패 시 텍스트 대기로 전환
                 float duration = CalculateReadingDuration(textContent);
                 if (_audioWaitCo != null) StopCoroutine(_audioWaitCo);
                 _audioWaitCo = StartCoroutine(WaitForTextReadRoutine(duration));
@@ -824,7 +956,7 @@ namespace ProjectLucia.Server
         {
             using var req = new UnityWebRequest(httpRestartUrl, UnityWebRequest.kHttpVerbPOST);
             req.downloadHandler = new DownloadHandlerBuffer();
-            req.timeout = 10;
+            req.timeout = 60; // 모델 리로드 시간 고려
             yield return req.SendWebRequest();
             if (req.result == UnityWebRequest.Result.Success)
             {
@@ -873,11 +1005,13 @@ namespace ProjectLucia.Server
         }
 
         private bool IsIntroScene() => SceneManager.GetActiveScene().name == "IntroScene";
+        
         private void SetLive2DIdle()
         {
             if (GameManager.Instance?.Live2DGameObject)
                 GameManager.Instance.Live2DGameObject.GetComponent<CubismExpressionController>().CurrentExpressionIndex = (int)Live2DEnums.Live2DList.Idle;
         }
+        
         private void SetServerStatusText(string text, Color color)
         {
             if (_textManager == null) return;

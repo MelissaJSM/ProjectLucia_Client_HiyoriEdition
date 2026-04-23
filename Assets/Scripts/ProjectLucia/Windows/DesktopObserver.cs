@@ -97,15 +97,8 @@ namespace ProjectLucia.Windows
             _logController = GameManager.Instance.LogController;
             _serverClient = GameManager.Instance.ServerClient;
 
-            // RealTalkPixel 설정값 파싱 (저해상도 크기 설정)
-            if (System.Enum.TryParse(SettingData.RealTalkPixel, out UISettingEnums.RealtimePixelEnums result))
-            {
-                _lowResSize = (int)result;
-            }
-            else
-            {
-                _lowResSize = (int)UISettingEnums.RealtimePixelEnums.Low; // 기본값
-            }
+            // 초기 해상도 설정
+            UpdateRealtimePixelSetting();
         }
 
         void Update()
@@ -140,6 +133,28 @@ namespace ProjectLucia.Windows
 
         #endregion
 
+        #region Public Methods (공개 메서드)
+
+        /// <summary>
+        /// 실시간 해상도 설정이 변경되었을 때 호출하여 _lowResSize를 갱신합니다.
+        /// </summary>
+        public void UpdateRealtimePixelSetting()
+        {
+            if (System.Enum.TryParse(SettingData.RealTalkPixel, out UISettingEnums.RealtimePixelEnums result))
+            {
+                _lowResSize = (int)result;
+            }
+            else
+            {
+                _lowResSize = (int)UISettingEnums.RealtimePixelEnums.Low; // 기본값
+            }
+
+            if (showDebugLog) 
+                if(SettingData.IsDebug) Debug.Log($"[Observer] 해상도 비교 사이즈 변경됨: {_lowResSize}");
+        }
+
+        #endregion
+
         #region Screen Capture & Comparison (화면 캡처 및 비교)
 
         /// <summary>
@@ -158,11 +173,10 @@ namespace ProjectLucia.Windows
 
                 if (rawBytes == null)
                 {
-                    return (false, 0f, null, null, 0, 0);
+                    return (false, 0f, (Color32[])null, 0, 0); // 💡 리턴 타입 튜플 변경
                 }
 
                 // 2. Raw Byte Array -> Color32[] 변환 (리사이징을 위해)
-                //    (참고: Color32 구조체는 메인 스레드 제약 없음)
                 Color32[] rawPixels = new Color32[width * height];
                 for (int i = 0; i < rawPixels.Length; i++)
                 {
@@ -171,8 +185,12 @@ namespace ProjectLucia.Windows
                 }
 
                 // 3. 리사이징 (비동기)
-                Color32[] currentLowRes = ResizeToLowRes(rawPixels, width, height, _lowResSize, _lowResSize);
-
+                float aspectRatio = (float)width / height; 
+                int targetHeight = _lowResSize; // 세로를 드롭다운 설정값으로 고정
+                int targetWidth = Mathf.RoundToInt(_lowResSize * aspectRatio); // 가로를 비율에 맞춰 계산
+                
+                Color32[] currentLowRes = ResizeToLowRes(rawPixels, width, height, targetWidth, targetHeight);
+                
                 // 4. 비교 로직 (비동기)
                 if (_lastFrameLowRes != null)
                 {
@@ -180,19 +198,20 @@ namespace ProjectLucia.Windows
 
                     if (diff >= changeThreshold)
                     {
-                        // 변화 감지됨 -> 원본 데이터도 반환해야 함 (나중에 인코딩 위해)
-                        return (true, diff, currentLowRes, rawBytes, width, height);
+                        // 💡 변화 감지됨 -> rawBytes 대신 리사이징된 currentLowRes와 사이즈를 반환
+                        return (true, diff, currentLowRes, targetWidth, targetHeight);
                     }
                 }
                 
                 // 변화 없음 또는 첫 프레임
-                return (false, 0f, currentLowRes, null, 0, 0);
+                return (false, 0f, currentLowRes, targetWidth, targetHeight);
 
             }).ContinueWith(task =>
             {
-                var (changed, diff, currentLowRes, rawBytes, width, height) = task.Result;
+                // 💡 튜플 구조 변경: width, height 대신 targetW, targetH로 받음
+                var (changed, diff, currentLowRes, targetW, targetH) = task.Result;
 
-                if (rawBytes == null && currentLowRes == null)
+                if (currentLowRes == null)
                 {
                     // 캡처 실패
                     if (showDebugLog) if(SettingData.IsDebug) Debug.LogWarning("[Observer] 캡쳐 실패");
@@ -207,10 +226,9 @@ namespace ProjectLucia.Windows
                     _wasChanging = true;
                     _stableTimer = 0f;
 
-                    // 변화 감지 시 JPG 인코딩 (메인 스레드에서 Texture2D 생성 후 인코딩)
-                    // Texture2D 생성은 메인 스레드 필수
-                    Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-                    tex.LoadRawTextureData(rawBytes);
+                    // 💡 [핵심 수정] 원본 rawBytes 대신 currentLowRes(리사이징된 데이터)를 사용하여 텍스처 생성
+                    Texture2D tex = new Texture2D(targetW, targetH, TextureFormat.RGBA32, false);
+                    tex.SetPixels32(currentLowRes);
                     tex.Apply();
                     
                     _pendingImageData = tex.EncodeToJPG(75);

@@ -212,6 +212,10 @@ namespace ProjectLucia.Status
 
         [Tooltip("사용자 이름")]
         public string user_name;
+        
+        [Tooltip("사고 모드")]
+        public bool think;
+        
     }
 
     /// <summary>

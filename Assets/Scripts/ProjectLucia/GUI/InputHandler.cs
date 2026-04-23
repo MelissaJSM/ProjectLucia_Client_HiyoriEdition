@@ -258,7 +258,7 @@ namespace ProjectLucia.GUI
                 if (!string.IsNullOrEmpty(input))
                 {
                     // RAG 분기 로직 제거됨 -> 무조건 일반 메시지 전송
-                    _serverClient.SendMessageToServer(input);
+                    _serverClient.SendMessageToServer(input, SettingData.IsThink);
                 }
             }
 

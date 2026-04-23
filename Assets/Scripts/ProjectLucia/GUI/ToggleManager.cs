@@ -18,6 +18,10 @@ namespace ProjectLucia.GUI
         [SerializeField] private List<Toggle> toggles; 
         public List<Toggle> Toggles => toggles;
 
+        [Tooltip("추론용 버튼과 이미지")]
+        public List<Sprite> thinkTextures;
+        [SerializeField] private Image thinkDetector;
+
         [Tooltip("다운로드 동의 UI 오브젝트 리스트 (VAD, Whisper, Keyword 순)")]
         [SerializeField] private List<GameObject> downLoadObjects;
 
@@ -273,7 +277,7 @@ namespace ProjectLucia.GUI
         /// <summary>
         /// 다운로드 동의 토글 상태에 따라 다운로드 버튼을 활성화/비활성화합니다.
         /// </summary>
-        /// <param name="setObject">대상 인덱스 (0: VAD, 1: Whisper, 2: Keyword, 4: 전체 초기화)</param>
+        /// <param name="setObject">대상 인덱스 (0: VAD, 1: Whisper, 2: Alert, 4: 전체 초기화)</param>
         public void IsSetDownloadAgree(int setObject)
         {
             int start = setObject;
@@ -323,6 +327,46 @@ namespace ProjectLucia.GUI
 
             if (!isClick)
                 Toggles[(int)UISettingEnums.TogglesEnum.IsEmotion].SetIsOnWithoutNotify(value);
+        }
+
+        /// <summary>
+        /// 추론 기능 활성화 여부를 설정합니다.
+        /// 다만 gemma3 는 활성화 하던 말던 동작 안합니다.
+        /// </summary>
+        public void IsThink()
+        {
+            SettingData.IsThink = !SettingData.IsThink;
+            if(SettingData.IsDebug) Debug.Log($"추론모드 {(SettingData.IsThink ? "활성화" : "비활성화")}");
+
+            if (SettingData.IsThink)
+            {
+                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].image.sprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.yes_idle];
+                SpriteState newSpriteState = _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].spriteState;
+                newSpriteState.highlightedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.yes_focus];
+                newSpriteState.pressedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.yes_click];
+                
+                newSpriteState.selectedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.yes_idle];
+                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].spriteState = newSpriteState;
+                
+                thinkDetector.sprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.yes_idle];
+            }
+            else
+            {
+                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].image.sprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_idle];
+                SpriteState newSpriteState = _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].spriteState;
+                newSpriteState.highlightedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_focus];
+                newSpriteState.pressedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_click];
+                
+                newSpriteState.selectedSprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_idle];
+                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].spriteState = newSpriteState;
+                
+                thinkDetector.sprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_idle];
+            }
+
+           
+            
+    
+            
         }
 
         #endregion

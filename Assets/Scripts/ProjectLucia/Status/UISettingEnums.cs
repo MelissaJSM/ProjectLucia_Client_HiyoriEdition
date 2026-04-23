@@ -87,6 +87,8 @@ namespace ProjectLucia.Status
             UserGender = 14,
             [Tooltip("Whisper 양자화(Quantization) 설정")]
             WhisperQuantization = 15,
+            [Tooltip("알림 설정")]
+            Notification = 16,
         }
 
         /// <summary>
@@ -250,6 +252,10 @@ namespace ProjectLucia.Status
             LogsButton = 1,
             [Tooltip("마이크 버튼")]
             MicsButton = 2,
+            [Tooltip("실시간 채팅 버튼")]
+            RealTalkButton = 3,
+            [Tooltip("추론 모드 버튼")]
+            ThinkButton = 4,
             // RAG 버튼 삭제됨
         }
 
@@ -354,9 +360,10 @@ namespace ProjectLucia.Status
         /// </summary>
         public enum RealtimePixelEnums
         {
-            Low = 64,
-            Medium = 256,
-            High = 512,
+            Low = 180,
+            Medium = 360,
+            High = 720,
+            Ultra = 1080,
         }
 
         #endregion
@@ -383,6 +390,29 @@ namespace ProjectLucia.Status
             Whisper = 2,
             Keyword = 3,
             All = 4,
+        }
+
+        /// <summary>
+        /// 추론 버튼용 버튼 이미지들
+        /// </summary>
+        public enum ThinkButtonEnums
+        {
+            no_idle = 0,
+            no_click = 1,
+            no_focus = 2,
+            yes_idle = 3,
+            yes_click = 4,
+            yes_focus = 5,
+        }
+
+        /// <summary>
+        /// 알림 전송 설정용 리스트
+        /// </summary>
+        public enum AlertNotificationEnums
+        {
+            not = 0,
+            windows = 1,
+            all = 2
         }
 
         #endregion

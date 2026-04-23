@@ -40,6 +40,7 @@ namespace ProjectLucia.GUI
         private WhisperManager _whisperManager;
         private SystemInformation _systemInformation;
         private TextManager _textManager;
+        private NotificationManager _notificationManager;
 
         // 메인 카메라 캐시
         private Camera _mainCam;
@@ -78,6 +79,7 @@ namespace ProjectLucia.GUI
             _whisperManager       = GameManager.Instance.WhisperManager;
             _systemInformation    = GameManager.Instance.SystemInformation;
             _textManager          = GameManager.Instance.TextManager;
+            _notificationManager  = GameManager.Instance.NotificationManager;
 
             _mainCam = Camera.main;
 
@@ -602,13 +604,24 @@ namespace ProjectLucia.GUI
         /// </summary>
         public void SetRealtimePixel(bool isClick)
         {
+            var dropdown = Dropdowns[(int)UISettingEnums.DropDownEnum.RealtimePixel];
+
             if (isClick)
             {
-                // UI 조작 시에는 SettingData 변경 안 함 (별도 로직 처리)
+                // 1. SettingData에 현재 드롭다운의 텍스트 값을 저장
+                SettingData.RealTalkPixel = dropdown.options[dropdown.value].text;
+                
+                if (SettingData.IsDebug) if(SettingData.IsDebug) Debug.Log($"리얼타임 픽셀 품질 변경됨: {SettingData.RealTalkPixel}");
+
+                // 2. DesktopObserver에 즉시 갱신 명령 내리기
+                var desktopObserver = FindObjectOfType<DesktopObserver>();
+                if (desktopObserver != null)
+                {
+                    desktopObserver.UpdateRealtimePixelSetting();
+                }
             }
             else
             {
-                var dropdown = Dropdowns[(int)UISettingEnums.DropDownEnum.RealtimePixel];
                 int idx = dropdown.options.FindIndex(o => o.text == SettingData.RealTalkPixel);
                 if (idx != -1)
                 {
@@ -632,15 +645,36 @@ namespace ProjectLucia.GUI
                     .SetValueWithoutNotify(SettingData.UserGender);
             }
         }
-
+        
         /// <summary>
-        /// 카메라 장치를 설정합니다. (미구현)
+        /// 알림 시스템을 설정합니다.
         /// </summary>
-        public void SetCameraDevice(bool isClick)
+        public void SetAlertNotification(bool isClick)
         {
-            // 추후 구현 예정
-        }
+            int value;
+            if (isClick)
+            {
+                value = Dropdowns[(int)UISettingEnums.DropDownEnum.Notification].value;
+            }
+            else
+            {
+                value = SettingData.AlertNotification;
+                
+                Dropdowns[(int)UISettingEnums.DropDownEnum.Notification]
+                    .SetValueWithoutNotify(value);
+            }
 
+            if (value == 0)
+            {
+                _notificationManager.StopToastProcess();
+            }
+            else
+            {
+                _notificationManager.StartToastProcess();
+            }
+        }
+        
+        
         #endregion
 
         #region Helper Methods (보조 메서드)
