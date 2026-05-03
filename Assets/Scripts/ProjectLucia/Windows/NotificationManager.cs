@@ -33,11 +33,15 @@ namespace ProjectLucia.Windows
         private UdpClient _udpClient;
         private Thread _receiveThread;
         
-        // 🔥 추가됨: 스레드 간 안전한 상태 공유를 위한 volatile 키워드
+        // 스레드 간 안전한 상태 공유를 위한 volatile 키워드
         private volatile bool _isRunningUDP; 
         
         private readonly Queue<string> _messageQueue = new Queue<string>();
         private readonly object _lockObject = new object();
+
+        // 🔥 중복 종료 및 실행 방지용 플래그
+        private bool _isShuttingDown = false;
+        private bool _isProcessStarting = false;
 
         // ==========================================
         // [Win32 API] ShellExecute 선언
@@ -56,18 +60,21 @@ namespace ProjectLucia.Windows
         }
 
         // ==========================================
-        // [프로세스 제어] 시작 및 종료
+        // [프로세스 제어] 시작
         // ==========================================
-        
         public async void StartToastProcess() 
         {
             if (!ValidateFile() || !SettingData.IsExistedAlert) return;
 
-            // 1. 기존에 떠있는 모든 유령 프로세스를 OS 단에서 학살 (중복 방지)
+            // 🔥 중복 실행 방지: 이미 켜는 중이면 무시 (탭 연타, 설정창 무한 팝업 방어)
+            if (_isProcessStarting) return;
+            _isProcessStarting = true;
+
+            // 1. 기존에 떠있는 프로세스를 OS 단에서 학살
             StopToastProcess();
 
-            // 2. 프로세스가 완전히 소멸할 때까지 0.5초 대기
-            await Task.Delay(500);
+            // 🔥 2. taskkill 명령이 먹히고 OS가 파일 락을 풀 때까지 1초간 부드럽게 대기 (크래시 방지)
+            await Task.Delay(1000);
 
             try
             {
@@ -92,6 +99,11 @@ namespace ProjectLucia.Windows
             {
                 Debug.LogError($"프로세스 실행 중 예외 발생: {e.Message}");
             }
+            finally
+            {
+                // 🔥 실행이 성공하든 실패하든 락을 무조건 해제합니다.
+                _isProcessStarting = false;
+            }
         }
 
         private bool ValidateFile()
@@ -104,13 +116,17 @@ namespace ProjectLucia.Windows
             return true;
         }
 
+        // ==========================================
+        // [프로세스 제어] 종료
+        // ==========================================
         public void StopToastProcess()
         {
             StopUDP();
 
             try
             {
-                // CMD의 taskkill로 이름이 일치하는 프로세스 싹쓸이
+                // 🔥 멜리사님의 원본 방식: 유니티 Native Error 버그를 피하는 가장 안정적인 방법!
+                // CMD의 taskkill로 이름이 일치하는 프로세스 싹쓸이 명령 전송 (Fire and Forget)
                 string killCommand = $"/F /IM {exeFileName} /T";
                 ShellExecute(IntPtr.Zero, "open", "taskkill.exe", killCommand, "", SW_HIDE);
                 
@@ -148,8 +164,7 @@ namespace ProjectLucia.Windows
                 _udpClient = null; 
             }
 
-            // 🔥 핵심 수정: _receiveThread.Join(500); 제거!
-            // 유니티 메인 스레드의 종료를 막지 않고 스레드를 버립니다.
+            // 유니티 메인 스레드 종료를 막지 않기 위해 _receiveThread.Join() 사용 안 함
             _receiveThread = null; 
         }
 
@@ -173,11 +188,11 @@ namespace ProjectLucia.Windows
             }
             catch (SocketException)
             {
-                // 🔥 추가됨: 앱 종료 시 UdpClient.Close()가 호출되어 생기는 자연스러운 끊김 현상이므로 무시합니다.
+                // 앱 종료 시 UdpClient.Close()가 호출되어 생기는 자연스러운 끊김 현상이므로 무시합니다.
             }
             catch (Exception e) 
             { 
-                // 🔥 추가됨: 시스템이 살아있을 때만 에러 출력 (종료 중 메모리 에러 방지)
+                // 시스템이 살아있을 때만 에러 출력 (종료 중 메모리 에러 방지)
                 if (_isRunningUDP) 
                 {
                     try { Debug.LogError($"UDP 수신 오류: {e.Message}"); } catch {}
@@ -226,8 +241,23 @@ namespace ProjectLucia.Windows
             }
         }
 
+        // ==========================================
+        // [종료 이벤트] 앱 파괴 / 씬 전환 처리
+        // ==========================================
+        
+        // 🔥 씬이 넘어갈 때 (Reboot 시) 무조건 호출되어 좀비 프로세스 방지
+        void OnDestroy()
+        {
+            if (_isShuttingDown) return;
+            _isShuttingDown = true;
+            StopToastProcess();
+        }
+
+        // 앱이 완전히 꺼질 때
         void OnApplicationQuit()
         {
+            if (_isShuttingDown) return;
+            _isShuttingDown = true;
             StopToastProcess();
         }
     }

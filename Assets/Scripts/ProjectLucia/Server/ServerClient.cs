@@ -108,6 +108,10 @@ namespace ProjectLucia.Server
         private bool _closing;
         private bool _run = true;
         private Coroutine _audioWaitCo;
+        
+        // 🔥 추가: 진행 중인 다운로드를 추적하기 위한 변수
+        private Coroutine _downloadAudioCo; 
+        private UnityWebRequest _activeAudioReq; 
 
         // UI 및 상태 제어
         private bool _hasActiveAnswer;
@@ -419,7 +423,7 @@ namespace ProjectLucia.Server
             // [1순위 인터럽트] 루시아가 말하고 있거나 관찰/알림 분석 중이면 즉시 끊어버림
             if (_hasActiveAnswer || _isObservingBusy)
             {
-                if(SettingData.IsDebug) Debug.Log("[우선순위] 유저 채팅 감지! 진행 중인 대화 및 백그라운드 작업을 강제 중단합니다.");
+                if(SettingData.IsDebug) Debug.Log("[우선순위] 유저 채팅 감지! 진행 중인 대화 및 백그라운 작업을 강제 중단합니다.");
                 ForceStopResponse();
             }
 
@@ -490,7 +494,13 @@ namespace ProjectLucia.Server
         /// </summary>
         public void ForceStopResponse()
         {
+            // 기존 오디오 재생 중지
             if (_audioWaitCo != null) { StopCoroutine(_audioWaitCo); _audioSource.Stop(); _audioWaitCo = null; }
+            
+            // 🔥 통신 추적: 진행중인 다운로드 코루틴 및 웹 통신 강제 취소
+            if (_downloadAudioCo != null) { StopCoroutine(_downloadAudioCo); _downloadAudioCo = null; }
+            if (_activeAudioReq != null) { _activeAudioReq.Abort(); _activeAudioReq = null; }
+
             _actionManager.ActionCoroutineCheck();
             _panelManager.ResponseTextEnd(true);
             SetLive2DIdle();
@@ -877,7 +887,9 @@ namespace ProjectLucia.Server
             if (!string.IsNullOrEmpty(audioFilename))
             {
                 var audioUrl = httpAudioBase + audioFilename;
-                StartCoroutine(DownloadAndPlayAudio(audioUrl, text));
+                // 🔥 추가: 기존 다운로드 코루틴이 있다면 종료 후 시작
+                if (_downloadAudioCo != null) StopCoroutine(_downloadAudioCo);
+                _downloadAudioCo = StartCoroutine(DownloadAndPlayAudio(audioUrl, text));
             }
             else
             {
@@ -912,11 +924,19 @@ namespace ProjectLucia.Server
         private IEnumerator DownloadAndPlayAudio(string audioUrl, string textContent)
         {
             using var req = new UnityWebRequest(audioUrl, UnityWebRequest.kHttpVerbGET);
-            var dh = new DownloadHandlerAudioClip(audioUrl, AudioType.WAV) { streamAudio = true };
+            _activeAudioReq = req; // 🔥 통신 추적 시작
+
+            // 🔥 수정: streamAudio를 false로 변경! (파일이 작으므로 한 번에 받는 것이 훨씬 안전함)
+            var dh = new DownloadHandlerAudioClip(audioUrl, AudioType.WAV) { streamAudio = false };
             req.downloadHandler = dh;
-            req.timeout = Mathf.Max(1, requestTimeout);
-            yield return req.SendWebRequest();
             
+            // 🔥 수정: 오디오 다운로드 타임아웃을 600초(10분)에서 15초로 대폭 단축하여 무한 멈춤 방지
+            req.timeout = 15; 
+
+            yield return req.SendWebRequest();
+
+            _activeAudioReq = null; // 🔥 통신 추적 해제
+
             if (req.result != UnityWebRequest.Result.Success) 
             {
                 if(SettingData.IsDebug) Debug.LogWarning($"Audio download failed: {req.error}. Fallback to text wait.");
@@ -944,7 +964,22 @@ namespace ProjectLucia.Server
 
         private IEnumerator WaitForAudioEndRoutine(AudioSource audioSource)
         {
-            while (audioSource.isPlaying) yield return null;
+            // ✨ 안전장치: 오디오 길이보다 조금 더 긴 '최대 대기 시간' 계산
+            // 만약 사운드 장치 문제로 isPlaying이 안 꺼져도 이 시간이 지나면 강제 종료됩니다.
+            float maxWaitTime = audioSource.clip.length + 5.0f; 
+            float startTime = Time.realtimeSinceStartup;
+
+            while (audioSource.isPlaying)
+            {
+                // 장치 문제로 무한 루프에 빠지는 것을 방지
+                if (Time.realtimeSinceStartup - startTime > maxWaitTime)
+                {
+                    if (SettingData.IsDebug) Debug.LogWarning("[Client] 오디오 재생이 비정상적으로 길어짐. 강제 종료합니다.");
+                    break; 
+                }
+                yield return null;
+            }
+
             yield return _wait2Sec; 
             _panelManager.ResponseTextEnd(true);
             SetLive2DIdle();

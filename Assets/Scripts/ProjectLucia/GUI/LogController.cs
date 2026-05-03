@@ -295,7 +295,7 @@ namespace ProjectLucia.GUI
             string assistantName;
             if (SettingData.CallName == null || SettingData.CallName.Trim() == "")
             {
-                assistantName = "모모세 히요리";
+                assistantName = "루시아 발렌타인";
             }
             else
             {
@@ -369,16 +369,9 @@ namespace ProjectLucia.GUI
 
                 try
                 {
-                    string filtered = serverResponse;
+                    string filtered = serverResponse; 
 
-                    // JSON 파싱
-                    var parsed = JsonUtility.FromJson<FeedbackResultWrapper>(serverResponse);
-                    if (parsed is { feedback_result: not null } && !string.IsNullOrEmpty(parsed.feedback_result.result))
-                    {
-                        filtered = parsed.feedback_result.result;
-                    }
-
-                    // 1. DB 업데이트
+                    // 1. DB 업데이트 (filtered는 이제 순수 텍스트임)
                     _mySQLManager.UpdateFeedbackData(filtered, feedbackText, logID);
 
                     // 2. UI 즉시 반영
@@ -399,8 +392,8 @@ namespace ProjectLucia.GUI
                 }
                 catch (Exception e)
                 {
+                    Debug.LogError($"피드백 처리 중 오류: {e.Message}");
                     _actionManager.ErrorCharacterAction(900, false);
-                    if(SettingData.IsDebug) Debug.LogError($"피드백 처리 중 오류: {e.Message}");
                 }
                 finally
                 {
