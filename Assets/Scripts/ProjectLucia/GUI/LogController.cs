@@ -295,7 +295,7 @@ namespace ProjectLucia.GUI
             string assistantName;
             if (SettingData.CallName == null || SettingData.CallName.Trim() == "")
             {
-                assistantName = "루시아 발렌타인";
+                assistantName = "모모세 히요리";
             }
             else
             {

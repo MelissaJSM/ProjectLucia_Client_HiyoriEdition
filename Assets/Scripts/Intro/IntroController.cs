@@ -78,7 +78,7 @@ namespace Intro
             // ==========================================
             // [STEP 1] 오프닝 영상 (Intro Start) 재생
             // ==========================================
-            loadingText.text = "프로젝트 루시아를 시작합니다.";
+            loadingText.text = "프로젝트 루시아 히요리 에디션을 시작합니다.";
 
             if (startClip != null)
             {
