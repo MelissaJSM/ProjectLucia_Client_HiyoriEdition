@@ -306,7 +306,11 @@ namespace ProjectLucia.Server
                 var pkt = new Packet<ObservePayload>
                 {
                     op = "observe",
-                    data = new ObservePayload { image_id = imageId }
+                    data = new ObservePayload 
+                    { 
+                        image_id = imageId,
+                        user_name = SettingData.UserName // <-- ObservePayload 안으로 이동
+                    }
                 };
                 SendJson(pkt);
 
@@ -383,7 +387,8 @@ namespace ProjectLucia.Server
                 {
                     app_name = appName,
                     content = content,
-                    image_id = imageId
+                    image_id = imageId,
+                    user_name = SettingData.UserName
                 }
             };
             SendJson(pkt);
