@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f3d922f6-3849-4a2d-b03a-a37aca94d699" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ServerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ServerStatus.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +153,7 @@
       <workItem from="1778396047254" duration="34000" />
       <workItem from="1778406893787" duration="45000" />
       <workItem from="1778406951846" duration="11000" />
+      <workItem from="1778408096387" duration="47000" />
     </task>
     <servers />
   </component>

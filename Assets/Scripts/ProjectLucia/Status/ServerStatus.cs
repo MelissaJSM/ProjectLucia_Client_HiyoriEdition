@@ -110,10 +110,19 @@ namespace ProjectLucia.Status
 
     
     // [DTO Definition]
-    [Serializable] public class ObservePayload { public string image_id; }
+    [Serializable]
+    public class ObservePayload
+    {
+        public string image_id;
+        public string user_name;
+    }
         
     // 알림 전송용 페이로드
-    [Serializable] public class NotificationPayload { public string app_name; public string content; public string image_id; }
+    [Serializable]
+    public class NotificationPayload
+    {
+        public string app_name; public string content; public string image_id; public string user_name;
+    }
 
     [Serializable] public class ObserveResult 
     { 
