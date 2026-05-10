@@ -45,6 +45,13 @@ namespace ProjectLucia.ThirdParty.Whisper
 
         // 상태 및 동기화 변수
         private volatile bool _isRunning;         // 스트림+마이크 정상 동작 여부
+
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => _isRunning = value;
+        }
+
         private bool _isStarting;
         private bool _isStopping;
         private bool _isDestroyed;                // OnDestroy 호출 여부
@@ -447,7 +454,7 @@ namespace ProjectLucia.ThirdParty.Whisper
                     string callName = SettingData.CallName;
                     if (string.IsNullOrEmpty(callName))
                     {
-                        callName = "히요리"; // 기본 호출명
+                        callName = "루시아"; // 기본 호출명
                     }
 
                     // 호출명이 포함되어 있는지 확인
@@ -487,5 +494,5 @@ namespace ProjectLucia.ThirdParty.Whisper
         }
 
         #endregion
-    }
+    } 
 }

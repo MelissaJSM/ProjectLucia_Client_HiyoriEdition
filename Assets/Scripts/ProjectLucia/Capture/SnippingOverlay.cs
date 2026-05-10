@@ -77,12 +77,12 @@ namespace ProjectLucia.Capture
         {
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             // 글로벌 핫키 플래그 확인 (GlobalHotkey 스크립트 연동)
-            if (GlobalHotkey.ShiftPausePressed)
+            if (GlobalHotkey.ShiftPausePressed && SettingData.CanPressedPicture)
             {
                 GlobalHotkey.ShiftPausePressed = false; // 플래그 소비
                 StartCoroutine(CaptureFullDisplayCoroutine());
             }
-            else if (GlobalHotkey.PausePressed)
+            else if (GlobalHotkey.PausePressed && SettingData.CanPressedPicture)
             {
                 GlobalHotkey.PausePressed = false;      // 플래그 소비
                 StartSelectionMode();

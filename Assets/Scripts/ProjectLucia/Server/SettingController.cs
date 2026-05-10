@@ -58,9 +58,13 @@ namespace ProjectLucia.Server
         [SerializeField] private Button shutdownButton;
         public Button ShutDownButton => shutdownButton;
 
-        [Tooltip("도움말 버튼")]
+        [Tooltip("추론 버튼")]
         [SerializeField] private Button instructionButton;
-        public Button InstructionButton => instructionButton;
+        public Button InstructionButton
+        {
+            get => instructionButton;
+            set => instructionButton = value;
+        }
 
         [Tooltip("잠금 버튼")]
         [SerializeField] private Button lockButton;
@@ -85,7 +89,13 @@ namespace ProjectLucia.Server
         [Header("RealTalk UI")]
         [Tooltip("RealTalk 모드 버튼")]
         [SerializeField] private Button realTalkButton;
-        [SerializeField] private Image realTalkImage;
+        public Button RealTalkButton
+        {
+            get => realTalkButton;
+            set => realTalkButton = value;
+        }
+
+        private Image realTalkImage;
         
         // RAG 관련 필드 삭제됨
 

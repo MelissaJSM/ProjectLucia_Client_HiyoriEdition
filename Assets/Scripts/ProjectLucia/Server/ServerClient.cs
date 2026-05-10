@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Live2D.Cubism.Framework.Expression;
@@ -18,10 +19,10 @@ using UnityEngine.UI;
 using ProjectLucia.GUI;
 using ProjectLucia.Live2D;
 using ProjectLucia.Status;
+using ProjectLucia.ThirdParty.Whisper;
 using ProjectLucia.Windows;
 
 // Status의 GpuInfo를 직접 사용
-using StatusGpuInfo = ProjectLucia.Status.GpuInfo;
 // ReSharper disable EmptyGeneralCatchClause
 // ReSharper disable InconsistentNaming
 // ReSharper disable AsyncVoidMethod
@@ -115,7 +116,6 @@ namespace ProjectLucia.Server
 
         // UI 및 상태 제어
         private bool _hasActiveAnswer;
-        private static bool _healthOnce;
 
         // 락(Lock) 제어 변수들
         private bool _isWaitingForChatResult; // [1순위] 유저 채팅 결과를 기다리는 중인지 여부
@@ -148,6 +148,9 @@ namespace ProjectLucia.Server
         private ActionManager _actionManager;
         private EmotialController _emotialController;
         private CaptureGalleryManager _captureGalleryManager;
+        private SettingController _settingController;
+        private ToggleManager _toggleManager;
+        private StreamingSampleMic _streamingSampleMic;
 
         // 최적화: WaitForSeconds 캐싱
         private readonly WaitForSeconds _wait2Sec = new WaitForSeconds(2f);
@@ -170,6 +173,9 @@ namespace ProjectLucia.Server
                 _actionManager = GameManager.Instance.ActionManager;
                 _emotialController = GameManager.Instance.EmotialController;
                 _captureGalleryManager = GameManager.Instance.CaptureGalleryManager;
+                _settingController = GameManager.Instance.SettingController;
+                _toggleManager = GameManager.Instance.ToggleManager;
+                _streamingSampleMic = GameManager.Instance.StreamingSampleMic;
             }
             catch { /* IntroScene 방어 */ }
         }
@@ -200,12 +206,6 @@ namespace ProjectLucia.Server
 
             if (IsIntroScene()) return;
             
-            if (!_healthOnce)
-            {
-                _healthOnce = true;
-                StartCoroutine(CheckHealthAndLog());
-            }
-
             StartCoroutine(MySqlSyncLoop());
             _ = ConnectLoop();
         }
@@ -585,24 +585,97 @@ namespace ProjectLucia.Server
 
         private IEnumerator CheckHealthAndLog()
         {
-            try
+            while (_run)
             {
-                if (string.IsNullOrEmpty(wsUrl)) throw new UriFormatException("WS URL is empty");
-                _ = new Uri(wsUrl); 
+                using (var req = UnityWebRequest.Get(healthUrl))
+                {
+                    req.timeout = 3;
+                    yield return req.SendWebRequest();
 
-                wsDetect.sprite = wsLoading;
-            }
-            catch 
-            {
-                wsDetect.sprite = wsError;
-                yield break;
-            }
+                    // 1. 통신 실패 (503 에러 등)
+                    if (req.result != UnityWebRequest.Result.Success) 
+                    {
+                        if(SettingData.IsDebug) 
+                            Debug.LogWarning($"[WS] health check fail ({req.responseCode}): {req.error}. 서버 준비 대기중... (1초 후 재시도)");
+                
+                        yield return new WaitForSeconds(1f); // 1초 대기 후 다음 루프로
+                        continue; 
+                    }
 
-            using var req = UnityWebRequest.Get(healthUrl);
-            req.timeout = 3;
-            yield return req.SendWebRequest();
-            if (req.result != UnityWebRequest.Result.Success) if(SettingData.IsDebug) Debug.LogWarning($"[WS] health check fail");
-                else if(SettingData.IsDebug) Debug.Log("[WS] health ok");
+                    // 2. 통신 성공 -> 파싱 시도
+                    string jsonResponse = req.downloadHandler.text;
+                    bool isSuccess = false; // 파싱 성공 여부를 저장할 변수
+
+                    try
+                    {
+                        HealthResponse healthData = JsonUtility.FromJson<HealthResponse>(jsonResponse);
+        
+                        if(SettingData.IsDebug) 
+                            Debug.Log($"[WS] health ok. 연결된 모델: {healthData.model_name}");
+                
+                        // 1단계: 먼저 gemma3 (또는 gemma-3) 모델인지 확인합니다.
+                        if (Regex.IsMatch(healthData.model_name, "gemma-?3", RegexOptions.IgnoreCase))
+                        {
+                            // 2단계: gemma3 모델 중에서도 1b 또는 270m 사이즈인지 확인합니다.
+                            if (Regex.IsMatch(healthData.model_name, "1b|270m", RegexOptions.IgnoreCase))
+                            {
+                                if(SettingData.IsDebug) 
+                                    Debug.Log($"경고! 작은 사이즈의 모델({healthData.model_name})이 감지되었습니다. 멀티모달을 비활성화합니다.");
+            
+                                if (SettingData.IsRealTalk)
+                                {
+                                    _settingController.OnClickRealTalk();
+                                }
+
+                                SettingData.CanPressedPicture = false;
+                                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.RealTalkButton].interactable = false;
+                            }
+                            // 3단계: gemma3 모델이지만, 1b/270m이 아닌 경우 (예: 8b, 27b 등 일반/대형 모델)
+                            else
+                            {
+                                if(SettingData.IsDebug) 
+                                    Debug.Log($"Gemma 3 일반 모델({healthData.model_name})이 감지되었습니다. 정상 작동합니다.");
+            
+                                // 필요하다면 이곳에 일반 Gemma 3 전용 로직을 추가할 수 있습니다.
+                                SettingData.CanPressedPicture = true;
+                                _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.RealTalkButton].interactable = true;
+                            }
+
+                            if (SettingData.IsThink)
+                            {
+                                _toggleManager.IsThink();
+                            }
+                            _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].interactable = false;
+                        }
+                        else
+                        {
+                            SettingData.CanPressedPicture = true;
+                            _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.RealTalkButton].interactable = true;
+                            _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].interactable = true;
+                        }
+                        
+                        _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.MicsButton].interactable = true;
+                        
+
+                        isSuccess = true; // 에러 없이 여기까지 왔다면 성공!
+                    }
+                    catch (Exception e)
+                    {
+                        if(SettingData.IsDebug) 
+                            Debug.LogWarning($"[WS] health JSON 파싱 실패: {e.Message}. 1초 후 재시도...");
+                    }
+
+                    // 3. try-catch 블록 밖에서 yield 처리
+                    if (isSuccess)
+                    {
+                        yield break; // 완벽하게 성공했으므로 코루틴(반복) 종료
+                    }
+                    else
+                    {
+                        yield return new WaitForSeconds(1f); // 파싱 실패 시 1초 대기 후 다음 루프로
+                    }
+                }
+            }
         }
 
         private async Task ConnectLoop()
@@ -618,7 +691,12 @@ namespace ProjectLucia.Server
                     backoff = reconnectInitialDelay;
                     _ = ReceiveLoop();
                     _ = WatchdogLoop();
-                    wsDetect.sprite = wsConnect;
+            
+                    _main.Enqueue(() => 
+                    {
+                        wsDetect.sprite = wsConnect;
+                        StartCoroutine(CheckHealthAndLog());
+                    });
                 }
                 catch
                 {
@@ -627,6 +705,24 @@ namespace ProjectLucia.Server
                     if (!autoReconnect) break;
                     await Task.Delay(TimeSpan.FromSeconds(backoff));
                     backoff = Mathf.Min(backoff * 2f, reconnectMaxDelay);
+                    
+                    if (_streamingSampleMic.IsRunning)
+                    {
+                        _streamingSampleMic.OnButtonPressed();
+                    }
+                    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.MicsButton].interactable = false;
+                    
+                    if (SettingData.IsRealTalk)
+                    {
+                        _settingController.OnClickRealTalk();
+                    }
+                    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.RealTalkButton].interactable = false;
+                    if (SettingData.IsThink)
+                    {
+                        _toggleManager.IsThink();
+                    }
+                    _settingController.MainUiButtons[(int)UISettingEnums.MainUiButtonEnum.ThinkButton].interactable = false;
+                    SettingData.CanPressedPicture = false;
                 }
                 finally { _connecting = false; }
             }
@@ -714,26 +810,7 @@ namespace ProjectLucia.Server
 
         #region Incoming Handling (프로토콜 처리)
 
-        // [DTO Definition]
-        [Serializable] private class ObservePayload { public string image_id; }
         
-        // 알림 전송용 페이로드
-        [Serializable] private class NotificationPayload { public string app_name; public string content; public string image_id; }
-
-        [Serializable] private class ObserveResult 
-        { 
-            public string op; 
-            public bool should_speak; 
-            public string llm_response; 
-            public string reason;
-            public string emotion;        
-            public string audio_filename; 
-        }
-        
-        [Serializable] private class ChatResult { public string op; public string llm_response; public string emotion; public string audio_filename; }
-        [Serializable] private class FeedbackResult { public string op; public string result; }
-        [Serializable] private class MonitoringPacket { public string op; public string status; public StatusGpuInfo[] gpus; }
-        [Serializable] private class UploadImageResponse { public bool ok; public string image_id; } 
 
         private void HandleIncoming(string json)
         {

@@ -17,6 +17,11 @@ namespace ProjectLucia.Status
         public static bool IsInputKeyboard;
 
         /// <summary>
+        /// 캡처가 가능한지 점검
+        /// </summary>
+        public static bool CanPressedPicture;
+
+        /// <summary>
         /// 시선 추적(Look Target) 활성화 여부
         /// </summary>
         public static bool IsLookTarget;

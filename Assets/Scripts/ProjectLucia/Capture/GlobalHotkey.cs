@@ -31,7 +31,7 @@ namespace ProjectLucia.Capture
         #region Win32 Constants & Structures (Win32 상수 및 구조체)
 
         // Win32 상수
-        const uint MOD_SHIFT = 0x0004;
+        const uint MOD_SHIFT = 0x0001;
         const uint VK_PAUSE  = 0x13;
         const uint WM_HOTKEY = 0x0312;
         const uint WM_QUIT   = 0x0012;

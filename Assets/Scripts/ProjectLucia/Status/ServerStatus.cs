@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using StatusGpuInfo = ProjectLucia.Status.GpuInfo;
 // ReSharper disable InconsistentNaming
 
 namespace ProjectLucia.Status
@@ -99,34 +100,33 @@ namespace ProjectLucia.Status
     /// <summary>
     /// 이미지 업로드 결과 응답을 담는 클래스입니다.
     /// </summary>
-    [Serializable]
-    public class UploadImageResponse
-    {
-        [Tooltip("업로드 성공 여부")]
-        public bool ok;
+    [Serializable] public class UploadImageResponse { public bool ok; public string image_id; } 
 
-        [Tooltip("서버에 저장된 이미지 ID")]
-        public string image_id;
-    }
-
-    /// <summary>
-    /// 피드백 처리 결과를 감싸는 래퍼 클래스입니다.
-    /// </summary>
-    [System.Serializable]
-    public class FeedbackResultWrapper
-    {
-        public FeedbackResult feedback_result;
-    }
-
+    
     /// <summary>
     /// 피드백 처리 결과 상세 내용을 담는 클래스입니다.
     /// </summary>
-    [System.Serializable]
-    public class FeedbackResult
-    {
-        [Tooltip("피드백 처리 결과 메시지")]
-        public string result;
+    [Serializable] public class FeedbackResult { public string op; public string result; }
+
+    
+    // [DTO Definition]
+    [Serializable] public class ObservePayload { public string image_id; }
+        
+    // 알림 전송용 페이로드
+    [Serializable] public class NotificationPayload { public string app_name; public string content; public string image_id; }
+
+    [Serializable] public class ObserveResult 
+    { 
+        public string op; 
+        public bool should_speak; 
+        public string llm_response; 
+        public string reason;
+        public string emotion;        
+        public string audio_filename; 
     }
+        
+    [Serializable] public class ChatResult { public string op; public string llm_response; public string emotion; public string audio_filename; }
+    [Serializable] public class MonitoringPacket { public string op; public string status; public StatusGpuInfo[] gpus; }
 
     #endregion
 
@@ -246,6 +246,16 @@ namespace ProjectLucia.Status
     /// </summary>
     [Serializable]
     public class EmptyPayload { }
+    
+    /// <summary>
+    /// 통신상태 점검용 코드입니다.
+    /// </summary>
+    [Serializable]
+    public class HealthResponse
+    {
+        public string status;
+        public string model_name;
+    }
 
     #endregion
 }

@@ -3,9 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="f3d922f6-3849-4a2d-b03a-a37aca94d699" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Intro/IntroController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Intro/IntroController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/GUI/LogController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/GUI/LogController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/GlobalHotkey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/GlobalHotkey.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/SnippingOverlay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Capture/SnippingOverlay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/SettingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/SettingController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ServerStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ServerStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/SettingData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/SettingData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Whisper/StreamingSampleMic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/ThirdParty/Whisper/StreamingSampleMic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,6 +154,10 @@
       <workItem from="1777429257360" duration="50000" />
       <workItem from="1777780307909" duration="720000" />
       <workItem from="1777782086642" duration="69000" />
+      <workItem from="1778376377172" duration="6640000" />
+      <workItem from="1778394695391" duration="126000" />
+      <workItem from="1778395001536" duration="11000" />
+      <workItem from="1778396047254" duration="34000" />
     </task>
     <servers />
   </component>
