@@ -60,6 +60,12 @@ namespace ProjectLucia.Status
         /// 말풍선 텍스트 표시 설정 값
         /// </summary>
         public static int BubbleTextValue;
+        
+        /// <summary>
+        /// 이모지 말풍선 표시 설정
+        /// </summary>
+        public static bool IsThinkBalloon = true;
+        
         #endregion
 
         #region UI Settings (TalkingPanel)
@@ -69,6 +75,7 @@ namespace ProjectLucia.Status
         public static float TalkingFontSize;
         #endregion
 
+        
         #region Network & Server Settings (서버 설정)
         public static string ServerIP;
         public static string MySqlIp;

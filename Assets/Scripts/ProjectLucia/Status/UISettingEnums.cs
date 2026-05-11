@@ -238,7 +238,10 @@ namespace ProjectLucia.Status
             
             //음성 인식 관련 옵션
             [Tooltip("음성인식 호출 모드 활성화")]
-            IsCallNow = 10
+            IsCallNow = 10,
+            
+            [Tooltip("말풍선 기능 활성화")]
+            IsThinkBalloon = 11,
         }
 
         /// <summary>
@@ -276,6 +279,8 @@ namespace ProjectLucia.Status
             LockPanel = 4,
             [Tooltip("상태 패널")]
             StatusPanel = 5,
+            [Tooltip("말풍선 패널")]
+            ThinkPanel = 6,
         }
 
         /// <summary>
@@ -445,5 +450,18 @@ namespace ProjectLucia.Status
             Sad = 2,
             Angry = 3
         }
+
+        /// <summary>
+        /// 감정 말풍선 표정 리스트
+        /// </summary>
+        public enum ThinkBalloonEnum
+        {
+            idle = 0,
+            happy = 1,
+            sad = 2,
+            angry = 3,
+            loading = 4,
+        }
+        
     }
 }

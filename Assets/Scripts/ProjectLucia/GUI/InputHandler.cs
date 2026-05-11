@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using ProjectLucia.Live2D;
 using TMPro;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
@@ -65,6 +66,8 @@ namespace ProjectLucia.GUI
         private PanelManager _panelManager;
         private LockController _lockController;
         private LogController _logController;
+
+        private EmotialController _emotialController;
         // RAG 관련 필드 제거됨
         // private KeywordExtractorOnnx _keywordExtractorOnnx;
 
@@ -82,6 +85,7 @@ namespace ProjectLucia.GUI
             _panelManager = GameManager.Instance.PanelManager;
             _lockController = GameManager.Instance.LockController;
             _logController = GameManager.Instance.LogController;
+            _emotialController = GameManager.Instance.EmotialController;
             // RAG 관련 필드 제거됨
             // _keywordExtractorOnnx = GameManager.Instance.KeywordExtractorOnnx;
         }

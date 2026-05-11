@@ -305,24 +305,27 @@ namespace ProjectLucia.Status
         {
             _panelManager.ResponseTextProcess(errorText, false);
             yield return _wait5Sec; // 캐싱된 WaitForSeconds 사용
-            _panelManager.ResponseTextEnd(isTalk);
+            
             _emotialController.UpdateLive2DExpression(ExpIdle);
+            _panelManager.ResponseTextEnd(isTalk);
         }
 
         private IEnumerator SuccessTalking(string successText)
         {
             _panelManager.ResponseTextProcess(successText, false);
             yield return _wait3Sec; // 캐싱된 WaitForSeconds 사용
-            _panelManager.ResponseTextEnd(false);
+            
             _emotialController.UpdateLive2DExpression(ExpIdle);
+            _panelManager.ResponseTextEnd(false);
         }
 
         private IEnumerator AnnounceTalking(string announceText)
         {
             _panelManager.ResponseTextProcess(announceText, false);
             yield return _wait3Sec; // 캐싱된 WaitForSeconds 사용
-            _panelManager.ResponseTextEnd(false);
+            
             _emotialController.UpdateLive2DExpression(ExpIdle);
+            _panelManager.ResponseTextEnd(false);
         }
 
         private IEnumerator IdleMotionFixedStart(int minutes)

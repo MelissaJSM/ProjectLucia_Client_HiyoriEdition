@@ -23,6 +23,7 @@ namespace ProjectLucia.Live2D
         private Vector2 _talkingPanelAnchoredPosition;
         private Vector2 _lockPanelAnchoredPosition;
         private Vector2 _statusPanelAnchoredPosition;
+        private Vector2 _thinkPanelAnchoredPosition; // [추가됨] ThinkPanel 초기 위치
 
         // UI RectTransform 캐싱
         private RectTransform _optionPanelTransform;
@@ -30,6 +31,7 @@ namespace ProjectLucia.Live2D
         private RectTransform _talkingPanelRectTransform;
         private RectTransform _lockPanelRectTransform;
         private RectTransform _statusPanelTransform;
+        private RectTransform _thinkPanelRectTransform; // [추가됨] ThinkPanel Transform 캐싱
 
         // 바운드 비율 계산용 변수
         private float _resultBoundsRatioX;
@@ -87,6 +89,11 @@ namespace ProjectLucia.Live2D
             _statusPanelTransform = _panelManager
                 .Panels[(int)UISettingEnums.PanelsEnum.StatusPanel]
                 .GetComponent<RectTransform>();
+                
+            // [추가됨] ThinkPanel 캐싱
+            _thinkPanelRectTransform = _panelManager
+                .Panels[(int)UISettingEnums.PanelsEnum.ThinkPanel]
+                .GetComponent<RectTransform>();
 
             // 초기 위치 저장
             _optionPanelAnchoredPosition = _optionPanelTransform.anchoredPosition;
@@ -94,6 +101,9 @@ namespace ProjectLucia.Live2D
             _talkingPanelAnchoredPosition = _talkingPanelRectTransform.anchoredPosition;
             _lockPanelAnchoredPosition = _lockPanelRectTransform.anchoredPosition;
             _statusPanelAnchoredPosition = _statusPanelTransform.anchoredPosition;
+            
+            // [추가됨] ThinkPanel 초기 위치 저장
+            _thinkPanelAnchoredPosition = _thinkPanelRectTransform.anchoredPosition;
         }
 
         private void OnDrawGizmos()
@@ -160,10 +170,7 @@ namespace ProjectLucia.Live2D
 
         /// <summary>
         /// Live2D 캐릭터의 전체 Bounds(경계 박스)를 계산합니다.
-        /// 모든 CubismDrawable의 렌더러 바운드를 포함합니다.
         /// </summary>
-        /// <param name="live2dObject">Live2D 모델 게임 오브젝트</param>
-        /// <returns>계산된 Bounds</returns>
         public Bounds CalculateBounds(GameObject live2dObject)
         {
             var drawables = live2dObject.GetComponentsInChildren<CubismDrawable>();
@@ -193,7 +200,6 @@ namespace ProjectLucia.Live2D
 
         /// <summary>
         /// 바운드 중심에서 위쪽으로 1/4 높이 만큼 이동한 지점을 계산합니다.
-        /// (주로 시선 추적이나 말풍선 위치 기준점으로 사용)
         /// </summary>
         public Vector3 CalculateBoundsCenter(GameObject live2dObject)
         {
@@ -204,7 +210,6 @@ namespace ProjectLucia.Live2D
 
         /// <summary>
         /// Live2D 모델의 바운드를 다시 계산하고 UI 위치를 업데이트합니다.
-        /// 위치 변경 후 현재 위치를 저장합니다.
         /// </summary>
         public void DrawLive2dBound()
         {
@@ -225,7 +230,6 @@ namespace ProjectLucia.Live2D
         /// <summary>
         /// UI 요소를 Live2D 모델의 바운드에 맞게 배치하고 스케일을 조정합니다.
         /// </summary>
-        /// <param name="pivotPos">모델의 피벗 위치</param>
         private void UpdateUIElementPositionAndSize(Vector3 pivotPos)
         {
             if (_settingController.GuiCanvas == null)
@@ -253,42 +257,27 @@ namespace ProjectLucia.Live2D
                 _panelManager.Panels[(int)UISettingEnums.PanelsEnum.SettingPanel].activeSelf ||
                 _panelManager.Panels[(int)UISettingEnums.PanelsEnum.LOGPanel].activeSelf;
 
-            // [오른쪽] 1.0f = 변화 없음, 2.57f = 오른쪽으로 1.57배 더 확장
             float scaleRight = isSettingOrLogActive ? 2.2f : 1.5f;
-
-// [왼쪽] 1.0f = 변화 없음, 2.0f = 왼쪽으로 1.0배(원본 너비만큼) 더 확장
-// 이제 둘 다 1.0f가 기본값입니다.
             float scaleLeft =  1.5f; 
-
             float scaleY = 1f;
 
             if(SettingData.IsDebug) Debug.Log(isSettingOrLogActive
                 ? "설정 혹은 로그 패널이 켜져있습니다."
                 : "설정 혹은 로그 패널이 안켜져있습니다.");
 
-// --- 계산 로직 ---
-
+            // --- 계산 로직 ---
             float originalWidth = _live2dBounds.size.x;
-
-// 1. 추가될 길이 계산 (둘 다 1을 빼서 '순수 추가분'만 구함)
             float widthAddedRight = originalWidth * (scaleRight - 1f); 
             float widthAddedLeft  = originalWidth * (scaleLeft - 1f);
 
-// 2. 최종 캔버스 크기 (원본 + 오른쪽추가분 + 왼쪽추가분)
             Vector3 newSize = new Vector3(
                 originalWidth + widthAddedRight + widthAddedLeft, 
                 _live2dBounds.size.y * scaleY,
                 _live2dBounds.size.z
             );
 
-// 3. 중심점 이동
             Vector3 newCenter = _live2dBounds.center;
-
-// 공식: (오른쪽 추가분 / 2) - (왼쪽 추가분 / 2)
-// 오른쪽이 늘어나면 중심은 우측(+)으로, 왼쪽이 늘어나면 중심은 좌측(-)으로 이동
             newCenter.x += (widthAddedRight / 2f) - (widthAddedLeft / 2f);
-
-// Y축 (기존 유지)
             newCenter.y += (newSize.y - _live2dBounds.size.y) / 2f;
 
             canvasRect.position = newCenter;
@@ -307,17 +296,15 @@ namespace ProjectLucia.Live2D
                 ? _statusPanelAnchoredPosition * targetScale.x
                 : Vector2.zero * targetScale.x;
 
-            _inputRectTransform.anchoredPosition = _inputButtonAnchoredPosition *
-                                                   _panelManager
-                                                       .Panels[(int)UISettingEnums.PanelsEnum.SettingPanel]
-                                                       .transform.localScale.x;
-            _talkingPanelRectTransform.anchoredPosition = _talkingPanelAnchoredPosition *
-                                                          _panelManager
-                                                              .Panels[(int)UISettingEnums.PanelsEnum.SettingPanel]
-                                                              .transform.localScale.x;
-            _lockPanelRectTransform.anchoredPosition = _lockPanelAnchoredPosition *
-                                                       _panelManager.Panels[(int)UISettingEnums.PanelsEnum.SettingPanel]
-                                                           .transform.localScale.x;
+            // 스케일 계산에 사용될 비율 캐싱
+            float settingPanelScaleX = _panelManager.Panels[(int)UISettingEnums.PanelsEnum.SettingPanel].transform.localScale.x;
+
+            _inputRectTransform.anchoredPosition = _inputButtonAnchoredPosition * settingPanelScaleX;
+            _talkingPanelRectTransform.anchoredPosition = _talkingPanelAnchoredPosition * settingPanelScaleX;
+            _lockPanelRectTransform.anchoredPosition = _lockPanelAnchoredPosition * settingPanelScaleX;
+            
+            // [추가됨] ThinkPanel 위치 재조정 (TalkingPanel과 동일한 방식 적용)
+            _thinkPanelRectTransform.anchoredPosition = _thinkPanelAnchoredPosition * settingPanelScaleX;
         }
 
         /// <summary>

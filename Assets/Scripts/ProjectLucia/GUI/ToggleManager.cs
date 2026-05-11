@@ -362,11 +362,20 @@ namespace ProjectLucia.GUI
                 
                 thinkDetector.sprite = thinkTextures[(int)UISettingEnums.ThinkButtonEnums.no_idle];
             }
+        }
+        
+        /// <summary>
+        /// 대화의 말풍선 기능을 제어합니다.
+        /// </summary>
+        public void IsThinkBalloon(bool isClick)
+        {
+            bool value = isClick
+                ? Toggles[(int)UISettingEnums.TogglesEnum.IsThinkBalloon].isOn
+                : SettingData.IsThinkBalloon;
 
-           
-            
-    
-            
+            if (!isClick)
+                Toggles[(int)UISettingEnums.TogglesEnum.IsThinkBalloon].SetIsOnWithoutNotify(value);
+
         }
 
         #endregion

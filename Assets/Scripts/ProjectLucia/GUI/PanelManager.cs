@@ -44,6 +44,7 @@ namespace ProjectLucia.GUI
         private AudioModelDownloader _audioModelDownloader;
         private SettingController _settingController;
         private DropdownManager _dropdownManager;
+        private PanelManager _panelManager;
 
 
         // 다운로드 잠금 상태 캐싱 (최적화용)
@@ -61,6 +62,7 @@ namespace ProjectLucia.GUI
             _audioModelDownloader   = GameManager.Instance.AudioModelDownloader;
             _settingController      = GameManager.Instance.SettingController;
             _dropdownManager        = GameManager.Instance.DropdownManager;
+            _panelManager = GameManager.Instance.PanelManager;
 
         }
 
@@ -138,6 +140,8 @@ namespace ProjectLucia.GUI
 
             if (isTalk && _whisperManager != null)
                 _whisperManager.useVad = true;
+            
+            _panelManager.panels[(int)UISettingEnums.PanelsEnum.ThinkPanel].SetActive(false);
         }
 
         #endregion

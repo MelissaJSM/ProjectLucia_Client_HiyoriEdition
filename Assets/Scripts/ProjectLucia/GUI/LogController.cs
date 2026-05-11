@@ -49,7 +49,8 @@ namespace ProjectLucia.GUI
         [Header("Sprites & Resources")]
         [Tooltip("감정별 프로필 스프라이트 리스트")]
         [SerializeField] private List<Sprite> emotionSprite;
-
+        public List<Sprite> EmotionSprite => emotionSprite;
+        
         [Tooltip("피드백이 반영된 말풍선 스프라이트")]
         [SerializeField] private Sprite feedbackPanel;
 

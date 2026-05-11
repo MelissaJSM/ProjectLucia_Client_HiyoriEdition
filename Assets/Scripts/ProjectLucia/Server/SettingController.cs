@@ -324,6 +324,7 @@ namespace ProjectLucia.Server
                 SettingData.L2dClicked = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsTouchMotion].isOn;
                 SettingData.IsIdleMotion = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsIdleMotion].isOn;
                 SettingData.IsIdleMotionRandom = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsIdleMotionRandom].isOn;
+                SettingData.IsThinkBalloon = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsThinkBalloon].isOn;
 
                 // Idle Motion
                 SettingData.IdleMotionRandomMax = _sideBarManager.GetIdleMotionRandomMax01();

@@ -6,6 +6,7 @@ using Live2D.Cubism.Framework.Motion;
 using ProjectLucia.GUI;
 using ProjectLucia.Status;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace ProjectLucia.Live2D
@@ -39,6 +40,15 @@ namespace ProjectLucia.Live2D
         [Tooltip("모션 재생 속도 (0.01 이상)")]
         [SerializeField, Min(0.01f)] private float defaultSpeed = 1f;
 
+        [Tooltip("캐릭터 이모션 이미지 설정")] [SerializeField]
+        private Image thinkBalloonImage;
+
+        public Image ThinkBalloonImage
+        {
+            get => thinkBalloonImage;
+            set => thinkBalloonImage = value;
+        }
+
         #endregion
 
         #region Constants & Enums (상수 및 열거형)
@@ -66,6 +76,18 @@ namespace ProjectLucia.Live2D
             { "Idle", (int)Live2DEnums.Live2DList.Idle },
             { "Neutral", (int)Live2DEnums.Live2DList.Idle }
         };
+        
+        private static readonly Dictionary<string, int> EmotionMapBalloon = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "Angry", (int)Live2DEnums.ThinkBalloonEnum.angry },
+            { "Fear", (int)Live2DEnums.ThinkBalloonEnum.sad },
+            { "Sad", (int)Live2DEnums.ThinkBalloonEnum.sad },
+            { "Happy", (int)Live2DEnums.ThinkBalloonEnum.happy },
+            { "Tender", (int)Live2DEnums.ThinkBalloonEnum.happy },
+            { "Loading", (int)Live2DEnums.ThinkBalloonEnum.loading },
+            { "Idle", (int)Live2DEnums.ThinkBalloonEnum.idle },
+            { "Neutral", (int)Live2DEnums.ThinkBalloonEnum.idle }
+        };
 
         #endregion
 
@@ -74,6 +96,9 @@ namespace ProjectLucia.Live2D
         private Component _motionController; // CubismMotionController (리플렉션용)
         private CubismExpressionController _expressionController;
         private GameManager _gameManager;
+        private PanelManager _panelManager;
+        private EmotialController _emotialController;
+        private LogController _logController;
 
         #endregion
 
@@ -82,6 +107,9 @@ namespace ProjectLucia.Live2D
         private void Awake()
         {
             _gameManager = GameManager.Instance;
+            _panelManager = GameManager.Instance.PanelManager;
+            _emotialController = GameManager.Instance.EmotialController;
+            _logController = GameManager.Instance.LogController;
         }
 
         private void Start()
@@ -186,6 +214,8 @@ namespace ProjectLucia.Live2D
         /// <param name="emotion">감정 문자열 (예: "Happy", "Sad")</param>
         public void UpdateLive2DExpression(string emotion)
         {
+            if (SettingData.IsDebug) Debug.Log($"감정 결과 : {emotion}");
+                
             if (_expressionController == null)
             {
                 // 런타임 재탐색
@@ -212,6 +242,30 @@ namespace ProjectLucia.Live2D
             {
                 // 매핑되지 않은 감정은 기본값(Idle)으로 처리
                 _expressionController.CurrentExpressionIndex = (int)Live2DEnums.Live2DList.Idle;
+            }
+
+            if (SettingData.IsThinkBalloon)
+            {
+                // 1. 딕셔너리에서 감정에 맞는 인덱스 찾기 시도
+                if (!EmotionMapBalloon.TryGetValue(emotion, out int balloonIndex))
+                {
+                    // 2. 딕셔너리에 없는 감정이 들어왔을 경우 방어 처리 (기본값 idle)
+                    balloonIndex = (int)Live2DEnums.ThinkBalloonEnum.idle;
+                    if (SettingData.IsDebug) Debug.LogWarning($"[EmotialController] 매핑되지 않은 풍선 감정 '{emotion}'이 들어와 기본값(idle)으로 처리합니다.");
+                }
+
+                // 3. 패널 활성화 및 스프라이트 변경
+                if (SettingData.IsThinkBalloon && !_panelManager.Panels[(int)UISettingEnums.PanelsEnum.SettingPanel].activeSelf && !_panelManager.Panels[(int)UISettingEnums.PanelsEnum.LOGPanel].activeSelf)
+                {
+                    _panelManager.Panels[(int)UISettingEnums.PanelsEnum.ThinkPanel].SetActive(true);
+                    _emotialController.ThinkBalloonImage.sprite = _logController.EmotionSprite[balloonIndex];
+                }
+                else
+                {
+                    _panelManager.Panels[(int)UISettingEnums.PanelsEnum.ThinkPanel].SetActive(false);
+                }
+
+                
             }
         }
 

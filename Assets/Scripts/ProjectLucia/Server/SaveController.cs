@@ -71,6 +71,7 @@ namespace ProjectLucia.Server
             PlayerPrefs.SetInt("IsTouchMotion",     SettingData.L2dClicked ? 1 : 0);
             PlayerPrefs.SetInt("IsIdleMotion",      SettingData.IsIdleMotion ? 1 : 0);
             PlayerPrefs.SetInt("IsIdleMotionRandom",SettingData.IsIdleMotionRandom ? 1 : 0);
+            PlayerPrefs.SetInt("IsThinkBalloon", SettingData.IsThinkBalloon ? 1 : 0);
 
             if (SettingData.IsIdleMotionRandom)
             {
@@ -133,6 +134,7 @@ namespace ProjectLucia.Server
             PlayerPrefs.SetInt("IsDebug",   SettingData.IsDebug ? 1 : 0);
             PlayerPrefs.SetInt("IsEmotion", SettingData.IsEmotion ? 1 : 0);
             PlayerPrefs.SetInt("IsAlertNotification", SettingData.AlertNotification);
+            
 
             PlayerPrefs.Save();
 
@@ -176,6 +178,7 @@ namespace ProjectLucia.Server
             SettingData.IdleMotionFixed     = PlayerPrefs.GetFloat("IdleMotionFixed", 0);
             SettingData.BubbleTextValue     = PlayerPrefs.GetInt("BubbleTextValue", 2);
             SettingData.RealTalkPixel       = PlayerPrefs.GetString("RealTalkPixel", "Low");
+            SettingData.IsThinkBalloon = PlayerPrefs.GetInt("IsThinkBalloon", 1) == 1;
 
             // DesktopObserver (기본값 설정)
             SettingData.CheckIntervalValue     = PlayerPrefs.GetFloat("CheckInterval", 0f);
@@ -258,6 +261,7 @@ namespace ProjectLucia.Server
             _toggleManager.IsKeyboardInputController(false);
             _toggleManager.IsMouseChaserController(false);
             _toggleManager.IsTouchMotionController(false);
+            _toggleManager.IsThinkBalloon(false);
 
             _sideBarManager.SetTalkFontSize(false);
             _sideBarManager.SetIdleMotionRandomMax(false);
