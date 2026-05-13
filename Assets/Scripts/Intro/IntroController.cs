@@ -212,17 +212,18 @@ namespace Intro
 
         private IEnumerator IntroHealthCheck()
         {
-            string baseAudio = $"http://{SettingData.ServerIP}:{SettingData.ServerPort}/audio/";
-            string healthUrl = baseAudio.Replace("/audio/", "/health");
+            // 1. 복잡하게 Replace를 쓰지 않고, ServerClient와 동일하게 직관적인 URL로 생성
+            string healthUrl = $"http://{SettingData.ServerIP}:{SettingData.ServerPort}/health";
 
             using (var req = UnityWebRequest.Get(healthUrl))
             {
                 req.timeout = 3;
                 yield return req.SendWebRequest();
 
-                bool ok = (req.result == UnityWebRequest.Result.Success &&
-                           req.responseCode == 200 &&
-                           (req.downloadHandler?.text?.Trim() == "ok"));
+                // 2. 서버가 JSON을 반환하므로 "ok" 텍스트인지 검사하는 부분 삭제
+                // 통신이 성공적(HTTP 상태 코드 200)인지만 체크
+                bool ok = (req.result == UnityWebRequest.Result.Success && 
+                           req.responseCode == 200);
 
                 SettingData.IsIntroServer = ok;
             }

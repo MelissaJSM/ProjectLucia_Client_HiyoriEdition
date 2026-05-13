@@ -445,21 +445,7 @@ namespace ProjectLucia.GUI
             }
         }
 
-        public void SetCallName(bool isApply)
-        {
-            if (isApply)
-            {
-                SettingData.CallName = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].text;
-                PlayerPrefs.SetString("CallName", SettingData.CallName);
-                
-                
-            }
-            else
-            {
-                _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].text = SettingData.CallName;
-            }
-        }
-
+        
         #endregion
 
         #region Input Validation & Control (입력 검증 및 제어)

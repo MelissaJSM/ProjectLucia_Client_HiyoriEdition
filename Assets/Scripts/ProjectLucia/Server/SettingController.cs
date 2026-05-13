@@ -89,12 +89,7 @@ namespace ProjectLucia.Server
         [Header("RealTalk UI")]
         [Tooltip("RealTalk 모드 버튼")]
         [SerializeField] private Button realTalkButton;
-        public Button RealTalkButton
-        {
-            get => realTalkButton;
-            set => realTalkButton = value;
-        }
-
+        
         private Image realTalkImage;
         
         // RAG 관련 필드 삭제됨
@@ -382,7 +377,6 @@ namespace ProjectLucia.Server
                 }
                 SettingData.DefaultModel = _dropdownManager.Dropdowns[(int)UISettingEnums.DropDownEnum.DefaultModel].value;
                 SettingData.IsCallNow = _toggleManager.Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].isOn;
-                SettingData.CallName = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].text;
                 SettingData.SimilarityThreshold = _sideBarManager.Scrollbars[(int)UISettingEnums.ScrollbarEnum.SimilarityThresholdScrollbar].value;
 
                 // Etc
@@ -678,7 +672,10 @@ namespace ProjectLucia.Server
         {
             _inputHandler.SetserverIP(isApply);
             _inputHandler.SetserverPort(isApply);
-            _serverClient.BuildUrlsFromSettingData();
+            if (isApply)
+            {
+                _serverClient.ApplyServerSettingsAndReconnect();
+            }
         }
 
         public void ServerLlmSettingApply()

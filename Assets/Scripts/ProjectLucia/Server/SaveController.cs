@@ -26,6 +26,7 @@ namespace ProjectLucia.Server
         private SystemInformation _systemInformation;
         private LockController _lockController;
         private InputHandler _inputHandler;
+        private PanelManager _panelManager;
 
         // 메인 카메라 캐시
         private Camera _mainCam;
@@ -51,6 +52,7 @@ namespace ProjectLucia.Server
             _systemInformation    = GameManager.Instance.SystemInformation;
             _lockController       = GameManager.Instance.LockController;
             _inputHandler         = GameManager.Instance.InputHandler;
+            _panelManager         = GameManager.Instance.PanelManager;
             
             _mainCam = Camera.main; 
         }
@@ -127,7 +129,6 @@ namespace ProjectLucia.Server
             PlayerPrefs.SetString("SavedGPUName",SettingData.ResultGPUName);
             PlayerPrefs.SetString("WhisperQuantization",SettingData.WhisperQuantization);
             PlayerPrefs.SetInt("IsCallNow", SettingData.IsCallNow ? 1 : 0);
-            PlayerPrefs.SetString("CallName", SettingData.CallName);
             PlayerPrefs.SetFloat("SimilarityThreshold", SettingData.SimilarityThreshold);
 
             // 기타 설정 저장
@@ -222,8 +223,9 @@ namespace ProjectLucia.Server
             SettingData.SavedGPUName    = PlayerPrefs.GetString("SavedGPUName", "");
             SettingData.WhisperQuantization = PlayerPrefs.GetString("WhisperQuantization", "");
             SettingData.IsCallNow = PlayerPrefs.GetInt("IsCallNow", 0) == 1;
-            SettingData.CallName = PlayerPrefs.GetString("CallName", "");
+            SettingData.CallName = PlayerPrefs.GetString("CallName", "모모세 히요리");
             SettingData.SimilarityThreshold = PlayerPrefs.GetFloat("SimilarityThreshold", 0.7f);
+            
 
             // 기타
             SettingData.IsDebug   = PlayerPrefs.GetInt("IsDebug", 0) == 1;
@@ -274,6 +276,7 @@ namespace ProjectLucia.Server
             _dropdownManager.SetRealtimePixel(false);
             _dropdownManager.SetUserGender(false);
             _inputHandler.SetUserName(false);
+            _panelManager.SetTalkCharacterName();
             
             // DesktopObserver
             _sideBarManager.SetCheckInterval(false);
@@ -297,7 +300,6 @@ namespace ProjectLucia.Server
             _dropdownManager.SetDefaultLanguage(false);
             _dropdownManager.SetWhisperQuantization(false);
             _toggleManager.IsWakeUpController(false);
-            _inputHandler.SetCallName(false);
             _sideBarManager.SetSimilarityThreshold(false);
         }
 

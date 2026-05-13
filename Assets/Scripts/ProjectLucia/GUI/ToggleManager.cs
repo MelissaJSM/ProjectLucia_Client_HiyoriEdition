@@ -124,11 +124,6 @@ namespace ProjectLucia.GUI
 
             if (!isClick)
                 Toggles[(int)UISettingEnums.TogglesEnum.IsCallNow].SetIsOnWithoutNotify(value);
-
-            
-            GameObject parentObject = _inputHandler.Inputs[(int)UISettingEnums.InputEnum.CallName].transform.parent.gameObject;
-
-            parentObject.SetActive(value);
         }
         
         #endregion

@@ -614,9 +614,19 @@ namespace ProjectLucia.Server
                     try
                     {
                         HealthResponse healthData = JsonUtility.FromJson<HealthResponse>(jsonResponse);
-        
-                        if(SettingData.IsDebug) 
+
+                        if (SettingData.IsDebug)
+                        {
                             Debug.Log($"[WS] health ok. 연결된 모델: {healthData.model_name}");
+                            Debug.Log($"[WS] health ok. 연결된 캐릭터 이름: {healthData.character_name}");
+                        }
+                        
+                        SettingData.CallName = healthData.character_name;
+                        PlayerPrefs.SetString("CallName", SettingData.CallName);
+                        PlayerPrefs.Save();
+                        
+                        _panelManager.SetTalkCharacterName();
+                        
                 
                         // 1단계: 먼저 gemma3 (또는 gemma-3) 모델인지 확인합니다.
                         if (Regex.IsMatch(healthData.model_name, "gemma-?3", RegexOptions.IgnoreCase))
@@ -808,6 +818,23 @@ namespace ProjectLucia.Server
                         _actionManager.ErrorCharacterAction(0, false);
                     }
                 });
+            }
+        }
+        
+        
+        /// <summary>
+        /// 새로운 서버 설정을 적용하고 기존 연결을 강제로 끊어 재연결을 유도합니다.
+        /// </summary>
+        public void ApplyServerSettingsAndReconnect()
+        {
+            // 1. 새로운 IP와 포트로 URL 문자열들을 갱신합니다.
+            BuildUrlsFromSettingData();
+
+            // 2. 기존에 연결되어 있던 웹소켓을 강제로 닫습니다.
+            // 연결이 끊어지면 ConnectLoop()가 이를 감지하고 바뀐 URL로 다시 연결을 시도하게 됩니다.
+            if (IsOpen || _connecting)
+            {
+                _ = Close("Settings changed", hard: true);
             }
         }
 

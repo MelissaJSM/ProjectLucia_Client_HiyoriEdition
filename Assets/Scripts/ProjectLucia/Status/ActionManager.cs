@@ -76,7 +76,7 @@ namespace ProjectLucia.Status
         private static readonly Dictionary<int, string> Live2DStatus = new Dictionary<int, string>
         {
             // 서버 (연결 및 통신 관련)
-            { 0, "오빠! 서, 서버에 손도 못 댄거야... 연결 시도조차 못한걸!" },
+            { 0, "오빠! 혹시 서버 설정 건드렸어? 정상이면 상관 없는데 잘못 설정한거면 다시점검해봐!" },
             { 1, "오빠, 서버 문을 두드렸는데 아무도 없는거야. 네트워크 문제인걸까? (시무룩)" },
             { 400, "어라? 오빠, 요청한 모양이 조금 이상한 것 같은걸! (400 Bad Request)" },
             { 403, "오빠! 히요리 쫓겨난 것 같은거야... 들어갈 수가 없는걸! (403 Forbidden)" },

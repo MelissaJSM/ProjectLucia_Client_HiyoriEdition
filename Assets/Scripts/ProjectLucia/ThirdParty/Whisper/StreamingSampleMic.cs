@@ -454,7 +454,7 @@ namespace ProjectLucia.ThirdParty.Whisper
                     string callName = SettingData.CallName;
                     if (string.IsNullOrEmpty(callName))
                     {
-                        callName = "루시아"; // 기본 호출명
+                        callName = "히요리"; // 기본 호출명
                     }
 
                     // 호출명이 포함되어 있는지 확인

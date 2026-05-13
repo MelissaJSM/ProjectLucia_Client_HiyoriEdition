@@ -42,9 +42,7 @@ namespace ProjectLucia.Status
             [Tooltip("잠금 화면 비밀번호 입력 필드")]
             LockPasswordInput = 12,
             [Tooltip("사용자 이름 입력 필드")]
-            UserName = 13,
-            [Tooltip("호출 이름 설정 필드")]
-            CallName = 14,
+            UserName = 13
         }
 
         /// <summary>

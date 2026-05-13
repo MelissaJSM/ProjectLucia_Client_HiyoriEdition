@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ProjectLucia.Server;
 using ProjectLucia.Status;
 using ProjectLucia.ThirdParty.Whisper.Runtime;
+using TMPro;
 using UnityEngine;
 
 namespace ProjectLucia.GUI
@@ -34,6 +35,9 @@ namespace ProjectLucia.GUI
         [Tooltip("디버그 정보를 표시할 캔버스")]
         [SerializeField] private Canvas debugCanvas;
         public Canvas DebugCanvas => debugCanvas;
+        
+        [SerializeField] private TMP_Text talkCharacterName;
+        
 
         #endregion
 
@@ -285,6 +289,12 @@ namespace ProjectLucia.GUI
                 foreach (var b in _settingController.MainUiButtons)
                     SetInteractableSafe(b, state);
         }
+
+        public void SetTalkCharacterName()
+        {
+            talkCharacterName.text = SettingData.CallName;
+        }
+        
 
         #endregion
     }

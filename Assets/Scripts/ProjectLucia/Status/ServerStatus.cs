@@ -264,6 +264,7 @@ namespace ProjectLucia.Status
     {
         public string status;
         public string model_name;
+        public string character_name;
     }
 
     #endregion
