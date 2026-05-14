@@ -3,6 +3,7 @@
 using System.Collections;
 using ProjectLucia.Status;
 using UnityEngine;
+using System.Runtime.InteropServices; // 이 줄을 추가!
 
 namespace ProjectLucia.Capture
 {
@@ -53,6 +54,10 @@ namespace ProjectLucia.Capture
         /// 선택 영역 UI의 부모 RectTransform (좌표 변환용 캐싱)
         /// </summary>
         private RectTransform _parentRect;
+        
+        [DllImport("user32.dll")]
+        private static extern short GetAsyncKeyState(int vKey);
+        private const int VK_ESCAPE = 0x1B; // ESC 키의 가상 키 코드
 
         #endregion
 
@@ -189,8 +194,9 @@ namespace ProjectLucia.Capture
                 FinishSelection();
             }
 
-            // ESC 키 - 취소
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // ESC 키 - 취소 (Unity 포커스 + 백그라운드 글로벌 감지 모두 적용)
+            // GetAsyncKeyState(VK_ESCAPE) & 0x8000 은 키가 현재 눌려있는지를 확인합니다.
+            if (Input.GetKeyDown(KeyCode.Escape) || (GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0)
             {
                 CancelSelection();
             }
