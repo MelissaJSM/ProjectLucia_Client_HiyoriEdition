@@ -26294,7 +26294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1498484321222496011, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_Value
-      value: 0.302
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1498484321222496011, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_Colors.m_ColorMultiplier
@@ -26418,7 +26418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387258668524735156, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33902,6 +33902,7 @@ MonoBehaviour:
   dimmables: []
   settingsOpen: 0
   realTalkButton: {fileID: 2087819881}
+  realTalkImage: {fileID: 314653067}
   realTalkImageList:
   - {fileID: 21300000, guid: 5bec4aeda54c6d44884b9afc80016558, type: 3}
   - {fileID: 21300000, guid: 77fe217dd7ba6564c9173ecbeb5c443f, type: 3}
@@ -34097,6 +34098,7 @@ MonoBehaviour:
   - {fileID: 1921590627}
   - {fileID: 314653065}
   - {fileID: 1173705304}
+  - {fileID: 1158251045}
   debugCanvas: {fileID: 1728809030}
   talkCharacterName: {fileID: 785186669}
 --- !u!114 &1084225926
@@ -60055,7 +60057,7 @@ MonoBehaviour:
   httpRestartUrl: 
   healthUrl: 
   uploadImageUrl: 
-  connectTimeout: 10
+  connectTimeout: 120
   heartbeatGrace: 60
   autoReconnect: 1
   reconnectInitialDelay: 1
@@ -63620,11 +63622,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1498484321222496011, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_Size
-      value: 0.33030826
+      value: 0.3172111
       objectReference: {fileID: 0}
     - target: {fileID: 1498484321222496011, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2559358969844415361, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_IsActive
@@ -63636,11 +63638,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2816443706125941060, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.3568625
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2816443706125941060, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.039651386
+      value: 0.6827889
       objectReference: {fileID: 0}
     - target: {fileID: 3682425261326797687, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_SizeDelta.y
@@ -63648,7 +63650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3682425261326797687, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 810.99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4759107351479747411, guid: 9830d314c5479364e9551f57109ac4ee, type: 3}
       propertyPath: m_IsActive

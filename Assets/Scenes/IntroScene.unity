@@ -990,7 +990,7 @@ MonoBehaviour:
   httpRestartUrl: 
   healthUrl: 
   uploadImageUrl: 
-  connectTimeout: 10
+  connectTimeout: 120
   heartbeatGrace: 12
   autoReconnect: 1
   reconnectInitialDelay: 1

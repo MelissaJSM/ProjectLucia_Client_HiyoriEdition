@@ -90,7 +90,7 @@ namespace ProjectLucia.Server
         [Tooltip("RealTalk 모드 버튼")]
         [SerializeField] private Button realTalkButton;
         
-        private Image realTalkImage;
+        [SerializeField] private Image realTalkImage;
         
         // RAG 관련 필드 삭제됨
 

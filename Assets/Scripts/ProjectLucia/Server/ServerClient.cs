@@ -51,7 +51,7 @@ namespace ProjectLucia.Server
 
         [Header("WebSocket Configuration")]
         [Tooltip("연결 타임아웃 (초)")]
-        [SerializeField] private int connectTimeout = 10;
+        [SerializeField] private int connectTimeout = 120;
         [Tooltip("하트비트(Ping) 응답 대기 시간 (초)")]
         [SerializeField] private float heartbeatGrace = 60f;
         [Tooltip("자동 재연결 활성화 여부")]
@@ -332,7 +332,7 @@ namespace ProjectLucia.Server
             // 2순위: 현재 유저가 채팅 중이거나 응답을 기다리거나, 다른 말을 하고 있으면 알림은 무시합니다.
             if (!IsOpen || IsUserTyping || _hasActiveAnswer || _isWaitingForChatResult || _isObservingBusy)
             {
-                if(SettingData.IsDebug) Debug.LogWarning($"[알림 무시됨] 현재 히요리가 바쁩니다. ({appName}: {content})");
+                if(SettingData.IsDebug) Debug.LogWarning($"[알림 무시됨] 현재 루시아가 바쁩니다. ({appName}: {content})");
                 return;
             }
 
@@ -425,7 +425,7 @@ namespace ProjectLucia.Server
                 return;
             }
 
-            // [1순위 인터럽트] 히요리가 말하고 있거나 관찰/알림 분석 중이면 즉시 끊어버림
+            // [1순위 인터럽트] 루시아가 말하고 있거나 관찰/알림 분석 중이면 즉시 끊어버림
             if (_hasActiveAnswer || _isObservingBusy)
             {
                 if(SettingData.IsDebug) Debug.Log("[우선순위] 유저 채팅 감지! 진행 중인 대화 및 백그라운 작업을 강제 중단합니다.");
