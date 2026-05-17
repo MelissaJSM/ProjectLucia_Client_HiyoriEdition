@@ -1,7 +1,8 @@
 # Project Lucia (프로젝트 루시아) - Hiyori Edition
 
 
-[![Video Label](https://img.youtube.com/vi/KxQ4wF3SLFs/0.jpg)](https://youtu.be/KxQ4wF3SLFs?si=Z7xgRf3Sv3hVZyWP)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7BUzDAtjcXo?si=coPpjm0dOdOQ6Uhr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 [![YouTube Playlist](https://img.shields.io/badge/YouTube-재생목록_보기-red?style=for-the-badge&logo=youtube)](https://youtube.com/playlist?list=PLraK8WBiwejOsRe2IAuZxSVbEtGLSugja&si=tWgnEIQxzpvgoqdu)
 
 **Project Lucia**는 Live2D 캐릭터와 실시간으로 소통할 수 있는 **인터랙티브 AI 데스크톱 어시스턴트**입니다.  
