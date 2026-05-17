@@ -249,37 +249,35 @@ namespace ProjectLucia.Status
         /// </summary>
         public void IdleCharacterAction()
         {
-            if (IsLockedPanelActive()) return;
-
             // 설정창 열려 있으면 대기 모션 시작 안 함
             if (_panelManager.Panels[(int)UISettingEnums.PanelsEnum.SettingPanel].activeSelf)
-                return;
-
-            if (_idleMotionCoroutine != null)
+            {
                 StopIdleMotion();
-
-            if (!SettingData.IsIdleMotion)
                 return;
+            }
+                
+            //////////////////////////////////////////////////////////////////
 
-            if (SettingData.IsIdleMotionRandom)
+            if (SettingData.IsIdleMotionRandom && SettingData.IsIdleMotion)
             {
                 // SettingData에 저장된(정규화 해제된) 분 단위를 사용
                 var minMin = Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(1, 60, SettingData.IdleMotionRandomMin)));
                 var maxMin = Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(1, 60, SettingData.IdleMotionRandomMax)));
 
                 // min/max 보정
-                if (maxMin < minMin)
-                {
-                    (minMin, maxMin) = (maxMin, minMin);
+                if (maxMin < minMin) { (minMin, maxMin) = (maxMin, minMin);
                 }
-
                 // 상한 포함을 원할 경우 +1 (현재 +1 포함)
                 _idleMotionCoroutine = StartCoroutine(IdleMotionRandomStart(maxMin, minMin));
             }
-            else
+            else if(SettingData.IsIdleMotion && !SettingData.IsIdleMotionRandom)
             {
                 var fixedMin = Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(1, 60, SettingData.IdleMotionFixed)));
                 _idleMotionCoroutine = StartCoroutine(IdleMotionFixedStart(fixedMin));
+            }
+            else
+            {
+                StopIdleMotion();
             }
         }
 

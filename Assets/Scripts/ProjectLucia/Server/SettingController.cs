@@ -387,7 +387,9 @@ namespace ProjectLucia.Server
                 _saveController.SaveSettings();
                 
                 // 상태 갱신
+                _toggleManager.IsIdleMotionRandomController(false);
                 _toggleManager.IsIdleMotionController(false);
+                
                 if (_microphoneRecord.isRecording)
                 {
                     _streamingSampleMic.OnRestart();

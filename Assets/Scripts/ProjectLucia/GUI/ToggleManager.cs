@@ -143,6 +143,10 @@ namespace ProjectLucia.GUI
                 Toggles[(int)UISettingEnums.TogglesEnum.IsIdleMotion].SetIsOnWithoutNotify(value);
 
             SetMotionCheck();
+
+ 
+            _actionManager.IdleCharacterAction();
+            
         }
 
         /// <summary>
