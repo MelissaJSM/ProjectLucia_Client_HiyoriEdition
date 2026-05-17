@@ -1,8 +1,6 @@
 # Project Lucia (프로젝트 루시아) - Hiyori Edition
 
-<a href="https://youtu.be/KxQ4wF3SLFs?si=Z7xgRf3Sv3hVZyWP" target="_blank">
-  <img src="https://img.youtube.com/vi/KxQ4wF3SLFs/0.jpg" alt="Video Label" width="600">
-</a>
+[![Video Label](https://img.youtube.com/vi/KxQ4wF3SLFs/0.jpg)](https://youtu.be/KxQ4wF3SLFs?si=Z7xgRf3Sv3hVZyWP)
 
 [![YouTube Playlist](https://img.shields.io/badge/YouTube-재생목록_보기-red?style=for-the-badge&logo=youtube)](https://youtube.com/playlist?list=PLraK8WBiwejOsRe2IAuZxSVbEtGLSugja&si=tWgnEIQxzpvgoqdu)
 
