@@ -371,7 +371,7 @@ namespace ProjectLucia.Status
         /// <summary>
         /// 잠금 패널이 활성화되어 있는지 확인합니다.
         /// </summary>
-        private bool IsLockedPanelActive()
+        public bool IsLockedPanelActive()
         {
             return _panelManager.Panels[(int)UISettingEnums.PanelsEnum.LockPanel].activeSelf;
         }

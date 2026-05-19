@@ -80,6 +80,7 @@ namespace ProjectLucia.Windows
         private SettingController _settingController;
         private LogController _logController;
         private ServerClient _serverClient;
+        private ActionManager _actionManager;
 
         #endregion
 
@@ -96,6 +97,7 @@ namespace ProjectLucia.Windows
             _settingController = GameManager.Instance.SettingController;
             _logController = GameManager.Instance.LogController;
             _serverClient = GameManager.Instance.ServerClient;
+            _actionManager = GameManager.Instance.ActionManager;
 
             // 초기 해상도 설정
             UpdateRealtimePixelSetting();
@@ -115,6 +117,11 @@ namespace ProjectLucia.Windows
             var scene = SceneManager.GetActiveScene();
             if (scene.name == "IntroScene")
                 return;
+
+            if (_actionManager.IsLockedPanelActive())
+            {
+                return;
+            }
 
             // 1. 주기적 검사 실행
             _checkTimer += Time.deltaTime;

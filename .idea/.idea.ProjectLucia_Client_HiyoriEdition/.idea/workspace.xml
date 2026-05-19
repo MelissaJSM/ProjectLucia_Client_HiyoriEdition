@@ -5,11 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectLucia_Client_HiyoriEdition/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/Fonts.zip.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/GUI/ToggleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/GUI/ToggleManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/ServerClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/SettingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Server/SettingController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ActionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Status/ActionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/DesktopObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectLucia/Windows/DesktopObserver.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/build_info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.dedicated-server/MultiplayerRolesSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.dedicated-server/MultiplayerRolesSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,6 +164,7 @@
       <workItem from="1778804033420" duration="3777000" />
       <workItem from="1778818344690" duration="630000" />
       <workItem from="1778984805500" duration="165000" />
+      <workItem from="1779169108348" duration="403000" />
     </task>
     <servers />
   </component>
