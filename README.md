@@ -33,7 +33,7 @@
 
 | 항목 | 최소 사양 (Minimum) <br> `*음성 인식 미사용 기준` | 권장 사양 (Recommended) <br> `*모든 AI 기능 활성화 기준` |
 | :--- | :--- | :--- |
-| **운영체제 (OS)** | Windows 10 / 11 (64-bit 전용) - 드물게 cpu 모드로 동작 할 수 있어서 권장하지 않습니다. | Linux (64-bit 전용) | WSL, Docker |
+| **운영체제 (OS)** | Windows 10 / 11 (64-bit 전용) - 드물게 cpu 모드로 동작 할 수 있어서 권장하지 않습니다. | Linux (64-bit 전용), WSL, Docker |
 | **프로세서 (CPU)** | Intel Core i3 / AMD Ryzen 3 이상 <br> (듀얼 코어 이상 필수) | Intel Core i5 / AMD Ryzen 5 이상 <br> (쿼드 코어 이상 권장) |
 | **메모리 (RAM)** | 4 GB RAM 이상 | 8 GB ~ 16 GB RAM 이상 |
 | **그래픽 (GPU)** | Intel UHD Graphics 등 최신 내장 그래픽 | NVIDIA GTX 1660 / RTX 3050급 이상 <br> (VRAM 4GB 이상 외장 GPU 필수) |
