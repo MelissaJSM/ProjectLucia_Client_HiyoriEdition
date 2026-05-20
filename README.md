@@ -128,7 +128,7 @@
 - **Params**: 캐릭터 교체 작업을 할때 live2d 캐릭터의 Params 오브젝트 에 등록된 인스펙터를 반드시 확인하여 어느 부위에 인스펙터가 추가되어있는지 확인하고 교체 부탁드립니다.
    - (+)ParamAngleX
       * Cubism Look Parameter (X / 30)
-   - (+)ParamAngleX
+   - (+)ParamAngleY
        * Cubism Look Parameter (Y / 30)
    - (+)ParamBodyAngleX
        * Cubism Look Parameter (X / 10)
