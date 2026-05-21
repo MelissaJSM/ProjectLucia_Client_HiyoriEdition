@@ -106,7 +106,8 @@
 
 ## 🎮 사용법
 
-[![영상 제목](https://img.youtube.com/vi/i0ORaH4bcTk/mqdefault.jpg)](https://www.youtube.com/watch?v=i0ORaH4bcTk)
+[클라이언트 설정 방법 동영상 보기](https://www.youtube.com/watch?v=i0ORaH4bcTk)
+
 
 ### 초기 설정 (Settings)
 1. 앱을 실행하고 **설정(Settings)** 메뉴로 진입합니다.
