@@ -106,7 +106,7 @@
 
 ## 🎮 사용법
 
-[클라이언트 설정 방법 동영상 보기](https://www.youtube.com/watch?v=i0ORaH4bcTk)
+[클라이언트 에디터 설정 방법 동영상 보기](https://www.youtube.com/watch?v=i0ORaH4bcTk)
 
 
 ### 초기 설정 (Settings)
