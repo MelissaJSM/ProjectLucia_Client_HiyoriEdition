@@ -97,7 +97,7 @@
    ```
 2. Unity Hub에 프로젝트를 추가하고 엽니다.
 3. `Fonts` 폴더 내에 압축파일을 현재 폴더에 해제합니다.
-4. [(유니티 sdk)](https://www.live2d.com/en/sdk/download/unity/) 유니티 sdk 를 다운받아서 프로젝트에 설치합니다.
+4. [(유니티 sdk)](https://github.com/MelissaJSM/build_flash_attn/releases/download/live2d/CubismSdkForUnity-5-r.4.1.unitypackage) 유니티 sdk 를 다운받아서 프로젝트에 설치합니다.
 
 ### 3. 데이터베이스 설정
 - MySQL에 접속하여 프로젝트에서 사용할 데이터베이스와 테이블(`logs` 등)을 생성합니다. (파일은 서버쪽에 있음)
